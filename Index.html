@@ -67,10 +67,34 @@
             border-radius: 10px;
             border: 2px solid #1f2937;
         }
+
+        /* Animation for the "Coming Soon" banner */
+        .coming-soon {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 2.5rem; /* Responsive font size */
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #4f46e5, #a855f7, #ec4899, #f59e0b, #4f46e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradient-text 5s linear infinite;
+        }
+
+        @keyframes gradient-text {
+            0% { background-position: 200% center; }
+            100% { background-position: 0% center; }
+        }
+        
+        @media (max-width: 640px) {
+            .coming-soon {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
-    <div class="w-full max-w-4xl mx-auto">
+    <div class="w-full max-w-5xl mx-auto">
         <header class="text-center mb-8">
             <h1 class="font-orbitron text-4xl md:text-6xl font-black uppercase text-white text-glow-blue tracking-wider">
                 Tournament Standings
@@ -85,12 +109,13 @@
                 <table class="w-full text-white">
                     <thead class="bg-black/30">
                         <tr class="text-left">
-                            <th class="p-4 font-orbitron text-sm uppercase tracking-widest text-blue-300">Rank</th>
-                            <th class="p-4 font-orbitron text-sm uppercase tracking-widest text-blue-300">Team</th>
-                            <th class="p-4 font-orbitron text-sm uppercase tracking-widest text-blue-300 text-center">Wins</th>
-                            <th class="p-4 font-orbitron text-sm uppercase tracking-widest text-blue-300 text-center">Loss</th>
-                            <th class="p-4 font-orbitron text-sm uppercase tracking-widest text-blue-300 text-center hidden sm:table-cell">Rounds</th>
-                            <th class="p-4 font-orbitron text-sm uppercase tracking-widest text-blue-300 text-center">Kills</th>
+                            <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-blue-300">Rank</th>
+                            <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-blue-300">Team</th>
+                            <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-blue-300 text-center">Booyah</th>
+                            <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-blue-300 text-center">Loss</th>
+                            <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-blue-300 text-center hidden sm:table-cell">W/L(Rounds)</th>
+                            <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-blue-300 text-center">Kills</th>
+                            <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-blue-300 text-center">K/R Ratio</th>
                         </tr>
                     </thead>
                     <tbody id="leaderboard-body">
@@ -99,23 +124,33 @@
                 </table>
             </div>
         </div>
+
+        <div class="text-center mt-12">
+            <p class="coming-soon">BR Tournament is coming soon.....</p>
+        </div>
         
-        <footer class="text-center mt-8">
+        <footer class="text-center mt-12">
             <p class="text-gray-500 text-sm">Last Updated: <span id="last-updated"></span></p>
+            <p class="text-gray-600 text-xs mt-2">
+                Designed by 
+                <a href="https://www.instagram.com/rudraprasad._?igsh=MXV4bjZ2eWtlcXpsdg==" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-blue-400 transition-colors">
+                    rudraprasad._
+                </a>
+            </p>
         </footer>
     </div>
 
     <script>
         // --- DATA ---
-        // Team data arranged in the specified order.
+        // You only need to edit this data. The script will handle sorting and calculations.
         const teamData = [
-            { rank: 1, name: 'Barsha Ranira Bhiga Odhani', wins: 2, loss: 0, rounds: 14, kills: 57 },
-            { rank: 2, name: 'Team Exclusive', wins: 2, loss: 0, rounds: 14, kills: 56 },
-            { rank: 3, name: 'Team Survive', wins: 2, loss: 0, rounds: 14, kills: 46 },
-            { rank: 4, name: 'Bengali Warriors', wins: 1, loss: 1, rounds: 7, kills: 34 },
-            { rank: 5, name: 'Utkal Warriors', wins: 0, loss: 2, rounds: 9, kills: 46 },
-            { rank: 6, name: 'Team Phoenix', wins: 0, loss: 2, rounds: 6, kills: 36 },
-            { rank: 7, name: 'Venom Ragers', wins: 0, loss: 2, rounds: 3, kills: 23 },
+            { name: 'Barsha Ranira Bhiga Odhani', booyah: 2, loss: 0, winRounds: 14, lossRounds: 6, kills: 57 },
+            { name: 'Team Exclusive', booyah: 2, loss: 0, winRounds: 14, lossRounds: 3, kills: 56 },
+            { name: 'Team Survive', booyah: 2, loss: 0, winRounds: 14, lossRounds: 5, kills: 46 },
+            { name: 'Bengali Warriors', booyah: 1, loss: 1, winRounds: 7, lossRounds: 11, kills: 34 },
+            { name: 'Utkal Warriors', booyah: 0, loss: 2, winRounds: 9, lossRounds: 14, kills: 46 },
+            { name: 'Team Phoenix', booyah: 0, loss: 2, winRounds: 6, lossRounds: 14, kills: 36 },
+            { name: 'Venom Ragers', booyah: 0, loss: 2, winRounds: 3, lossRounds: 14, kills: 23 },
         ];
 
         // --- FUNCTIONS ---
@@ -127,24 +162,46 @@
             return 'bg-gray-800/50';
         }
 
-        // Function to populate the leaderboard table with team data
-        function populateLeaderboard() {
-            const tbody = document.getElementById('leaderboard-body');
-            tbody.innerHTML = ''; // Clear any existing rows before populating
+        // Function to process, sort, and display the leaderboard
+        function processAndDisplayLeaderboard() {
+            // 1. Calculate K/R Ratio for each team
+            const processedData = teamData.map(team => {
+                const totalRounds = team.winRounds + team.lossRounds;
+                const krRatio = totalRounds > 0 ? (team.kills / totalRounds) : 0;
+                return { ...team, krRatio: krRatio.toFixed(2) }; // Add krRatio to the object
+            });
 
-            teamData.forEach(team => {
+            // 2. Sort the data based on the specified rules
+            processedData.sort((a, b) => {
+                // Primary sort: by Booyah (descending)
+                if (b.booyah !== a.booyah) {
+                    return b.booyah - a.booyah;
+                }
+                // Secondary sort: by Win Rounds (descending)
+                if (b.winRounds !== a.winRounds) {
+                    return b.winRounds - a.winRounds;
+                }
+                // Tertiary sort: by K/R Ratio (descending)
+                return b.krRatio - a.krRatio;
+            });
+
+            // 3. Populate the table with the sorted data
+            const tbody = document.getElementById('leaderboard-body');
+            tbody.innerHTML = ''; // Clear any existing rows
+
+            processedData.forEach((team, index) => {
+                const rank = index + 1; // Assign rank after sorting
                 const row = document.createElement('tr');
-                // Apply styling classes for the row, including hover effects and rank-specific backgrounds
-                row.className = `leaderboard-row border-l-8 ${getRankClass(team.rank)} border-t border-gray-800`;
+                row.className = `leaderboard-row border-l-8 ${getRankClass(rank)} border-t border-gray-800`;
                 
-                // Set the inner HTML of the row with table cells for each data point
                 row.innerHTML = `
-                    <td class="p-4 font-black text-2xl text-center">${team.rank}</td>
-                    <td class="p-4 font-bold text-lg">${team.name}</td>
-                    <td class="p-4 text-center font-semibold text-green-400 text-lg">${team.wins}</td>
-                    <td class="p-4 text-center font-semibold text-red-400 text-lg">${team.loss}</td>
-                    <td class="p-4 text-center font-semibold text-gray-300 text-lg hidden sm:table-cell">${team.rounds}</td>
-                    <td class="p-4 text-center font-bold text-xl text-purple-400">${team.kills}</td>
+                    <td class="p-3 font-black text-2xl text-center">${rank}</td>
+                    <td class="p-3 font-bold text-lg">${team.name}</td>
+                    <td class="p-3 text-center font-semibold text-green-400 text-lg">${team.booyah}</td>
+                    <td class="p-3 text-center font-semibold text-red-400 text-lg">${team.loss}</td>
+                    <td class="p-3 text-center font-semibold text-gray-300 text-lg hidden sm:table-cell">[${team.winRounds}/${team.lossRounds}]</td>
+                    <td class="p-3 text-center font-bold text-xl text-purple-400">${team.kills}</td>
+                    <td class="p-3 text-center font-bold text-lg text-cyan-400">${team.krRatio}</td>
                 `;
                 tbody.appendChild(row);
             });
@@ -154,28 +211,17 @@
         function updateTimestamp() {
             const timestampEl = document.getElementById('last-updated');
             const now = new Date();
-            // Format the date and time to be readable for the specified locale and timezone.
-            // 'timeStyle: 'medium'' includes seconds, making the live update visible.
             timestampEl.textContent = now.toLocaleString('en-IN', { 
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric',
-                timeZone: 'Asia/Kolkata',
-                hour12: true
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+                hour: 'numeric', minute: 'numeric', second: 'numeric',
+                timeZone: 'Asia/Kolkata', hour12: true
             });
         }
 
         // --- INITIALIZATION ---
-        // Run the functions to build the page when the window has finished loading
         window.onload = () => {
-            populateLeaderboard();
-            // Update the timestamp immediately on load
+            processAndDisplayLeaderboard();
             updateTimestamp(); 
-            // Then, set an interval to update it every second to keep it live
             setInterval(updateTimestamp, 1000); 
         };
     </script>
