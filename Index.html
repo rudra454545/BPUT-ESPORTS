@@ -92,7 +92,7 @@
             }
         }
 
-        /* --- NEW: CSS for the Qualified Badge --- */
+        /* CSS for the Qualified Badge */
         .qualified-badge {
             display: inline-block;
             margin-left: 10px;
@@ -123,16 +123,16 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-5xl mx-auto">
+        <!-- CS Tournament Section -->
         <header class="text-center mb-8">
             <h1 class="font-orbitron text-4xl md:text-6xl font-black uppercase text-white text-glow-blue tracking-wider">
-                Tournament Standings
+                CS Tournament Standings
             </h1>
             <p class="text-blue-300 text-lg md:text-xl mt-2 font-semibold">
                 Free Fire CS Unlimited | Organised By BPUT E-sports Team
             </p>
         </header>
-
-        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl shadow-2xl shadow-blue-500/10 overflow-hidden">
+        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl shadow-2xl shadow-blue-500/10 overflow-hidden mb-16">
             <div class="overflow-x-auto">
                 <table class="w-full text-white">
                     <thead class="bg-black/30">
@@ -146,15 +146,35 @@
                             <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-blue-300 text-center">K/R Ratio</th>
                         </tr>
                     </thead>
-                    <tbody id="leaderboard-body">
-                        <!-- Rows will be dynamically inserted here by JavaScript -->
-                    </tbody>
+                    <tbody id="cs-leaderboard-body"></tbody>
                 </table>
             </div>
         </div>
 
-        <div class="text-center mt-12">
-            <p class="coming-soon">BR Tournament is coming soon.....</p>
+        <!-- BR Tournament Section -->
+        <header class="text-center mb-8">
+             <h1 class="font-orbitron text-4xl md:text-6xl font-black uppercase text-white text-glow-purple tracking-wider">
+                BR Tournament Standings
+            </h1>
+            <p class="coming-soon">Tournament is starting soon.....</p>
+        </header>
+        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl shadow-2xl shadow-purple-500/10 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-white">
+                    <thead class="bg-black/30">
+                        <tr class="text-left">
+                            <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-purple-300">Rank</th>
+                            <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-purple-300">Team</th>
+                            <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-purple-300 text-center">Booyah</th>
+                            <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-purple-300 text-center">Kill Points</th>
+                            <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-purple-300 text-center">Position</th>
+                            <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-purple-300 text-center">Pos. Points</th>
+                            <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-purple-300 text-center">Total Points</th>
+                        </tr>
+                    </thead>
+                    <tbody id="br-leaderboard-body"></tbody>
+                </table>
+            </div>
         </div>
         
         <footer class="text-center mt-12">
@@ -170,19 +190,27 @@
 
     <script>
         // --- DATA ---
-        // You only need to edit this data. The script will handle sorting and calculations.
-        const teamData = [
-            { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, loss: 1, winRounds: 24, lossRounds: 17, kills: 110 }, // <-- UPDATED
+        const csTeamData = [
+            { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, loss: 1, winRounds: 24, lossRounds: 17, kills: 110 },
             { name: 'Team Exclusive', booyah: 2, loss: 2, winRounds: 20, lossRounds: 17, kills: 93 },
-            { name: 'Team Survive', booyah: 4, loss: 0, winRounds: 28, lossRounds: 13, kills: 114 }, // <-- UPDATED
+            { name: 'Team Survive', booyah: 4, loss: 0, winRounds: 28, lossRounds: 13, kills: 114 },
             { name: 'Bengali Warriors', booyah: 2, loss: 1, winRounds: 14, lossRounds: 23, kills: 87 },
             { name: 'Utkal Warriors', booyah: 1, loss: 2, winRounds: 16, lossRounds: 15, kills: 73 },
             { name: 'Team Phoenix', booyah: 0, loss: 4, winRounds: 13, lossRounds: 28, kills: 76 },
             { name: 'Venom Ragers', booyah: 1, loss: 3, winRounds: 11, lossRounds: 21, kills: 65 },
         ];
 
+        const brTeamData = [
+            { name: 'Barsha Ranira Bhiga Odhani', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
+            { name: 'Bengali Warriors', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
+            { name: 'Team Exclusive', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
+            { name: 'Team Phoenix', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
+            { name: 'Team Survive', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
+            { name: 'Utkal Warriors', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
+            { name: 'Venom Ragers', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
+        ];
+
         // --- FUNCTIONS ---
-        // Function to get the rank class for special styling for the top 3 teams
         function getRankClass(rank) {
             if (rank === 1) return 'rank-1';
             if (rank === 2) return 'rank-2';
@@ -190,39 +218,25 @@
             return 'bg-gray-800/50';
         }
 
-        // Function to process, sort, and display the leaderboard
-        function processAndDisplayLeaderboard() {
-            // 1. Calculate K/R Ratio for each team
-            const processedData = teamData.map(team => {
+        function processAndDisplayCsLeaderboard() {
+            const tbody = document.getElementById('cs-leaderboard-body');
+            const processedData = csTeamData.map(team => {
                 const totalRounds = team.winRounds + team.lossRounds;
                 const krRatio = totalRounds > 0 ? (team.kills / totalRounds) : 0;
-                return { ...team, krRatio: krRatio.toFixed(2) }; // Add krRatio to the object
+                return { ...team, krRatio: krRatio.toFixed(2) };
             });
 
-            // 2. Sort the data based on the specified rules
             processedData.sort((a, b) => {
-                // Primary sort: by Booyah (descending)
-                if (b.booyah !== a.booyah) {
-                    return b.booyah - a.booyah;
-                }
-                // Secondary sort: by Win Rounds (descending)
-                if (b.winRounds !== a.winRounds) {
-                    return b.winRounds - a.winRounds;
-                }
-                // Tertiary sort: by K/R Ratio (descending)
+                if (b.booyah !== a.booyah) return b.booyah - a.booyah;
+                if (b.winRounds !== a.winRounds) return b.winRounds - a.winRounds;
                 return b.krRatio - a.krRatio;
             });
-
-            // 3. Populate the table with the sorted data
-            const tbody = document.getElementById('leaderboard-body');
-            tbody.innerHTML = ''; // Clear any existing rows
-
+            
+            tbody.innerHTML = '';
             processedData.forEach((team, index) => {
-                const rank = index + 1; // Assign rank after sorting
+                const rank = index + 1;
                 const row = document.createElement('tr');
                 row.className = `leaderboard-row border-l-8 ${getRankClass(rank)} border-t border-gray-800`;
-                
-                // --- NEW: Check if team is qualified (top 2) and create badge ---
                 const isQualified = rank <= 2;
                 const qualifiedBadgeHTML = isQualified ? '<span class="qualified-badge">Q</span>' : '';
 
@@ -238,8 +252,38 @@
                 tbody.appendChild(row);
             });
         }
+
+        function processAndDisplayBrLeaderboard() {
+            const tbody = document.getElementById('br-leaderboard-body');
+            const processedData = brTeamData.map(team => {
+                const totalPoints = team.killPoints + team.positionPoints;
+                return { ...team, totalPoints };
+            });
+
+            processedData.sort((a, b) => {
+                if (b.totalPoints !== a.totalPoints) return b.totalPoints - a.totalPoints;
+                return b.killPoints - a.killPoints; // Tie-breaker
+            });
+
+            tbody.innerHTML = '';
+            processedData.forEach((team, index) => {
+                const rank = index + 1;
+                const row = document.createElement('tr');
+                row.className = `leaderboard-row border-l-8 ${getRankClass(rank)} border-t border-gray-800`;
+                
+                row.innerHTML = `
+                    <td class="p-3 font-black text-2xl text-center align-middle">${rank}</td>
+                    <td class="p-3 font-bold text-lg align-middle">${team.name}</td>
+                    <td class="p-3 text-center font-semibold text-green-400 text-lg align-middle">${team.booyah}</td>
+                    <td class="p-3 text-center font-semibold text-cyan-400 text-lg align-middle">${team.killPoints}</td>
+                    <td class="p-3 text-center font-semibold text-gray-300 text-lg align-middle">${team.positions}</td>
+                    <td class="p-3 text-center font-semibold text-blue-400 text-lg align-middle">${team.positionPoints}</td>
+                    <td class="p-3 text-center font-bold text-xl text-yellow-400 align-middle">${team.totalPoints}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
         
-        // Function to update the "Last Updated" timestamp to the current time
         function updateTimestamp() {
             const timestampEl = document.getElementById('last-updated');
             const now = new Date();
@@ -252,9 +296,9 @@
 
         // --- INITIALIZATION ---
         window.onload = () => {
-            processAndDisplayLeaderboard();
+            processAndDisplayCsLeaderboard();
+            processAndDisplayBrLeaderboard();
             updateTimestamp(); 
-            // Update the timestamp every second for a live clock effect
             setInterval(updateTimestamp, 1000); 
         };
     </script>
