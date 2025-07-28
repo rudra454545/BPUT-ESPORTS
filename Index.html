@@ -91,6 +91,34 @@
                 font-size: 1.5rem;
             }
         }
+
+        /* --- NEW: CSS for the Qualified Badge --- */
+        .qualified-badge {
+            display: inline-block;
+            margin-left: 10px;
+            background-color: #10B981; /* Emerald Green */
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            vertical-align: middle;
+            animation: glow 2s ease-in-out infinite;
+            box-shadow: 0 0 5px #10B981, 0 0 10px #10B981;
+            border: 1px solid #34D399;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 5px #10B981, 0 0 10px #10B981;
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 15px #34D399, 0 0 25px #34D399;
+                transform: scale(1.1);
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
@@ -148,9 +176,9 @@
             { name: 'Team Exclusive', booyah: 2, loss: 2, winRounds: 20, lossRounds: 17, kills: 93 },
             { name: 'Team Survive', booyah: 3, loss: 0, winRounds: 21, lossRounds: 10, kills: 83 },
             { name: 'Bengali Warriors', booyah: 2, loss: 1, winRounds: 14, lossRounds: 23, kills: 87 },
-            { name: 'Utkal Warriors', booyah: 0, loss: 2, winRounds: 9, lossRounds: 14, kills: 46 },
+            { name: 'Utkal Warriors', booyah: 1, loss: 2, winRounds: 16, lossRounds: 15, kills: 73 },
             { name: 'Team Phoenix', booyah: 0, loss: 4, winRounds: 13, lossRounds: 28, kills: 76 },
-            { name: 'Venom Ragers', booyah: 1, loss: 2, winRounds: 10, lossRounds: 14, kills: 52 },
+            { name: 'Venom Ragers', booyah: 1, loss: 3, winRounds: 11, lossRounds: 21, kills: 65 },
         ];
 
         // --- FUNCTIONS ---
@@ -194,14 +222,18 @@
                 const row = document.createElement('tr');
                 row.className = `leaderboard-row border-l-8 ${getRankClass(rank)} border-t border-gray-800`;
                 
+                // --- NEW: Check if team is qualified (top 2) and create badge ---
+                const isQualified = rank <= 2;
+                const qualifiedBadgeHTML = isQualified ? '<span class="qualified-badge">Q</span>' : '';
+
                 row.innerHTML = `
-                    <td class="p-3 font-black text-2xl text-center">${rank}</td>
-                    <td class="p-3 font-bold text-lg">${team.name}</td>
-                    <td class="p-3 text-center font-semibold text-green-400 text-lg">${team.booyah}</td>
-                    <td class="p-3 text-center font-semibold text-red-400 text-lg">${team.loss}</td>
-                    <td class="p-3 text-center font-semibold text-gray-300 text-lg hidden sm:table-cell">[${team.winRounds}/${team.lossRounds}]</td>
-                    <td class="p-3 text-center font-bold text-xl text-purple-400">${team.kills}</td>
-                    <td class="p-3 text-center font-bold text-lg text-cyan-400">${team.krRatio}</td>
+                    <td class="p-3 font-black text-2xl text-center align-middle">${rank}</td>
+                    <td class="p-3 font-bold text-lg align-middle">${team.name} ${qualifiedBadgeHTML}</td>
+                    <td class="p-3 text-center font-semibold text-green-400 text-lg align-middle">${team.booyah}</td>
+                    <td class="p-3 text-center font-semibold text-red-400 text-lg align-middle">${team.loss}</td>
+                    <td class="p-3 text-center font-semibold text-gray-300 text-lg hidden sm:table-cell align-middle">[${team.winRounds}/${team.lossRounds}]</td>
+                    <td class="p-3 text-center font-bold text-xl text-purple-400 align-middle">${team.kills}</td>
+                    <td class="p-3 text-center font-bold text-lg text-cyan-400 align-middle">${team.krRatio}</td>
                 `;
                 tbody.appendChild(row);
             });
@@ -222,6 +254,7 @@
         window.onload = () => {
             processAndDisplayLeaderboard();
             updateTimestamp(); 
+            // Update the timestamp every second for a live clock effect
             setInterval(updateTimestamp, 1000); 
         };
     </script>
