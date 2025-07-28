@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Fire Tournament Standings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the esports theme */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #111827; /* Dark blue-gray background */
+            background-image: 
+                radial-gradient(circle at 25% 30%, rgba(59, 130, 246, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 75% 70%, rgba(139, 92, 246, 0.3) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Custom glow effects */
+        .text-glow-blue {
+            text-shadow: 0 0 8px rgba(59, 130, 246, 0.8), 0 0 12px rgba(59, 130, 246, 0.6);
+        }
+        .text-glow-purple {
+            text-shadow: 0 0 8px rgba(139, 92, 246, 0.8), 0 0 12px rgba(139, 92, 246, 0.6);
+        }
+
+        /* Table row animations */
+        .leaderboard-row {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .leaderboard-row:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+            z-index: 10;
+        }
+
+        /* Custom background for top teams */
+        .rank-1 {
+            background: linear-gradient(135deg, #4a3a0a 0%, #a4821a 50%, #4a3a0a 100%);
+            border-left-color: #FFD700;
+        }
+        .rank-2 {
+            background: linear-gradient(135deg, #3e4347 0%, #8c969d 50%, #3e4347 100%);
+            border-left-color: #C0C0C0;
+        }
+        .rank-3 {
+            background: linear-gradient(135deg, #5c3d28 0%, #b87333 50%, #5c3d28 100%);
+            border-left-color: #CD7F32;
+        }
+
+        /* Scrollbar styling for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #4f46e5;
+            border-radius: 10px;
+            border: 2px solid #1f2937;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl mx-auto">
+        <header class="text-center mb-8">
+            <h1 class="font-orbitron text-4xl md:text-6xl font-black uppercase text-white text-glow-blue tracking-wider">
+                Tournament Standings
+            </h1>
+            <p class="text-blue-300 text-lg md:text-xl mt-2 font-semibold">
+                Free Fire CS Unlimited | Organised By BPUT E-sports Team
+            </p>
+        </header>
+
+        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl shadow-2xl shadow-blue-500/10 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-white">
+                    <thead class="bg-black/30">
+                        <tr class="text-left">
+                            <th class="p-4 font-orbitron text-sm uppercase tracking-widest text-blue-300">Rank</th>
+                            <th class="p-4 font-orbitron text-sm uppercase tracking-widest text-blue-300">Team</th>
+                            <th class="p-4 font-orbitron text-sm uppercase tracking-widest text-blue-300 text-center">Wins</th>
+                            <th class="p-4 font-orbitron text-sm uppercase tracking-widest text-blue-300 text-center">Loss</th>
+                            <th class="p-4 font-orbitron text-sm uppercase tracking-widest text-blue-300 text-center hidden sm:table-cell">Rounds</th>
+                            <th class="p-4 font-orbitron text-sm uppercase tracking-widest text-blue-300 text-center">Kills</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body">
+                        <!-- Rows will be dynamically inserted here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <footer class="text-center mt-8">
+            <p class="text-gray-500 text-sm">Last Updated: <span id="last-updated"></span></p>
+        </footer>
+    </div>
+
+    <script>
+        // --- DATA ---
+        // Team data arranged in the specified order.
+        const teamData = [
+            { rank: 1, name: 'Barsha Ranira Bhiga Odhani', wins: 2, loss: 0, rounds: 14, kills: 57 },
+            { rank: 2, name: 'Team Exclusive', wins: 2, loss: 0, rounds: 14, kills: 56 },
+            { rank: 3, name: 'Team Survive', wins: 2, loss: 0, rounds: 14, kills: 46 },
+            { rank: 4, name: 'Bengali Warriors', wins: 1, loss: 1, rounds: 7, kills: 34 },
+            { rank: 5, name: 'Utkal Warriors', wins: 0, loss: 2, rounds: 9, kills: 46 },
+            { rank: 6, name: 'Team Phoenix', wins: 0, loss: 2, rounds: 6, kills: 36 },
+            { rank: 7, name: 'Venom Ragers', wins: 0, loss: 2, rounds: 3, kills: 23 },
+        ];
+
+        // --- FUNCTIONS ---
+        // Function to get the rank class for special styling for the top 3 teams
+        function getRankClass(rank) {
+            if (rank === 1) return 'rank-1';
+            if (rank === 2) return 'rank-2';
+            if (rank === 3) return 'rank-3';
+            return 'bg-gray-800/50';
+        }
+
+        // Function to populate the leaderboard table with team data
+        function populateLeaderboard() {
+            const tbody = document.getElementById('leaderboard-body');
+            tbody.innerHTML = ''; // Clear any existing rows before populating
+
+            teamData.forEach(team => {
+                const row = document.createElement('tr');
+                // Apply styling classes for the row, including hover effects and rank-specific backgrounds
+                row.className = `leaderboard-row border-l-8 ${getRankClass(team.rank)} border-t border-gray-800`;
+                
+                // Set the inner HTML of the row with table cells for each data point
+                row.innerHTML = `
+                    <td class="p-4 font-black text-2xl text-center">${team.rank}</td>
+                    <td class="p-4 font-bold text-lg">${team.name}</td>
+                    <td class="p-4 text-center font-semibold text-green-400 text-lg">${team.wins}</td>
+                    <td class="p-4 text-center font-semibold text-red-400 text-lg">${team.loss}</td>
+                    <td class="p-4 text-center font-semibold text-gray-300 text-lg hidden sm:table-cell">${team.rounds}</td>
+                    <td class="p-4 text-center font-bold text-xl text-purple-400">${team.kills}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Function to update the "Last Updated" timestamp to the current time
+        function updateTimestamp() {
+            const timestampEl = document.getElementById('last-updated');
+            const now = new Date();
+            // Format the date and time to be readable for the specified locale and timezone.
+            // 'timeStyle: 'medium'' includes seconds, making the live update visible.
+            timestampEl.textContent = now.toLocaleString('en-IN', { 
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                timeZone: 'Asia/Kolkata',
+                hour12: true
+            });
+        }
+
+        // --- INITIALIZATION ---
+        // Run the functions to build the page when the window has finished loading
+        window.onload = () => {
+            populateLeaderboard();
+            // Update the timestamp immediately on load
+            updateTimestamp(); 
+            // Then, set an interval to update it every second to keep it live
+            setInterval(updateTimestamp, 1000); 
+        };
+    </script>
+</body>
+</html>
+
