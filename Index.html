@@ -221,7 +221,9 @@
              <h1 class="font-orbitron text-4xl md:text-6xl font-black uppercase text-white text-glow-purple tracking-wider">
                 BR Tournament Standings
             </h1>
-            <p class="coming-soon">Tournament is starting soon.....</p>
+            <p class="text-purple-300 text-lg md:text-xl mt-2 font-semibold">
+                Final Standings
+            </p>
         </header>
         <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-2xl shadow-2xl shadow-purple-500/10 overflow-hidden">
             <div class="overflow-x-auto">
@@ -280,21 +282,21 @@
         ];
 
         const brTeamData = [
-            { name: 'Barsha Ranira Bhiga Odhani', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
-            { name: 'Bengali Warriors', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
-            { name: 'Team Exclusive', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
-            { name: 'Team Phoenix', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
-            { name: 'Team Survive', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
-            { name: 'Utkal Warriors', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
-            { name: 'Venom Ragers', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
+            { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, killPoints: 34, positions: '1/1/6/1', positionPoints: 41 },
+            { name: 'Bengali Warriors', booyah: 0, killPoints: 9, positions: '3/2/5/3', positionPoints: 31 },
+            { name: 'Team Exclusive', booyah: 0, killPoints: 21, positions: '2/5/3/4', positionPoints: 27 },
+            { name: 'Team Phoenix', booyah: 0, killPoints: 4, positions: '6/4/7/6', positionPoints: 21 },
+            { name: 'Team Survive', booyah: 0, killPoints: 17, positions: '4/7/2/5', positionPoints: 26 },
+            { name: 'Utkal Warriors', booyah: 0, killPoints: 13, positions: '5/6/4/4', positionPoints: 25 },
+            { name: 'Venom Ragers', booyah: 1, killPoints: 14, positions: '7/3/1/2', positionPoints: 33 },
         ];
         
         // --- MAP HIGHLIGHTS DATA ---
         const mapData = [
-            { matchNumber: 1, name: 'Bermuda', img: 'http://googleusercontent.com/file_content/3' },
-            { matchNumber: 2, name: 'Purgatory', img: 'http://googleusercontent.com/file_content/2' },
-            { matchNumber: 3, name: 'Kalahari', img: 'http://googleusercontent.com/file_content/4' },
-            { matchNumber: 4, name: 'Nextraa', img: 'http://googleusercontent.com/file_content/1' },
+            { matchNumber: 1, name: 'Bermuda', img: 'http://googleusercontent.com/file_content/3', booyah: 'BRBO', kills: 16 },
+            { matchNumber: 2, name: 'Purgatory', img: 'http://googleusercontent.com/file_content/2', booyah: 'BRBO', kills: 9 },
+            { matchNumber: 3, name: 'Kalahari', img: 'http://googleusercontent.com/file_content/4', booyah: 'Venom Ragers', kills: 7 },
+            { matchNumber: 4, name: 'Nextraa', img: 'http://googleusercontent.com/file_content/1', booyah: 'BRBO', kills: 8 },
             { matchNumber: 5, name: 'Bermuda', img: 'http://googleusercontent.com/file_content/3' },
             { matchNumber: 6, name: 'Purgatory', img: 'http://googleusercontent.com/file_content/2' },
             { matchNumber: 7, name: 'Kalahari', img: 'http://googleusercontent.com/file_content/4' },
@@ -349,13 +351,14 @@
             const tbody = document.getElementById('br-leaderboard-body');
             if (!tbody) return;
             const processedData = brTeamData.map(team => {
-                const totalPoints = team.killPoints + team.positionPoints;
+                const totalPoints = (team.killPoints || 0) + (team.positionPoints || 0);
                 return { ...team, totalPoints };
             });
 
             processedData.sort((a, b) => {
                 if (b.totalPoints !== a.totalPoints) return b.totalPoints - a.totalPoints;
-                return b.killPoints - a.killPoints; // Tie-breaker
+                if (b.killPoints !== a.killPoints) return b.killPoints - a.killPoints; // Tie-breaker
+                return b.booyah - a.booyah; // Secondary Tie-breaker
             });
 
             tbody.innerHTML = '';
@@ -367,10 +370,10 @@
                 row.innerHTML = `
                     <td class="p-3 font-black text-2xl text-center align-middle">${rank}</td>
                     <td class="p-3 font-bold text-lg align-middle">${team.name}</td>
-                    <td class="p-3 text-center font-semibold text-green-400 text-lg align-middle">${team.booyah}</td>
-                    <td class="p-3 text-center font-semibold text-cyan-400 text-lg align-middle">${team.killPoints}</td>
-                    <td class="p-3 text-center font-semibold text-gray-300 text-lg align-middle">${team.positions}</td>
-                    <td class="p-3 text-center font-semibold text-blue-400 text-lg align-middle">${team.positionPoints}</td>
+                    <td class="p-3 text-center font-semibold text-green-400 text-lg align-middle">${team.booyah || 0}</td>
+                    <td class="p-3 text-center font-semibold text-cyan-400 text-lg align-middle">${team.killPoints || 0}</td>
+                    <td class="p-3 text-center font-semibold text-gray-300 text-lg align-middle">${team.positions || '-'}</td>
+                    <td class="p-3 text-center font-semibold text-blue-400 text-lg align-middle">${team.positionPoints || 0}</td>
                     <td class="p-3 text-center font-bold text-xl text-yellow-400 align-middle">${team.totalPoints}</td>
                 `;
                 tbody.appendChild(row);
@@ -396,8 +399,8 @@
                     <div class="map-card-content">
                         <h3 class="font-orbitron text-3xl font-bold uppercase tracking-wider text-glow-purple">${map.name}</h3>
                         <div class="mt-4 space-y-2 text-lg">
-                            <p><span class="font-bold text-green-400">Booyah:</span> <span class="font-semibold"></span></p>
-                            <p><span class="font-bold text-red-400">Kills:</span> <span class="font-semibold"></span></p>
+                            <p><span class="font-bold text-green-400">Booyah:</span> <span class="font-semibold">${map.booyah || ''}</span></p>
+                            <p><span class="font-bold text-red-400">Kills:</span> <span class="font-semibold">${map.kills || ''}</span></p>
                             <div class="pt-2">
                                 <p class="font-bold text-yellow-400 text-xl">MVP</p>
                                 <p class="font-semibold"></p>
