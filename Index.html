@@ -194,8 +194,8 @@
             { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, loss: 1, winRounds: 24, lossRounds: 17, kills: 110 },
             { name: 'Team Exclusive', booyah: 2, loss: 2, winRounds: 20, lossRounds: 17, kills: 93 },
             { name: 'Team Survive', booyah: 4, loss: 0, winRounds: 28, lossRounds: 13, kills: 114 },
-            { name: 'Bengali Warriors', booyah: 3, loss: 1, winRounds: 21, lossRounds: 29, kills: 122 }, // <-- UPDATED
-            { name: 'Utkal Warriors', booyah: 1, loss: 3, winRounds: 22, lossRounds: 22, kills: 106 }, // <-- UPDATED
+            { name: 'Bengali Warriors', booyah: 2, loss: 2, winRounds: 18, lossRounds: 30, kills: 87 },   // <-- UPDATED
+            { name: 'Utkal Warriors', booyah: 2, loss: 2, winRounds: 23, lossRounds: 19, kills: 104 }, // <-- UPDATED
             { name: 'Team Phoenix', booyah: 0, loss: 4, winRounds: 13, lossRounds: 28, kills: 76 },
             { name: 'Venom Ragers', booyah: 1, loss: 3, winRounds: 11, lossRounds: 21, kills: 65 },
         ];
@@ -237,7 +237,7 @@
                 const rank = index + 1;
                 const row = document.createElement('tr');
                 row.className = `leaderboard-row border-l-8 ${getRankClass(rank)} border-t border-gray-800`;
-                const isQualified = rank <= 4; // <-- UPDATED to show for top 4
+                const isQualified = rank <= 4; // Show for top 4
                 const qualifiedBadgeHTML = isQualified ? '<span class="qualified-badge">Q</span>' : '';
 
                 row.innerHTML = `
