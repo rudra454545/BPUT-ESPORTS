@@ -120,7 +120,7 @@
             }
         }
 
-        /* --- NEW STYLES FOR SCROLLING MAP CARDS --- */
+        /* --- STYLES FOR SCROLLING MAP CARDS --- */
         .scroller {
             max-width: 100%;
             overflow: hidden;
@@ -174,8 +174,15 @@
             left: 0;
             right: 0;
             padding: 1.5rem; /* 24px */
-            z-index: 2;
+            z-index: 3;
             color: white;
+        }
+        
+        .match-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 3;
         }
     </style>
 </head>
@@ -235,7 +242,7 @@
             </div>
         </div>
 
-        <!-- NEW: Match Highlights Section -->
+        <!-- Match Highlights Section -->
         <section class="mt-16">
             <header class="text-center mb-8">
                 <h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase text-white text-glow-purple tracking-wider">
@@ -282,16 +289,16 @@
             { name: 'Venom Ragers', booyah: 0, killPoints: 0, positions: '-', positionPoints: 0 },
         ];
         
-        // --- NEW: MAP HIGHLIGHTS DATA ---
+        // --- MAP HIGHLIGHTS DATA ---
         const mapData = [
-            { name: 'Bermuda', img: 'https://placehold.co/400x600/228B22/ffffff?text=Bermuda' },
-            { name: 'Purgatory', img: 'https://placehold.co/400x600/556B2F/ffffff?text=Purgatory' },
-            { name: 'Kalahari', img: 'https://placehold.co/400x600/F4A460/000000?text=Kalahari' },
-            { name: 'Nextraa', img: 'https://placehold.co/400x600/483D8B/ffffff?text=Nextraa' },
-            { name: 'Bermuda', img: 'https://placehold.co/400x600/2E8B57/ffffff?text=Bermuda' },
-            { name: 'Purgatory', img: 'https://placehold.co/400x600/8FBC8F/000000?text=Purgatory' },
-            { name: 'Kalahari', img: 'https://placehold.co/400x600/D2B48C/000000?text=Kalahari' },
-            { name: 'Nextraa', img: 'https://placehold.co/400x600/6A5ACD/ffffff?text=Nextraa' },
+            { matchNumber: 1, name: 'Bermuda', img: 'https://i.ytimg.com/vi/jJylh4A01aA/maxresdefault.jpg' },
+            { matchNumber: 2, name: 'Purgatory', img: 'https://www.oneesports.gg/wp-content/uploads/2022/01/FreeFire_PurgatoryMapGuide.jpg' },
+            { matchNumber: 3, name: 'Kalahari', img: 'https://cdn.oneesports.gg/cdn-data/2021/07/FreeFire_KalahariMapGuide-1024x576.jpg' },
+            { matchNumber: 4, name: 'Nextraa', img: 'https://dl.dir.freefiremobile.com/common/web_event/official/ff_new_map/images/map-img1.png' },
+            { matchNumber: 5, name: 'Bermuda', img: 'https://i.ytimg.com/vi/jJylh4A01aA/maxresdefault.jpg' },
+            { matchNumber: 6, name: 'Purgatory', img: 'https://www.oneesports.gg/wp-content/uploads/2022/01/FreeFire_PurgatoryMapGuide.jpg' },
+            { matchNumber: 7, name: 'Kalahari', img: 'https://cdn.oneesports.gg/cdn-data/2021/07/FreeFire_KalahariMapGuide-1024x576.jpg' },
+            { matchNumber: 8, name: 'Nextraa', img: 'https://dl.dir.freefiremobile.com/common/web_event/official/ff_new_map/images/map-img1.png' },
         ];
 
         // --- FUNCTIONS ---
@@ -370,7 +377,7 @@
             });
         }
         
-        // --- NEW: FUNCTION TO CREATE MAP HIGHLIGHTS ---
+        // --- FUNCTION TO CREATE MAP HIGHLIGHTS ---
         function createMapHighlights() {
             const container = document.getElementById('map-highlights-container');
             if (!container) return;
@@ -381,6 +388,11 @@
                 card.style.backgroundImage = `url('${map.img}')`;
 
                 card.innerHTML = `
+                    <div class="match-badge">
+                        <span class="bg-cyan-500/80 backdrop-blur-sm text-white font-orbitron font-bold text-sm py-1 px-3 rounded-full shadow-lg border border-cyan-400/50">
+                            MATCH ${map.matchNumber}
+                        </span>
+                    </div>
                     <div class="map-card-content">
                         <h3 class="font-orbitron text-3xl font-bold uppercase tracking-wider text-glow-purple">${map.name}</h3>
                         <div class="mt-4 space-y-2 text-lg">
@@ -421,7 +433,7 @@
         window.onload = () => {
             processAndDisplayCsLeaderboard();
             processAndDisplayBrLeaderboard();
-            createMapHighlights(); // Create the new section
+            createMapHighlights();
             updateTimestamp(); 
             setInterval(updateTimestamp, 1000); 
         };
