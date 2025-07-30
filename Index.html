@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Fire Tournament Standings</title>
+    <!-- Favicon added as requested -->
+    <link rel="icon" type="image/jpeg" href="https://i.ibb.co/6g4PCd6/b713625a-00b7-41a0-b962-24da685bccc1.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,30 +85,28 @@
         .qualified-badge { display: inline-block; margin-left: 10px; background-color: #10B981; color: white; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; vertical-align: middle; animation: glow 2s ease-in-out infinite; box-shadow: 0 0 5px #10B981, 0 0 10px #10B981; border: 1px solid #34D399; }
         @keyframes glow { 0%, 100% { box-shadow: 0 0 5px #10B981, 0 0 10px #10B981; transform: scale(1); } 50% { box-shadow: 0 0 15px #34D399, 0 0 25px #34D399; transform: scale(1.1); } }
 
-        /* --- Scroller (for Maps & Kill Leaders) --- */
-        .scroller { max-width: 100%; overflow: hidden; -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent); mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent); }
+        /* --- Scroller Styles --- */
+        .scroller { overflow: hidden; }
         .scroller__inner { display: flex; flex-wrap: nowrap; gap: 1.5rem; width: max-content; }
-        .scroller:hover .scroller__inner, .scroller:focus-within .scroller__inner { animation-play-state: paused; }
-        
-        .map-scroller .scroller__inner { animation: scroll-maps 40s linear infinite; }
+        .scroller:hover .scroller__inner { animation-play-state: paused; }
+
+        /* Continuous Scroller for Kill Leaders */
         .leader-scroller .scroller__inner { animation: scroll-leaders 25s linear infinite; }
-        @keyframes scroll-maps { to { transform: translate(calc(-50% - 0.75rem)); } }
         @keyframes scroll-leaders { to { transform: translate(calc(-50% - 0.75rem)); } }
+
+        /* Pausing Scroller for Match Highlights */
+        #map-scroller .scroller__inner { transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); }
+        .map-card { transition: transform 0.4s ease, opacity 0.4s ease; transform: scale(0.9); opacity: 0.7; }
+        .map-card.is-active { transform: scale(1.05); opacity: 1; }
         
-        .map-card { width: 300px; height: 450px; background-size: cover; background-position: center; border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.2); position: relative; overflow: hidden; transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); flex-shrink: 0; cursor: pointer; }
-        .map-card.zoomed { transform: scale(1.15); z-index: 50; }
+        .map-card { width: 300px; height: 450px; background-size: cover; background-position: center; border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.2); position: relative; overflow: hidden; flex-shrink: 0; }
         .map-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, transparent 100%); z-index: 1; }
         .map-card-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; z-index: 3; color: white; }
         .match-badge { position: absolute; top: 1rem; right: 1rem; z-index: 3; }
-        .pop-out-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 40; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; }
-        .pop-out-overlay.active { opacity: 1; visibility: visible; }
-
+        
         /* --- Kill Leader Card (Small) --- */
-        .kill-leader-card { width: 220px; background-color: rgba(23, 31, 45, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; padding: 1rem; text-align: center; transition: all 0.3s ease; flex-shrink: 0; }
-        .rank-card-1:hover { box-shadow: 0 0 25px rgba(255, 215, 0, 0.5), inset 0 0 15px rgba(255, 215, 0, 0.3); border-color: rgba(255, 215, 0, 0.7); }
-        .rank-card-2:hover { box-shadow: 0 0 25px rgba(192, 192, 192, 0.5), inset 0 0 15px rgba(192, 192, 192, 0.3); border-color: rgba(192, 192, 192, 0.7); }
-        .rank-card-3:hover { box-shadow: 0 0 25px rgba(205, 127, 50, 0.5), inset 0 0 15px rgba(205, 127, 50, 0.3); border-color: rgba(205, 127, 50, 0.7); }
-        .rank-card-4:hover, .rank-card-5:hover { box-shadow: 0 0 25px rgba(139, 92, 246, 0.4), inset 0 0 15px rgba(139, 92, 246, 0.2); border-color: rgba(139, 92, 246, 0.6); }
+        .kill-leader-card { width: 220px; background-color: rgba(23, 31, 45, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; padding: 1rem; text-align: center; flex-shrink: 0; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .kill-leader-card:hover { transform: translateY(-5px); box-shadow: 0 0 20px rgba(139, 92, 246, 0.4); }
         .crown { font-size: 1.75rem; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); }
         .crown-gold { color: #FFD700; }
         .crown-silver { color: #C0C0C0; }
@@ -164,9 +164,6 @@
         </div>
     </div>
 
-    <!-- Pop-out Overlay for Map Cards -->
-    <div id="pop-out-overlay" class="pop-out-overlay"></div>
-
     <!-- Player Stats Modal -->
     <div id="player-stats-modal-overlay">
         <div id="player-stats-modal">
@@ -192,7 +189,7 @@
     </div>
 
     <!-- Main Content -->
-    <div id="main-content" class="w-full max-w-6xl mx-auto p-4">
+    <div id="main-content" class="w-full max-w-7xl mx-auto p-4">
         <!-- CS Tournament Section -->
         <header class="text-center mb-8">
             <h1 class="font-orbitron text-4xl md:text-6xl font-black uppercase text-white text-glow-blue tracking-wider">CS Tournament Standings</h1>
@@ -214,7 +211,7 @@
             <header class="text-center mb-8">
                 <h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase text-white text-glow-blue tracking-wider">CS Kill Leaders</h2>
             </header>
-            <div class="scroller leader-scroller">
+            <div class="scroller leader-scroller" id="cs-kill-leaders-scroller">
                 <div id="cs-kill-leaders-container" class="scroller__inner"></div>
             </div>
         </section>
@@ -240,7 +237,7 @@
             <header class="text-center mb-8">
                 <h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase text-white text-glow-purple tracking-wider">Match Highlights</h2>
             </header>
-            <div class="scroller map-scroller">
+            <div class="scroller" id="map-scroller">
                 <div class="scroller__inner" id="map-highlights-container"></div>
             </div>
         </section>
@@ -250,7 +247,7 @@
             <header class="text-center mb-8">
                 <h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase text-white text-glow-purple tracking-wider">BR Kill Leaders</h2>
             </header>
-            <div class="scroller leader-scroller">
+            <div class="scroller leader-scroller" id="br-kill-leaders-scroller">
                 <div id="br-kill-leaders-container" class="scroller__inner"></div>
             </div>
         </section>
@@ -316,9 +313,8 @@
             if (!modalOverlay || !teamNameEl || !playerStatsBody) return;
 
             teamNameEl.textContent = teamData.name;
-            playerStatsBody.innerHTML = ''; // Clear previous stats
+            playerStatsBody.innerHTML = '';
 
-            // Sort players by kills in descending order before displaying
             const sortedPlayers = [...teamData.players].sort((a, b) => b.kills - a.kills);
 
             sortedPlayers.forEach((player, index) => {
@@ -339,12 +335,8 @@
         function processAndDisplayCsLeaderboard() { 
             const tbody = document.getElementById('cs-leaderboard-body'); 
             if (!tbody) return; 
-            const processedData = csTeamData.map(e => {
-                const totalRounds = e.winRounds + e.lossRounds;
-                const krRatio = totalRounds > 0 ? e.kills / totalRounds : 0;
-                return { ...e, krRatio: krRatio.toFixed(2) };
-            });
-            processedData.sort((a, b) => b.booyah !== a.booyah ? b.booyah - a.booyah : b.winRounds !== a.winRounds ? b.winRounds - a.winRounds : b.krRatio - a.krRatio);
+            const processedData = csTeamData.map(e => ({ ...e, krRatio: ((e.winRounds + e.lossRounds) > 0 ? e.kills / (e.winRounds + e.lossRounds) : 0).toFixed(2) }));
+            processedData.sort((a, b) => b.booyah - a.booyah || b.winRounds - a.winRounds || b.krRatio - a.krRatio);
             tbody.innerHTML = "";
             processedData.forEach((team, index) => {
                 const rank = index + 1;
@@ -360,11 +352,8 @@
         function processAndDisplayBrLeaderboard() { 
             const tbody = document.getElementById('br-leaderboard-body'); 
             if (!tbody) return; 
-            const processedData = brTeamData.map(e => {
-                const totalPoints = (e.killPoints || 0) + (e.positionPoints || 0);
-                return { ...e, totalPoints: totalPoints };
-            });
-            processedData.sort((a, b) => b.totalPoints !== a.totalPoints ? b.totalPoints - a.totalPoints : b.killPoints !== a.killPoints ? b.killPoints - a.killPoints : b.booyah - a.booyah);
+            const processedData = brTeamData.map(e => ({ ...e, totalPoints: (e.killPoints || 0) + (e.positionPoints || 0) }));
+            processedData.sort((a, b) => b.totalPoints - a.totalPoints || b.killPoints - a.killPoints || b.booyah - a.booyah);
             tbody.innerHTML = "";
             processedData.forEach((team, index) => {
                 const rank = index + 1;
@@ -376,67 +365,25 @@
             });
         }
         
-        let zoomTimeout;
         function createMapHighlights() {
             const container = document.getElementById('map-highlights-container');
-            const overlay = document.getElementById('pop-out-overlay');
-            if (!container || !overlay) return;
-            
+            if (!container) return;
+            container.innerHTML = '';
             mapData.forEach(map => {
                 const card = document.createElement('div');
-                card.className = "map-card";
+                card.className = "map-card"; // This class is now specific to the pausing scroller
                 card.style.backgroundImage = `url('${map.img}')`;
-                
-                let mvpHtml = '';
-                if (map.mvp) {
-                    mvpHtml = `
-                    <div class="pt-2">
-                        <p class="font-bold text-yellow-400 text-xl">MVP</p>
-                        <p class="font-semibold">${map.mvp.name} (${map.mvp.team})</p>
-                        ${map.mvp.kills ? `<p class="font-semibold text-sm text-gray-300">Kills: ${map.mvp.kills}</p>` : ''}
-                    </div>`;
-                }
-
+                let mvpHtml = map.mvp ? `<div class="pt-2"><p class="font-bold text-yellow-400 text-xl">MVP</p><p class="font-semibold">${map.mvp.name} (${map.mvp.team})</p>${map.mvp.kills ? `<p class="font-semibold text-sm text-gray-300">Kills: ${map.mvp.kills}</p>` : ''}</div>` : '';
                 card.innerHTML = `<div class="match-badge"><span class="bg-cyan-500/80 backdrop-blur-sm text-white font-orbitron font-bold text-sm py-1 px-3 rounded-full shadow-lg border border-cyan-400/50">MATCH ${map.matchNumber}</span></div><div class="map-card-content"><h3 class="font-orbitron text-3xl font-bold uppercase tracking-wider text-glow-purple">${map.name}</h3><div class="mt-4 space-y-2 text-lg"><p><span class="font-bold text-green-400">Booyah:</span> <span class="font-semibold">${map.booyah||""}</span></p><p><span class="font-bold text-red-400">Kills:</span> <span class="font-semibold">${map.kills||""}</span></p>${mvpHtml}</div></div>`;
-                
-                card.addEventListener('click', () => {
-                    clearTimeout(zoomTimeout);
-                    if (card.classList.contains('zoomed')) {
-                        return;
-                    }
-                    document.querySelectorAll('.map-card.zoomed').forEach(c => c.classList.remove('zoomed'));
-                    
-                    card.classList.add('zoomed');
-                    overlay.classList.add('active');
-                    
-                    zoomTimeout = setTimeout(() => {
-                        card.classList.remove('zoomed');
-                        overlay.classList.remove('active');
-                    }, 3000);
-                });
-
                 container.appendChild(card);
-            });
-
-            overlay.addEventListener('click', () => {
-                clearTimeout(zoomTimeout);
-                document.querySelectorAll('.map-card.zoomed').forEach(c => c.classList.remove('zoomed'));
-                overlay.classList.remove('active');
-            });
-
-            const cards = container.querySelectorAll(".map-card");
-            cards.forEach(card => {
-                const clone = card.cloneNode(true);
-                clone.setAttribute("aria-hidden", true);
-                container.appendChild(clone);
             });
         }
 
-        function processAndDisplayKillLeaders(data, containerId) {
+        function createKillLeaders(data, containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
+            container.innerHTML = '';
             const sortedData = [...data].sort((a, b) => b.totalKills - a.totalKills);
-            
             sortedData.forEach((player, i) => {
                 const rank = i + 1;
                 const kpm = player.matchesPlayed > 0 ? (player.totalKills / player.matchesPlayed).toFixed(2) : '0.00';
@@ -445,15 +392,61 @@
                 else if (rank === 2) { crownHtml = '<i class="fas fa-crown crown crown-silver"></i>'; nameClass = 'text-silver-glow'; } 
                 else if (rank === 3) { crownHtml = '<i class="fas fa-crown crown crown-bronze"></i>'; nameClass = 'text-bronze-glow'; }
                 const card = document.createElement('div');
-                card.className = `kill-leader-card rank-card-${rank} relative`;
+                card.className = `kill-leader-card relative`;
                 card.innerHTML = `${crownHtml}<div class="player-icon-bg"><svg class="player-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg></div><h3 class="player-name ${nameClass}">${player.name}</h3><div class="text-left mt-4 text-xs space-y-1 text-gray-300"><p><strong class="text-red-400 font-bold">Kills:</strong> <span class="font-semibold float-right">${player.totalKills}</span></p><p><strong class="text-cyan-400 font-bold">KPM:</strong> <span class="font-semibold float-right">${kpm}</span></p><p><strong class="text-purple-400 font-bold">Role:</strong> <span class="font-semibold float-right">${player.role}</span></p></div>`;
                 container.appendChild(card);
             });
+        }
+        
+        // Pausing Scroller for Match Highlights
+        function setupPausingScroller(scrollerId) {
+            const scroller = document.getElementById(scrollerId);
+            if (!scroller) return;
+            const inner = scroller.querySelector('.scroller__inner');
+            if (!inner || inner.children.length === 0) return;
 
-            const cards = container.querySelectorAll('.kill-leader-card');
-            cards.forEach(card => {
+            const originalCards = Array.from(inner.children);
+            originalCards.forEach(card => inner.appendChild(card.cloneNode(true)));
+
+            let currentIndex = 0;
+            let timeoutId;
+
+            function advance() {
+                const cards = Array.from(inner.children);
+                const activeCard = cards[currentIndex];
+                
+                const scrollAmount = activeCard.offsetLeft + (activeCard.offsetWidth / 2) - (scroller.offsetWidth / 2);
+                inner.style.transform = `translateX(-${scrollAmount}px)`;
+
+                cards.forEach(c => c.classList.remove('is-active'));
+                activeCard.classList.add('is-active');
+
+                currentIndex++;
+                
+                if (currentIndex >= originalCards.length) {
+                    setTimeout(() => {
+                        inner.style.transition = 'none';
+                        currentIndex = 0;
+                        const resetScrollAmount = cards[0].offsetLeft + (cards[0].offsetWidth / 2) - (scroller.offsetWidth / 2);
+                        inner.style.transform = `translateX(-${resetScrollAmount}px)`;
+                        setTimeout(() => { inner.style.transition = 'transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)'; }, 50);
+                    }, 800);
+                }
+                timeoutId = setTimeout(advance, 2500);
+            }
+            advance();
+            scroller.addEventListener('mouseenter', () => clearTimeout(timeoutId));
+            scroller.addEventListener('mouseleave', () => timeoutId = setTimeout(advance, 2500));
+        }
+        
+        // Continuous Scroller for Kill Leaders
+        function setupContinuousScroller(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container || container.children.length === 0) return;
+            const originalCards = Array.from(container.children);
+            originalCards.forEach(card => {
                 const clone = card.cloneNode(true);
-                clone.setAttribute("aria-hidden", true);
+                clone.setAttribute('aria-hidden', true);
                 container.appendChild(clone);
             });
         }
@@ -465,27 +458,27 @@
             const closeBtn = document.getElementById('modal-close-btn');
             if(modalOverlay) {
                 modalOverlay.addEventListener('click', (e) => {
-                    if (e.target === modalOverlay) {
-                        modalOverlay.classList.remove('active');
-                    }
+                    if (e.target === modalOverlay) modalOverlay.classList.remove('active');
                 });
             }
-            if(closeBtn) {
-                closeBtn.addEventListener('click', () => {
-                    modalOverlay.classList.remove('active');
-                });
-            }
+            if(closeBtn) closeBtn.addEventListener('click', () => modalOverlay.classList.remove('active'));
         }
 
         window.onload = () => {
             const loader = document.getElementById('loader');
             const mainContent = document.getElementById('main-content');
+            
             processAndDisplayCsLeaderboard();
             processAndDisplayBrLeaderboard();
             createMapHighlights();
-            processAndDisplayKillLeaders(csKillLeaders, 'cs-kill-leaders-container');
-            processAndDisplayKillLeaders(brKillLeaders, 'br-kill-leaders-container');
+            createKillLeaders(csKillLeaders, 'cs-kill-leaders-container');
+            createKillLeaders(brKillLeaders, 'br-kill-leaders-container');
+
             setupModalListeners();
+            setupPausingScroller('map-scroller');
+            setupContinuousScroller('cs-kill-leaders-container');
+            setupContinuousScroller('br-kill-leaders-container');
+
             updateTimestamp(); 
             setInterval(updateTimestamp, 1000);
             setTimeout(() => {
