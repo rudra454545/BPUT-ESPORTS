@@ -124,23 +124,14 @@
         .live-button { display: inline-block; margin-top: 1.5rem; padding: 0.75rem 2.5rem; background: #ef4444; color: white; font-family: 'Orbitron'; text-transform: uppercase; border-radius: 50px; transition: all 0.3s ease; }
         .live-button:hover { background: #dc2626; transform: scale(1.05); box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
         .live-button .fa-youtube { margin-right: 0.5rem; }
-
+        
         /* --- NEW Badge Styles --- */
-        .player-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 1.25rem;
-            height: 1.25rem;
-            border-radius: 50%;
-            margin-right: 0.5rem;
-            font-size: 0.7rem;
-            vertical-align: middle;
-        }
+        .player-badge { display: inline-flex; align-items: center; justify-content: center; width: 1.25rem; height: 1.25rem; border-radius: 50%; margin-right: 0.5rem; font-size: 0.7rem; vertical-align: middle; }
         .badge-diamond { background: #b9f2ff; color: #0c4a6e; box-shadow: 0 0 8px #b9f2ff; }
         .badge-gold { background: #FFD700; color: #78350f; box-shadow: 0 0 8px #FFD700; }
         .badge-silver { background: #C0C0C0; color: #4b5563; box-shadow: 0 0 8px #C0C0C0; }
         .badge-bronze { background: #CD7F32; color: #78350f; box-shadow: 0 0 8px #CD7F32; }
+        .badge-default { background: #4A5568; color: #A0AEC0; box-shadow: 0 0 4px rgba(0,0,0,0.5); }
 
     </style>
 </head>
@@ -230,7 +221,7 @@
                 if (rank === 2) return '<span class="player-badge badge-silver" title="Rank 2 Killer"><i class="fas fa-medal"></i></span>';
                 if (rank === 3) return '<span class="player-badge badge-bronze" title="Rank 3 Killer"><i class="fas fa-medal"></i></span>';
             }
-            return '';
+            return '<span class="player-badge badge-default" title="Player"><i class="fas fa-user"></i></span>';
         }
         function showPlayerStatsModal(teamData) { const modalOverlay=document.getElementById("player-stats-modal-overlay"), teamNameEl=document.getElementById("modal-team-name"), playerStatsBody=document.getElementById("modal-player-stats-body"); if(!modalOverlay||!teamNameEl||!playerStatsBody) return; teamNameEl.textContent=teamData.name; playerStatsBody.innerHTML=""; const sortedPlayers=[...teamData.players].sort((a,b)=>b.kills-a.kills); sortedPlayers.forEach((player,index)=>{ const row=document.createElement("tr"); row.className="modal-player-row border-t border-blue-900/30"; row.style.animationDelay=`${index*0.07}s`; const badgeHtml = getPlayerBadgeHtml(player.ign); row.innerHTML=`<td class="p-3 font-semibold text-base flex items-center">${badgeHtml}<span>${player.ign}</span></td><td class="p-3 text-center text-gray-300 text-sm">${getRoleIcon(player.role)} ${player.role}</td><td class="p-3 text-right font-bold text-lg text-cyan-400">${player.kills}</td>`; playerStatsBody.appendChild(row); }); modalOverlay.classList.add("active"); }
         function processAndDisplayLeaderboard(tbodyId, teamData, isCS) {
