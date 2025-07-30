@@ -268,7 +268,13 @@
 
         const csTeamData = [
             { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, loss: 1, winRounds: 24, lossRounds: 17, kills: 110, players: createPlayers() },
-            { name: 'Team Exclusive', booyah: 2, loss: 2, winRounds: 20, lossRounds: 17, kills: 93, players: createPlayers() },
+            { name: 'Team Exclusive', booyah: 2, loss: 2, winRounds: 20, lossRounds: 17, kills: 93, players: [
+                { ign: 'Ꮐᴏᴅ?ᴍᴀᴅᴀʀᴀ࿐', role: 'Rusher/Supporter', kills: 16 },
+                { ign: 'Player 2', role: 'N/A', kills: 0 },
+                { ign: 'Player 3', role: 'N/A', kills: 0 },
+                { ign: 'Player 4', role: 'N/A', kills: 0 },
+                { ign: 'Player 5', role: 'N/A', kills: 0 },
+            ]},
             { name: 'Team Survive', booyah: 4, loss: 0, winRounds: 28, lossRounds: 13, kills: 114, players: createPlayers() },
             { name: 'Bengali Warriors', booyah: 2, loss: 2, winRounds: 18, lossRounds: 30, kills: 87, players: createPlayers() },
             { name: 'Utkal Warriors', booyah: 2, loss: 2, winRounds: 23, lossRounds: 19, kills: 104, players: createPlayers() },
@@ -278,7 +284,13 @@
         const brTeamData = [
             { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, killPoints: 34, positions: '1/1/6/1', positionPoints: 41, players: createPlayers() },
             { name: 'Bengali Warriors', booyah: 0, killPoints: 9, positions: '3/2/5/3', positionPoints: 31, players: createPlayers() },
-            { name: 'Team Exclusive', booyah: 0, killPoints: 21, positions: '2/5/3/7', positionPoints: 27, players: createPlayers() },
+            { name: 'Team Exclusive', booyah: 0, killPoints: 21, positions: '2/5/3/7', positionPoints: 27, players: [
+                { ign: 'Ꮐᴏᴅ?ᴍᴀᴅᴀʀᴀ࿐', role: 'Rusher/Supporter', kills: 0 },
+                { ign: 'Player 2', role: 'N/A', kills: 0 },
+                { ign: 'Player 3', role: 'N/A', kills: 0 },
+                { ign: 'Player 4', role: 'N/A', kills: 0 },
+                { ign: 'Player 5', role: 'N/A', kills: 0 },
+            ]},
             { name: 'Team Phoenix', booyah: 0, killPoints: 4, positions: '6/4/7/6', positionPoints: 21, players: createPlayers() },
             { name: 'Team Survive', booyah: 0, killPoints: 17, positions: '4/7/2/5', positionPoints: 26, players: createPlayers() },
             { name: 'Utkal Warriors', booyah: 0, killPoints: 13, positions: '5/6/4/4', positionPoints: 25, players: createPlayers() },
@@ -306,7 +318,10 @@
             teamNameEl.textContent = teamData.name;
             playerStatsBody.innerHTML = ''; // Clear previous stats
 
-            teamData.players.forEach((player, index) => {
+            // Sort players by kills in descending order before displaying
+            const sortedPlayers = [...teamData.players].sort((a, b) => b.kills - a.kills);
+
+            sortedPlayers.forEach((player, index) => {
                 const row = document.createElement('tr');
                 row.className = 'modal-player-row border-t border-blue-900/30';
                 row.style.animationDelay = `${index * 0.07}s`;
