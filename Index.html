@@ -159,6 +159,10 @@
         /* --- NEW Reveal Animation --- */
         .reveal-on-scroll { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .reveal-on-scroll.revealed { opacity: 1; transform: translateY(0); }
+        
+        /* NEW Dark Mode Table Colors */
+        html.dark .leaderboard-row:not(.rank-1):not(.rank-2):not(.rank-3) { background-color: rgba(45, 55, 72, 0.5); border-left-color: var(--cool-mid); }
+        html.dark .leaderboard-row td:nth-child(2) { color: var(--accent-blue); font-weight: 700; }
     </style>
 </head>
 <body>
@@ -183,11 +187,11 @@
         <div class="center-title"><h1>BPUT E-Sports Tournament</h1></div>
         <section id="cs-section" class="mode-section">
             <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923088060_zzuumi&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
-            <div class="content"><h2 class="text-glow-blue">Clash<br>Squad</h2><p class="tagline">4v4 Fast-Paced Combat</p><button class="view-btn">View Standings</button></div>
+            <div class="content"><h2>Clash<br>Squad</h2><p class="tagline">4v4 Fast-Paced Combat</p><button class="view-btn">View Standings</button></div>
         </section>
         <section id="br-section" class="mode-section">
              <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923870811_f31nl9&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
-            <div class="content"><h2 class="text-glow-purple">Battle<br>Royale</h2><p class="tagline">The Ultimate Survival Challenge</p><button class="view-btn">View Standings</button></div>
+            <div class="content"><h2>Battle<br>Royale</h2><p class="tagline">The Ultimate Survival Challenge</p><button class="view-btn">View Standings</button></div>
         </section>
         <div class="quotes-container"><p id="quotes-text" class="quote active"></p></div>
         <footer class="landing-footer">
@@ -293,9 +297,9 @@
                 const qualifiedBadge = rank <= 4 && isCS ? '<span class="qualified-badge">Q</span>' : "";
                 let rowContent;
                 if(isCS) {
-                    rowContent = `<td class="p-3 font-black text-2xl text-center align-middle">${rank}</td><td class="p-3 font-bold text-lg align-middle team-name-cell">${team.name} ${qualifiedBadge}</td><td class="p-3 text-center font-semibold text-green-600 dark:text-green-400 text-lg align-middle">${team.booyah}</td><td class="p-3 text-center font-semibold text-red-600 dark:text-red-400 text-lg align-middle">${team.loss}</td><td class="p-3 text-center font-semibold text-gray-600 dark:text-gray-400 text-lg hidden sm:table-cell align-middle">[${team.winRounds}/${team.lossRounds}]</td><td class="p-3 text-center font-bold text-xl text-purple-600 dark:text-purple-400 align-middle">${team.kills}</td><td class="p-3 text-center font-bold text-lg text-cyan-600 dark:text-cyan-400 align-middle">${team.krRatio}</td>`;
+                    rowContent = `<td class="p-3 font-black text-2xl text-center align-middle">${rank}</td><td class="p-3 font-bold text-lg align-middle">${team.name} ${qualifiedBadge}</td><td class="p-3 text-center font-semibold text-green-600 dark:text-green-400 text-lg align-middle">${team.booyah}</td><td class="p-3 text-center font-semibold text-red-600 dark:text-red-400 text-lg align-middle">${team.loss}</td><td class="p-3 text-center font-semibold text-gray-600 dark:text-gray-400 text-lg hidden sm:table-cell align-middle">[${team.winRounds}/${team.lossRounds}]</td><td class="p-3 text-center font-bold text-xl text-purple-600 dark:text-purple-400 align-middle">${team.kills}</td><td class="p-3 text-center font-bold text-lg text-cyan-600 dark:text-cyan-400 align-middle">${team.krRatio}</td>`;
                 } else {
-                    rowContent = `<td class="p-3 font-black text-2xl text-center align-middle">${rank}</td><td class="p-3 font-bold text-lg align-middle team-name-cell">${team.name}</td><td class="p-3 text-center font-semibold text-green-600 dark:text-green-400 text-lg align-middle">${team.booyah||0}</td><td class="p-3 text-center font-semibold text-cyan-600 dark:text-cyan-400 text-lg align-middle">${team.killPoints||0}</td><td class="p-3 text-center font-semibold text-gray-600 dark:text-gray-400 text-lg align-middle">${team.positions||"-"}</td><td class="p-3 text-center font-semibold text-blue-600 dark:text-blue-400 text-lg align-middle">${team.positionPoints||0}</td><td class="p-3 text-center font-bold text-xl text-yellow-500 dark:text-yellow-400 align-middle">${team.totalPoints}</td>`;
+                    rowContent = `<td class="p-3 font-black text-2xl text-center align-middle">${rank}</td><td class="p-3 font-bold text-lg align-middle">${team.name}</td><td class="p-3 text-center font-semibold text-green-600 dark:text-green-400 text-lg align-middle">${team.booyah||0}</td><td class="p-3 text-center font-semibold text-cyan-600 dark:text-cyan-400 text-lg align-middle">${team.killPoints||0}</td><td class="p-3 text-center font-semibold text-gray-600 dark:text-gray-400 text-lg align-middle">${team.positions||"-"}</td><td class="p-3 text-center font-semibold text-blue-600 dark:text-blue-400 text-lg align-middle">${team.positionPoints||0}</td><td class="p-3 text-center font-bold text-xl text-yellow-500 dark:text-yellow-400 align-middle">${team.totalPoints}</td>`;
                 }
                 row.innerHTML = rowContent;
                 row.addEventListener("click", () => showPlayerStatsModal(team, rank));
