@@ -14,27 +14,27 @@
         :root {
             --transition-speed: 0.6s;
             --transition-ease: cubic-bezier(0.25, 1, 0.5, 1);
-            
-            /* Light Mode Palette (Cool Grey) */
-            --bg-main: #F7FAFC;
-            --bg-card: rgba(255, 255, 255, 0.5);
-            --text-dark: #2D3748;
-            --text-light: #4A5568;
-            --border-color: #E2E8F0;
-            --accent-blue: #3182CE;
-            --accent-purple: #805AD5;
+
+            /* Light Mode Palette (Polar White & Neon Sharp Grey) */
+            --bg-main: #FFFFFF; /* Polar White */
+            --bg-card: rgba(229, 231, 235, 0.5); /* Neon Sharp Grey */
+            --text-dark: #1F2937;
+            --text-light: #4B5563;
+            --border-color: #D1D5DB;
+            --accent-blue: #3B82F6;
+            --accent-purple: #8B5CF6;
             --shadow-color: rgba(0,0,0,0.1);
         }
 
         html.dark {
-            /* Dark Mode Palette */
-            --bg-main: #1A202C;
-            --bg-card: rgba(45, 55, 72, 0.5);
-            --text-dark: #E2E8F0;
-            --text-light: #A0AEC0;
-            --border-color: #4A5568;
-            --accent-blue: #63B3ED;
-            --accent-purple: #B794F4;
+            /* Dark Mode Palette (Dark Navy Blue & Neon Violet) */
+            --bg-main: #0F172A; /* Darkest Black */
+            --bg-card: rgba(30, 41, 59, 0.5);
+            --text-dark: #E5E7EB;
+            --text-light: #9CA3AF;
+            --border-color: #4B5563;
+            --accent-blue: #60A5FA; /* Neon Navy Blue */
+            --accent-purple: #A78BFA; /* Neon Violet */
             --shadow-color: rgba(0,0,0,0.4);
         }
 
@@ -63,7 +63,7 @@
         /* --- Landing Page --- */
         #landing-page { display: flex; height: 100vh; width: 100%; perspective: 2000px; transition: opacity var(--transition-speed) ease-in-out; background: var(--bg-main); }
         .mode-section { position: relative; width: 50%; height: 100%; overflow: hidden; cursor: pointer; transition: transform 0.5s var(--transition-ease), filter 0.5s var(--transition-ease); transform-style: preserve-3d; }
-        .mode-section .bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: 1; transform: translateX(-50%) translateY(-50%) scale(1.1); filter: grayscale(100%) brightness(0.8); transition: filter 0.5s ease, transform 0.5s ease; pointer-events: none; }
+        .mode-section .bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: 1; transform: translateX(-50%) translateY(-50%) scale(1.1); filter: grayscale(100%) brightness(0.8); transition: filter 0.5s ease, transform 0.5s ease; pointer-events: none; object-fit: cover; }
         .mode-section .content { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; background: var(--bg-card); backdrop-filter: blur(2px); }
         .mode-section h2 { font-family: 'Orbitron', sans-serif; font-size: clamp(1.5rem, 6vw, 4.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; transition: color 0.5s ease, text-shadow 0.5s ease; color: var(--text-dark); }
         .mode-section .tagline { font-family: 'Exo 2', sans-serif; font-size: clamp(1rem, 2vw, 1.25rem); margin-top: 1rem; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s; }
@@ -85,10 +85,11 @@
         .landing-footer { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10; text-align: center; }
         .landing-footer p { font-size: 0.75rem; }
         .top-left-controls { position: absolute; top: 20px; left: 20px; z-index: 10; }
-        .top-right-controls { position: absolute; top: 20px; right: 20px; z-index: 10; display: flex; gap: 0.5rem; }
+        .top-right-controls { position: absolute; top: 20px; right: 20px; z-index: 10; display: flex; gap: 0.5rem; align-items: center; }
         .control-button { background: var(--bg-card); backdrop-filter: blur(5px); border: 1px solid var(--border-color); color: var(--text-light); width: 40px; height: 40px; border-radius: 50%; transition: all 0.3s ease; }
         .control-button:hover { background: var(--text-light); color: var(--bg-main); }
         .bput-badge { background: var(--bg-card); backdrop-filter: blur(5px); border: 1px solid var(--border-color); color: var(--text-dark); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron'; font-weight: 900; }
+        .volume-slider { width: 100px; }
 
         /* --- Leaderboard View & Other Styles --- */
         #leaderboard-view { position: fixed; inset: 0; z-index: 100; opacity: 0; visibility: hidden; background-color: var(--bg-main); transition: opacity var(--transition-speed) ease-in-out, visibility var(--transition-speed) ease-in-out; overflow-y: auto; }
@@ -97,7 +98,7 @@
         .back-button:hover { background: var(--text-dark); color: var(--bg-main); transform: scale(1.1); }
         ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: var(--border-color); } ::-webkit-scrollbar-thumb { background-color: var(--text-light); border-radius: 10px; border: 2px solid var(--border-color); }
         .leaderboard-row { transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; cursor: pointer; }
-        .leaderboard-row:hover { transform: scale(1.02); box-shadow: 0 10px 20px var(--shadow-color); z-index: 10; }
+        .leaderboard-row:hover { transform: scale(1.02) translateZ(20px); box-shadow: 0 10px 20px var(--shadow-color); z-index: 10; }
         .rank-1 { background: linear-gradient(135deg, #fef08a, #fde047); border-left-color: #facc15; color: #713f12; }
         .rank-2 { background: linear-gradient(135deg, #e5e7eb, #d1d5db); border-left-color: #9ca3af; color: #374151; }
         .rank-3 { background: linear-gradient(135deg, #fcd34d, #fbbf24); border-left-color: #f59e0b; color: #78350f; }
@@ -128,6 +129,9 @@
         #player-stats-modal-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(10, 10, 20, 0.6); backdrop-filter: blur(8px) saturate(150%); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         #player-stats-modal-overlay.active { opacity: 1; visibility: visible; }
         #player-stats-modal { background-color: var(--bg-main); border: 1px solid var(--border-color); box-shadow: 0 25px 50px -12px var(--shadow-color); border-radius: 1rem; width: 90%; max-width: 600px; color: var(--text-dark); transform: scale(0.9) translateY(20px); opacity: 0; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        #player-stats-modal:hover {
+            border-color: var(--accent-blue); /* Neon Navy Blue hover effect */
+        }
         #player-stats-modal-overlay.active #player-stats-modal { transform: scale(1) translateY(0); opacity: 1; }
         .modal-player-row { opacity: 0; transform: translateX(-20px); animation: slide-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
         @keyframes slide-in { to { opacity: 1; transform: translateX(0); } }
@@ -143,13 +147,14 @@
         .live-button { display: inline-block; margin-top: 1.5rem; padding: 0.75rem 2.5rem; background: #ef4444; color: white; font-family: 'Orbitron'; text-transform: uppercase; border-radius: 50px; transition: all 0.3s ease; }
         .live-button:hover { background: #dc2626; transform: scale(1.05); box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
         .live-button .fa-youtube { margin-right: 0.5rem; }
-        
+
         /* --- NEW Badge Styles --- */
         .player-badge { display: inline-flex; align-items: center; justify-content: center; width: 1.25rem; height: 1.25rem; border-radius: 50%; margin-right: 0.5rem; font-size: 0.7rem; vertical-align: middle; }
         .badge-diamond { background: #b9f2ff; color: #0c4a6e; box-shadow: 0 0 8px #b9f2ff; }
         .badge-gold { background: #FFD700; color: #78350f; box-shadow: 0 0 8px #FFD700; }
         .badge-silver { background: #C0C0C0; color: #4b5563; box-shadow: 0 0 8px #C0C0C0; }
         .badge-bronze { background: #CD7F32; color: #78350f; box-shadow: 0 0 8px #CD7F32; }
+        .badge-semifinalist { background: var(--accent-purple); color: white; box-shadow: 0 0 8px var(--accent-purple); }
         .badge-default { background: var(--text-light); color: var(--bg-main); }
         .badge-mvp { background: #ef4444; color: #fff; box-shadow: 0 0 8px #ef4444; animation: mvp-pulse 1.5s infinite; }
         @keyframes mvp-pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
@@ -159,22 +164,27 @@
         /* --- NEW Reveal Animation --- */
         .reveal-on-scroll { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .reveal-on-scroll.revealed { opacity: 1; transform: translateY(0); }
-        
+
         /* NEW Dark Mode Table Colors */
-        html.dark .leaderboard-row:not(.rank-1):not(.rank-2):not(.rank-3) { background-color: rgba(45, 55, 72, 0.5); border-left-color: var(--cool-mid); }
-        html.dark .leaderboard-row td:nth-child(2) { color: var(--accent-blue); font-weight: 700; }
+        html.dark .leaderboard-row:not(.rank-1):not(.rank-2):not(.rank-3) { background-color: rgba(30, 41, 59, 0.5); border-left-color: var(--accent-blue); }
+        html.dark .leaderboard-row td:nth-child(2) {
+            color: var(--accent-purple); /* Neon Violet */
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+        html.dark .leaderboard-row:hover td:nth-child(2) {
+            color: #fff;
+        }
     </style>
 </head>
 <body>
-    <!-- Loader -->
     <div id="loader">
         <div class="loader-content">
             <div class="loader-logo">B</div>
             <div class="loader-text">BPUT E-Sports</div>
         </div>
     </div>
-    
-    <!-- Main Landing Page -->
+
     <main id="landing-page" class="flex">
         <audio id="background-audio" loop>
             <source src="https://res.cloudinary.com/dqh7olosv/video/upload/v1753927171/35a0-8af6-42b3-9f52-4fa5834621e6_yeq3wv.mp3" type="audio/mpeg">
@@ -182,15 +192,16 @@
         <div class="top-left-controls"><div class="bput-badge">B</div></div>
         <div class="top-right-controls">
             <button id="sound-toggle" class="control-button"><i class="fas fa-volume-mute"></i></button>
+            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.1" value="1">
             <button id="theme-toggle" class="control-button"><i class="fas fa-sun"></i></button>
         </div>
         <div class="center-title"><h1>BPUT E-Sports Tournament</h1></div>
         <section id="cs-section" class="mode-section">
-            <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923088060_zzuumi&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
+            <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923088060_zzuumi&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true&aspect_ratio=9:16&gravity=center&crop=fill" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
             <div class="content"><h2>Clash<br>Squad</h2><p class="tagline">4v4 Fast-Paced Combat</p><button class="view-btn">View Standings</button></div>
         </section>
         <section id="br-section" class="mode-section">
-             <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923870811_f31nl9&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
+             <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923870811_f31nl9&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true&aspect_ratio=9:16&gravity=center&crop=fill" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
             <div class="content"><h2>Battle<br>Royale</h2><p class="tagline">The Ultimate Survival Challenge</p><button class="view-btn">View Standings</button></div>
         </section>
         <div class="quotes-container"><p id="quotes-text" class="quote active"></p></div>
@@ -200,7 +211,6 @@
         </footer>
     </main>
 
-    <!-- Leaderboard View -->
     <div id="leaderboard-view">
         <button id="back-button" class="back-button"><i class="fas fa-arrow-left"></i></button>
         <div id="cs-view" class="hidden">
@@ -235,20 +245,18 @@
         </div>
     </div>
 
-    <!-- Modals -->
     <div id="player-stats-modal-overlay">
-        <div id="player-stats-modal"><div class="p-4 sm:p-6 border-b border-border-color relative"><h2 id="modal-team-name" class="font-orbitron text-2xl sm:text-3xl font-bold text-center text-text-dark">Team Name</h2><button id="modal-close-btn" class="absolute top-3 right-4 text-text-light hover:text-text-dark transition-colors text-2xl">&times;</button></div><div class="p-4 sm:p-6"><table class="w-full"><thead><tr class="border-b border-border-color"><th class="p-3 text-left font-orbitron text-sm uppercase tracking-widest text-text-light">Name/IGN</th><th class="p-3 text-center font-orbitron text-sm uppercase tracking-widest text-text-light">Role</th><th class="p-3 text-right font-orbitron text-sm uppercase tracking-widest text-text-light">Kills</th></tr></thead><tbody id="modal-player-stats-body"></tbody></table></div></div>
+        <div id="player-stats-modal"><div class="p-4 sm:p-6 border-b border-border-color relative"><h2 id="modal-team-name" class="font-orbitron text-2xl sm:text-3xl font-bold text-center text-text-dark">Team Name</h2><button id="modal-close-btn" class="absolute top-3 right-4 text-text-light hover:text-text-dark transition-colors text-2xl">×</button></div><div class="p-4 sm:p-6"><table class="w-full"><thead><tr class="border-b border-border-color"><th class="p-3 text-left font-orbitron text-sm uppercase tracking-widest text-text-light">Name/IGN</th><th class="p-3 text-center font-orbitron text-sm uppercase tracking-widest text-text-light">Role</th><th class="p-3 text-right font-orbitron text-sm uppercase tracking-widest text-text-light">Kills</th><th class="p-3 text-right font-orbitron text-sm uppercase tracking-widest text-text-light">K/R</th></tr></thead><tbody id="modal-player-stats-body"></tbody></table></div></div>
     </div>
     <div id="match-details-modal-overlay">
         <div id="match-details-modal">
-            <!-- Content will be injected by JS -->
-        </div>
+            </div>
     </div>
 
     <script>
         // --- DATA ---
-        const createPlayers = () => Array(5).fill(null).map((_, i) => ({ ign: `Player ${i+1}`, role: 'N/A', kills: 0 }));
-        const csTeamData = [ { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, loss: 1, winRounds: 24, lossRounds: 17, kills: 110, players: [ { ign: 'Rajesh', role: 'IGL', kills: 26 + 6 }, { ign: 'Rinku', role: 'Rusher', kills: 25 + 4 }, { ign: 'Amrit', role: 'Rusher/Supporter', kills: 31 + 5 }, { ign: 'Anirudh', role: 'Rusher', kills: 15 + 15 }, { ign: 'Babroo', role: 'Supporter', kills: 13 }, ]}, { name: 'Team Exclusive', booyah: 2, loss: 2, winRounds: 20, lossRounds: 17, kills: 93, players: [ { ign: 'Rudra', role: 'Rusher/Supporter', kills: 16 + 1 + 9 }, { ign: 'Aditya', role: 'Rusher', kills: 25 + 1 + 8 }, { ign: 'Sovan', role: 'Sniper', kills: 28 + 4 + 8 }, { ign: 'Chiku', role: 'IGL', kills: 23 + 3 + 6 }, { ign: 'Player 5', role: 'N/A', kills: 0 }, ]}, { name: 'Team Survive', booyah: 4, loss: 0, winRounds: 28, lossRounds: 13, kills: 114, players: [ { ign: 'Ashirbad', role: 'Rusher', kills: 26 + 9 }, { ign: 'Dibya', role: 'IGL', kills: 35 + 8 }, { ign: 'Mohit', role: 'Rusher', kills: 33 + 8 }, { ign: 'Nihar', role: 'Rusher/Supporter', kills: 7 }, { ign: 'Amit', role: 'Supporter', kills: 13 + 5 }, ]}, { name: 'Bengali Warriors', booyah: 2, loss: 2, winRounds: 18, lossRounds: 30, kills: 87, players: createPlayers() }, { name: 'Utkal Warriors', booyah: 2, loss: 2, winRounds: 23, lossRounds: 19, kills: 104, players: [ { ign: 'Anup', role: 'Rusher/Sniper', kills: 28 + 6 + 12 }, { ign: 'Pritam', role: 'Rusher', kills: 22 + 4 + 7 }, { ign: 'Chandan', role: 'IGL', kills: 30 + 0 + 6 }, { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 26 + 1 + 6 }, { ign: 'Player 5', role: 'N/A', kills: 0 }, ]}, { name: 'Team Phoenix', booyah: 0, loss: 4, winRounds: 13, lossRounds: 28, kills: 76, players: [ { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 20 }, { ign: 'OSH !!', role: 'RUSHHER', kills: 24 }, { ign: 'Mr.Arpitt', role: 'ASSAULTER', kills: 7 }, { ign: 'Srikanta', role: 'RUSHHER', kills: 13 }, { ign: 'Sushobhan', role: 'ASSAULTER', kills: 10 }, ]}, { name: 'Venom Ragers', booyah: 1, loss: 3, winRounds: 11, lossRounds: 21, kills: 65, players: createPlayers() }, ];
+        const createPlayers = () => Array(5).fill(null).map((_, i) => ({ ign: `Player ${i+1}`, role: 'N/A', kills: 0, roundsPlayed: 0 }));
+        const csTeamData = [ { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, loss: 1, winRounds: 24, lossRounds: 17, kills: 110, players: [ { ign: 'Rajesh', role: 'IGL', kills: 26 + 6, roundsPlayed: 41 }, { ign: 'Rinku', role: 'Rusher', kills: 25 + 4, roundsPlayed: 41 }, { ign: 'Amrit', role: 'Rusher/Supporter', kills: 31 + 5, roundsPlayed: 41 }, { ign: 'Anirudh', role: 'Rusher', kills: 15 + 15, roundsPlayed: 41 }, { ign: 'Babroo', role: 'Supporter', kills: 13, roundsPlayed: 41 }, ]}, { name: 'Team Exclusive', booyah: 2, loss: 2, winRounds: 20, lossRounds: 17, kills: 93, players: [ { ign: 'Rudra', role: 'Rusher/Supporter', kills: 16 + 1 + 9, roundsPlayed: 37 }, { ign: 'Aditya', role: 'Rusher', kills: 25 + 1 + 8, roundsPlayed: 37 }, { ign: 'Sovan', role: 'Sniper', kills: 28 + 4 + 8, roundsPlayed: 37 }, { ign: 'Chiku', role: 'IGL', kills: 23 + 3 + 6, roundsPlayed: 37 }, { ign: 'Player 5', role: 'N/A', kills: 0, roundsPlayed: 0 }, ]}, { name: 'Team Survive', booyah: 4, loss: 0, winRounds: 28, lossRounds: 13, kills: 114, players: [ { ign: 'Ashirbad', role: 'Rusher', kills: 26 + 9, roundsPlayed: 41 }, { ign: 'Dibya', role: 'IGL', kills: 35 + 8, roundsPlayed: 41 }, { ign: 'Mohit', role: 'Rusher', kills: 33 + 8, roundsPlayed: 41 }, { ign: 'Nihar', role: 'Rusher/Supporter', kills: 7, roundsPlayed: 41 }, { ign: 'Amit', role: 'Supporter', kills: 13 + 5, roundsPlayed: 41 }, ]}, { name: 'Bengali Warriors', booyah: 2, loss: 2, winRounds: 18, lossRounds: 30, kills: 87, players: createPlayers() }, { name: 'Utkal Warriors', booyah: 2, loss: 2, winRounds: 23, lossRounds: 19, kills: 104, players: [ { ign: 'Anup', role: 'Rusher/Sniper', kills: 28 + 6 + 12, roundsPlayed: 42 }, { ign: 'Pritam', role: 'Rusher', kills: 22 + 4 + 7, roundsPlayed: 42 }, { ign: 'Chandan', role: 'IGL', kills: 30 + 0 + 6, roundsPlayed: 42 }, { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 26 + 1 + 6, roundsPlayed: 42 }, { ign: 'Player 5', role: 'N/A', kills: 0, roundsPlayed: 0 }, ]}, { name: 'Team Phoenix', booyah: 0, loss: 4, winRounds: 13, lossRounds: 28, kills: 76, players: [ { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 20, roundsPlayed: 41 }, { ign: 'OSH !!', role: 'RUSHHER', kills: 24, roundsPlayed: 41 }, { ign: 'Mr.Arpitt', role: 'ASSAULTER', kills: 7, roundsPlayed: 41 }, { ign: 'Srikanta', role: 'RUSHHER', kills: 13, roundsPlayed: 41 }, { ign: 'Sushobhan', role: 'ASSAULTER', kills: 10, roundsPlayed: 41 }, ]}, { name: 'Venom Ragers', booyah: 1, loss: 3, winRounds: 11, lossRounds: 21, kills: 65, players: createPlayers() }, ];
         const brTeamData = [ { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, killPoints: 34, positions: '1/1/6/1', positionPoints: 41, players: [ { ign: 'Rajesh', role: 'IGL', kills: 7 }, { ign: 'Rinku', role: 'Rusher', kills: 12 }, { ign: 'Amrit', role: 'Rusher/Supporter', kills: 7 }, { ign: 'Anirudh', role: 'Rusher', kills: 8 }, { ign: 'Babroo', role: 'Supporter', kills: 0 }, ]}, { name: 'Bengali Warriors', booyah: 0, killPoints: 9, positions: '3/2/5/3', positionPoints: 31, players: createPlayers() }, { name: 'Team Exclusive', booyah: 0, killPoints: 22, positions: '2/5/3/7', positionPoints: 27, players: [ { ign: 'Rudra', role: 'Rusher/Supporter', kills: 0 }, { ign: 'Aditya', role: 'Rusher', kills: 7 }, { ign: 'Sovan', role: 'Sniper', kills: 9 }, { ign: 'Chiku', role: 'IGL', kills: 6 }, { ign: 'Player 5', role: 'N/A', kills: 0 }, ]}, { name: 'Team Phoenix', booyah: 0, killPoints: 4, positions: '6/4/7/6', positionPoints: 21, players: [ { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 2 }, { ign: 'OSH !!', role: 'RUSHHER', kills: 0 }, { ign: 'Mr.Arpitt', role: 'ASSAULTER', kills: 1 }, { ign: 'Srikanta', role: 'RUSHHER', kills: 1 }, { ign: 'Sushobhan', role: 'ASSAULTER', kills: 0 }, ]}, { name: 'Team Survive', booyah: 0, killPoints: 13, positions: '4/7/2/5', positionPoints: 26, players: [ { ign: 'Ashirbad', role: 'Rusher', kills: 3 }, { ign: 'Dibya', role: 'IGL', kills: 3 }, { ign: 'Mohit', role: 'Rusher', kills: 7 }, { ign: 'Nihar', role: 'Rusher/Supporter', kills: 0 }, { ign: 'Amit', role: 'Supporter', kills: 0 }, ]}, { name: 'Utkal Warriors', booyah: 0, killPoints: 13, positions: '5/6/4/4', positionPoints: 25, players: [ { ign: 'Anup', role: 'Rusher/Sniper', kills: 1 }, { ign: 'Pritam', role: 'Rusher', kills: 5 }, { ign: 'Chandan', role: 'IGL', kills: 1 }, { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 6 }, { ign: 'Player 5', role: 'N/A', kills: 0 }, ]}, { name: 'Venom Ragers', booyah: 1, killPoints: 14, positions: '7/3/1/2', positionPoints: 33, players: createPlayers() }, ];
         const mapData = [ { matchNumber: 1, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg', booyah: 'BRBO', kills: 16, mvp: { name: 'BG RAJ', kills: 17, team: 'BRBO' } }, { matchNumber: 2, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg', booyah: 'BRBO', kills: 9, mvp: { name: 'ARJIT', kills: null, team: 'BW' } }, { matchNumber: 3, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg', booyah: 'Venom Ragers', kills: 7, mvp: { name: 'SWAPNIL', kills: null, team: 'UW' } }, { matchNumber: 4, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg', booyah: 'BRBO', kills: 8, mvp: { name: 'RYL♡RINKU', kills: null, team: 'BRBO' } }, { matchNumber: 5, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg' }, { matchNumber: 6, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg' }, { matchNumber: 7, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg' }, { matchNumber: 8, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg' }, { matchNumber: 9, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg' }, { matchNumber: 10, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg' }, { matchNumber: 11, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg' }, { matchNumber: 12, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg' }, ];
         let csKillLeaders = [];
@@ -264,7 +272,10 @@
         // --- All JS functions remain here, now readable and debugged ---
         function getRoleIcon(role) { const l=role.toLowerCase(); let t=""; if(l.includes("sniper")) t+='<i class="fa-solid fa-crosshairs role-icon" title="Sniper"></i>'; if(l.includes("igl")) t+='<i class="fa-solid fa-crown role-icon" title="IGL"></i>'; if(l.includes("rusher") || l.includes("assaulter")) t+='<i class="fa-solid fa-bolt role-icon" title="Rusher/Assaulter"></i>'; if(l.includes("supporter")) t+='<i class="fa-solid fa-shield-halved role-icon" title="Supporter"></i>'; if(l.includes("flanker")) t+='<i class="fa-solid fa-user-secret role-icon" title="Flanker"></i>'; return t||"N/A"; }
         function getRankClass(rank) { if(rank===1) return 'rank-1'; if(rank===2) return 'rank-2'; if(rank===3) return 'rank-3'; return 'bg-gray-100 dark:bg-cool-dark'; }
-        function getPlayerBadgeHtml(playerName, teamRank) {
+        function getPlayerBadgeHtml(playerName, teamRank, isSemifinalist) {
+            if (isSemifinalist) {
+                return '<span class="player-badge badge-semifinalist" title="Semifinalist"><i class="fas fa-star"></i></span>';
+            }
             const csRank = csKillLeaders.findIndex(p => p.ign === playerName) + 1;
             const brRank = brKillLeaders.findIndex(p => p.ign === playerName) + 1;
             if (csRank > 0 && csRank <= 5 && brRank > 0 && brRank <= 5) {
@@ -279,7 +290,7 @@
             const animatedClass = teamRank <= 3 ? 'badge-animated-default' : '';
             return `<span class="player-badge badge-default ${animatedClass}" title="Player"><i class="fas fa-user"></i></span>`;
         }
-        function showPlayerStatsModal(teamData, teamRank) { const modalOverlay=document.getElementById("player-stats-modal-overlay"), teamNameEl=document.getElementById("modal-team-name"), playerStatsBody=document.getElementById("modal-player-stats-body"); if(!modalOverlay||!teamNameEl||!playerStatsBody) return; teamNameEl.textContent=teamData.name; playerStatsBody.innerHTML=""; const sortedPlayers=[...teamData.players].sort((a,b)=>b.kills-a.kills); sortedPlayers.forEach((player,index)=>{ const row=document.createElement("tr"); row.className="modal-player-row border-t border-border-color"; row.style.animationDelay=`${index*0.07}s`; const badgeHtml = getPlayerBadgeHtml(player.ign, teamRank); row.innerHTML=`<td class="p-3 font-semibold text-base flex items-center">${badgeHtml}<span>${player.ign}</span></td><td class="p-3 text-center text-text-light text-sm">${getRoleIcon(player.role)} ${player.role}</td><td class="p-3 text-right font-bold text-lg text-accent-blue">${player.kills}</td>`; playerStatsBody.appendChild(row); }); modalOverlay.classList.add("active"); }
+        function showPlayerStatsModal(teamData, teamRank) { const modalOverlay=document.getElementById("player-stats-modal-overlay"), teamNameEl=document.getElementById("modal-team-name"), playerStatsBody=document.getElementById("modal-player-stats-body"); if(!modalOverlay||!teamNameEl||!playerStatsBody) return; teamNameEl.textContent=teamData.name; playerStatsBody.innerHTML=""; const sortedPlayers=[...teamData.players].sort((a,b)=>b.kills-a.kills); sortedPlayers.forEach((player,index)=>{ const row=document.createElement("tr"); row.className="modal-player-row border-t border-border-color"; row.style.animationDelay=`${index*0.07}s`; const badgeHtml = getPlayerBadgeHtml(player.ign, teamRank, teamRank <= 4); const kr = player.roundsPlayed > 0 ? (player.kills / player.roundsPlayed).toFixed(2) : "N/A"; row.innerHTML=`<td class="p-3 font-semibold text-base flex items-center">${badgeHtml}<span>${player.ign}</span></td><td class="p-3 text-center text-text-light text-sm">${getRoleIcon(player.role)} ${player.role}</td><td class="p-3 text-right font-bold text-lg text-accent-blue">${player.kills}</td><td class="p-3 text-right font-bold text-lg text-accent-purple">${kr}</td>`; playerStatsBody.appendChild(row); }); modalOverlay.classList.add("active"); }
         function processAndDisplayLeaderboard(tbodyId, teamData, isCS) {
             const tbody = document.getElementById(tbodyId);
             if (!tbody) return;
@@ -307,7 +318,7 @@
             });
         }
         function createMapHighlights() { const container=document.getElementById("map-highlights-container"); if(!container) return; container.innerHTML=""; mapData.forEach(map=>{ const card=document.createElement("div"); card.className="map-card"; card.style.backgroundImage=`url('${map.img}')`; let mvpHtml=map.mvp?`<div class="pt-2"><p class="font-bold text-yellow-400 text-xl">MVP</p><p class="font-semibold">${map.mvp.name} (${map.mvp.team})</p>${map.mvp.kills?`<p class="font-semibold text-sm text-gray-300">Kills: ${map.mvp.kills}</p>`:""}</div>`:""; card.innerHTML=`<div class="match-badge"><span class="bg-cyan-500/80 backdrop-blur-sm text-white font-orbitron font-bold text-sm py-1 px-3 rounded-full shadow-lg border border-cyan-400/50">MATCH ${map.matchNumber}</span></div><div class="map-card-content"><h3 class="font-orbitron text-3xl font-bold uppercase tracking-wider">${map.name}</h3><div class="mt-4 space-y-2 text-lg"><p><span class="font-bold text-green-400">Booyah:</span> <span class="font-semibold">${map.booyah||""}</span></p><p><span class="font-bold text-red-400">Kills:</span> <span class="font-semibold">${map.kills||""}</span></p>${mvpHtml}</div></div>`; container.appendChild(card); }); }
-        function createKillLeaderCards(data, containerId) { const container=document.getElementById(containerId); if(!container) return; container.innerHTML=""; data.forEach((player,i)=>{ const rank=i+1; let crownHtml="", nameClass=""; if(rank===1){crownHtml='<i class="fas fa-crown crown crown-gold"></i>'; nameClass="text-gold-glow";} else if(rank===2){crownHtml='<i class="fas fa-crown crown crown-silver"></i>'; nameClass="text-silver-glow";} else if(rank===3){crownHtml='<i class="fas fa-crown crown crown-bronze"></i>'; nameClass="text-bronze-glow";} else if(rank===4){nameClass="text-cyan-glow";} else if(rank===5){nameClass="text-fuchsia-glow";} const card=document.createElement("div"); card.className="kill-leader-card relative"; card.innerHTML=`${crownHtml}<div class="player-icon-bg"><svg class="player-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg></div><h3 class="player-name font-exo ${nameClass}">${player.ign}</h3><p class="text-xs text-text-light">(${player.teamName})</p><div class="text-left mt-2 text-xs w-full"><p class="flex justify-between items-center"><strong class="text-red-500 font-bold">Kills:</strong> <span class="font-semibold">${player.totalKills}</span></p></div>`; container.appendChild(card); }); }
+        function createKillLeaderCards(data, containerId) { const container=document.getElementById(containerId); if(!container) return; container.innerHTML=""; data.forEach((player,i)=>{ const rank=i+1; let crownHtml="", nameClass=""; if(rank===1){crownHtml='<i class="fas fa-crown crown crown-gold"></i>'; nameClass="text-gold-glow";} else if(rank===2){crownHtml='<i class="fas fa-crown crown crown-silver"></i>'; nameClass="text-silver-glow";} else if(rank===3){crownHtml='<i class="fas fa-crown crown crown-bronze"></i>'; nameClass="text-bronze-glow";} else if(rank===4){nameClass="text-cyan-glow";} else if(rank===5){nameClass="text-fuchsia-glow";} const card=document.createElement("div"); card.className="kill-leader-card relative"; const kr = player.roundsPlayed > 0 ? (player.totalKills / player.roundsPlayed).toFixed(2) : "N/A"; card.innerHTML=`${crownHtml}<div class="player-icon-bg"><svg class="player-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg></div><h3 class="player-name font-exo ${nameClass}">${player.ign}</h3><p class="text-xs text-text-light">(${player.teamName})</p><div class="text-left mt-2 text-xs w-full"><p class="flex justify-between items-center"><strong class="text-red-500 font-bold">Kills:</strong> <span class="font-semibold">${player.totalKills}</span></p><p class="flex justify-between items-center"><strong class="text-purple-500 font-bold">K/R:</strong> <span class="font-semibold">${kr}</span></p></div>`; container.appendChild(card); }); }
         function calculateKillLeaders() { const allCsPlayers=csTeamData.flatMap(team=>team.players.map(p=>({...p,teamName:team.name,totalKills:p.kills}))); const allBrPlayers=brTeamData.flatMap(team=>team.players.map(p=>({...p,teamName:team.name,totalKills:p.kills}))); csKillLeaders=allCsPlayers.sort((a,b)=>b.totalKills-a.totalKills).slice(0,5); brKillLeaders=allBrPlayers.sort((a,b)=>b.totalKills-a.totalKills).slice(0,5); }
         function setupPausingScroller(scrollerId) { const scroller=document.getElementById(scrollerId); if(!scroller) return; const inner=scroller.querySelector(".scroller__inner"); if(!inner||inner.children.length===0) return; const originalCards=Array.from(inner.children); originalCards.forEach(card=>inner.appendChild(card.cloneNode(true))); let currentIndex=0; let timeoutId; function advance() { const cards=Array.from(inner.children); const activeCard=cards[currentIndex]; const scrollAmount=activeCard.offsetLeft+activeCard.offsetWidth/2-scroller.offsetWidth/2; inner.style.transform=`translateX(-${scrollAmount}px)`; cards.forEach(c=>c.classList.remove("is-active")); activeCard.classList.add("is-active"); currentIndex++; if(currentIndex>=originalCards.length) { setTimeout(()=>{ inner.style.transition="none"; currentIndex=0; const resetScrollAmount=cards[0].offsetLeft+cards[0].offsetWidth/2-scroller.offsetWidth/2; inner.style.transform=`translateX(-${resetScrollAmount}px)`; setTimeout(()=>{inner.style.transition="transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)"},50); },800); } timeoutId=setTimeout(advance,2500); } advance(); scroller.addEventListener("mouseenter",()=>clearTimeout(timeoutId)); scroller.addEventListener("mouseleave",()=>timeoutId=setTimeout(advance,2500)); }
         function setupContinuousScroller(containerId) { const container=document.getElementById(containerId); if(!container||container.children.length===0) return; const originalCards=Array.from(container.children); originalCards.forEach(card=>{ const clone=card.cloneNode(true); clone.setAttribute("aria-hidden",true); container.appendChild(clone); }); }
@@ -325,6 +336,7 @@
             const backButton = document.getElementById('back-button');
             const bgAudio = document.getElementById('background-audio');
             const soundToggle = document.getElementById('sound-toggle');
+            const volumeSlider = document.getElementById('volume-slider');
             const themeToggle = document.getElementById('theme-toggle');
             let isMuted = true;
 
@@ -357,6 +369,17 @@
                 isMuted = !isMuted;
                 bgAudio.muted = isMuted;
                 soundToggle.innerHTML = isMuted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+            });
+
+            volumeSlider.addEventListener('input', (e) => {
+                bgAudio.volume = e.target.value;
+                if (bgAudio.volume === 0) {
+                    isMuted = true;
+                    soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                } else {
+                    isMuted = false;
+                    soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+                }
             });
             
             document.body.addEventListener('click', () => {
@@ -441,4 +464,3 @@
     </script>
 </body>
 </html>
-
