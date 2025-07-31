@@ -147,7 +147,7 @@
         .badge-gold { background: #FFD700; color: #78350f; box-shadow: 0 0 8px #FFD700; }
         .badge-silver { background: #C0C0C0; color: #4b5563; box-shadow: 0 0 8px #C0C0C0; }
         .badge-bronze { background: #CD7F32; color: #78350f; box-shadow: 0 0 8px #CD7F32; }
-        .badge-default { background: var(--cool-dark); color: var(--cool-light); box-shadow: 0 0 4px rgba(0,0,0,0.5); }
+        .badge-default { background: var(--text-light); color: var(--bg-main); }
         .badge-mvp { background: #ef4444; color: #fff; box-shadow: 0 0 8px #ef4444; animation: mvp-pulse 1.5s infinite; }
         @keyframes mvp-pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
         .badge-animated-default { animation: default-pulse 2s infinite alternate; }
@@ -156,6 +156,10 @@
         /* --- NEW Reveal Animation --- */
         .reveal-on-scroll { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .reveal-on-scroll.revealed { opacity: 1; transform: translateY(0); }
+        
+        /* NEW Dark Mode Table Colors */
+        html.dark .team-name-cell { color: var(--accent-blue); }
+        html.dark .leaderboard-row:not(.rank-1):not(.rank-2):not(.rank-3) { background-color: rgba(45, 55, 72, 0.5); border-left-color: var(--cool-mid); }
     </style>
 </head>
 <body>
@@ -289,9 +293,9 @@
                 const qualifiedBadge = rank <= 4 && isCS ? '<span class="qualified-badge">Q</span>' : "";
                 let rowContent;
                 if(isCS) {
-                    rowContent = `<td class="p-3 font-black text-2xl text-center align-middle">${rank}</td><td class="p-3 font-bold text-lg align-middle">${team.name} ${qualifiedBadge}</td><td class="p-3 text-center font-semibold text-green-600 dark:text-green-400 text-lg align-middle">${team.booyah}</td><td class="p-3 text-center font-semibold text-red-600 dark:text-red-400 text-lg align-middle">${team.loss}</td><td class="p-3 text-center font-semibold text-gray-600 dark:text-gray-400 text-lg hidden sm:table-cell align-middle">[${team.winRounds}/${team.lossRounds}]</td><td class="p-3 text-center font-bold text-xl text-purple-600 dark:text-purple-400 align-middle">${team.kills}</td><td class="p-3 text-center font-bold text-lg text-cyan-600 dark:text-cyan-400 align-middle">${team.krRatio}</td>`;
+                    rowContent = `<td class="p-3 font-black text-2xl text-center align-middle">${rank}</td><td class="p-3 font-bold text-lg align-middle team-name-cell">${team.name} ${qualifiedBadge}</td><td class="p-3 text-center font-semibold text-green-600 dark:text-green-400 text-lg align-middle">${team.booyah}</td><td class="p-3 text-center font-semibold text-red-600 dark:text-red-400 text-lg align-middle">${team.loss}</td><td class="p-3 text-center font-semibold text-gray-600 dark:text-gray-400 text-lg hidden sm:table-cell align-middle">[${team.winRounds}/${team.lossRounds}]</td><td class="p-3 text-center font-bold text-xl text-purple-600 dark:text-purple-400 align-middle">${team.kills}</td><td class="p-3 text-center font-bold text-lg text-cyan-600 dark:text-cyan-400 align-middle">${team.krRatio}</td>`;
                 } else {
-                    rowContent = `<td class="p-3 font-black text-2xl text-center align-middle">${rank}</td><td class="p-3 font-bold text-lg align-middle">${team.name}</td><td class="p-3 text-center font-semibold text-green-600 dark:text-green-400 text-lg align-middle">${team.booyah||0}</td><td class="p-3 text-center font-semibold text-cyan-600 dark:text-cyan-400 text-lg align-middle">${team.killPoints||0}</td><td class="p-3 text-center font-semibold text-gray-600 dark:text-gray-400 text-lg align-middle">${team.positions||"-"}</td><td class="p-3 text-center font-semibold text-blue-600 dark:text-blue-400 text-lg align-middle">${team.positionPoints||0}</td><td class="p-3 text-center font-bold text-xl text-yellow-500 dark:text-yellow-400 align-middle">${team.totalPoints}</td>`;
+                    rowContent = `<td class="p-3 font-black text-2xl text-center align-middle">${rank}</td><td class="p-3 font-bold text-lg align-middle team-name-cell">${team.name}</td><td class="p-3 text-center font-semibold text-green-600 dark:text-green-400 text-lg align-middle">${team.booyah||0}</td><td class="p-3 text-center font-semibold text-cyan-600 dark:text-cyan-400 text-lg align-middle">${team.killPoints||0}</td><td class="p-3 text-center font-semibold text-gray-600 dark:text-gray-400 text-lg align-middle">${team.positions||"-"}</td><td class="p-3 text-center font-semibold text-blue-600 dark:text-blue-400 text-lg align-middle">${team.positionPoints||0}</td><td class="p-3 text-center font-bold text-xl text-yellow-500 dark:text-yellow-400 align-middle">${team.totalPoints}</td>`;
                 }
                 row.innerHTML = rowContent;
                 row.addEventListener("click", () => showPlayerStatsModal(team, rank));
