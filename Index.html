@@ -84,9 +84,11 @@
         #landing-page.fade-out { opacity: 0; pointer-events: none; }
         .landing-footer { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10; text-align: center; }
         .landing-footer p { font-size: 0.75rem; }
-        .footer-controls { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 0.5rem; }
-        .control-button { background: transparent; border: 1px solid var(--text-light); color: var(--text-light); width: 32px; height: 32px; border-radius: 50%; transition: all 0.3s ease; }
+        .top-left-controls { position: absolute; top: 20px; left: 20px; z-index: 10; }
+        .top-right-controls { position: absolute; top: 20px; right: 20px; z-index: 10; display: flex; gap: 0.5rem; }
+        .control-button { background: var(--bg-card); backdrop-filter: blur(5px); border: 1px solid var(--border-color); color: var(--text-light); width: 40px; height: 40px; border-radius: 50%; transition: all 0.3s ease; }
         .control-button:hover { background: var(--text-light); color: var(--bg-main); }
+        .bput-badge { background: var(--bg-card); backdrop-filter: blur(5px); border: 1px solid var(--border-color); color: var(--text-dark); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron'; font-weight: 900; }
 
         /* --- Leaderboard View & Other Styles --- */
         #leaderboard-view { position: fixed; inset: 0; z-index: 100; opacity: 0; visibility: hidden; background-color: var(--bg-main); transition: opacity var(--transition-speed) ease-in-out, visibility var(--transition-speed) ease-in-out; overflow-y: auto; }
@@ -173,6 +175,11 @@
         <audio id="background-audio" loop>
             <source src="https://res.cloudinary.com/dqh7olosv/video/upload/v1753927171/35a0-8af6-42b3-9f52-4fa5834621e6_yeq3wv.mp3" type="audio/mpeg">
         </audio>
+        <div class="top-left-controls"><div class="bput-badge">B</div></div>
+        <div class="top-right-controls">
+            <button id="sound-toggle" class="control-button"><i class="fas fa-volume-mute"></i></button>
+            <button id="theme-toggle" class="control-button"><i class="fas fa-sun"></i></button>
+        </div>
         <div class="center-title"><h1>BPUT E-Sports Tournament</h1></div>
         <section id="cs-section" class="mode-section">
             <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923088060_zzuumi&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
@@ -186,10 +193,6 @@
         <footer class="landing-footer">
             <p class="text-sm" style="color: var(--text-light);">Last Updated: <span id="last-updated"></span></p>
             <p class="text-xs mt-1" style="color: var(--text-light);">Designed by <a href="https://www.instagram.com/rudraprasad._?igsh=MXV4bjZ2eWtlcXpsdg==" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition-colors">rudraprasad._</a></p>
-            <div class="footer-controls">
-                <button id="sound-toggle" class="control-button"><i class="fas fa-volume-mute"></i></button>
-                <button id="theme-toggle" class="control-button"><i class="fas fa-sun"></i></button>
-            </div>
         </footer>
     </main>
 
