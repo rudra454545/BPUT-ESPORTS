@@ -63,15 +63,23 @@
         /* --- Landing Page (NEW 3D Card Layout) --- */
         #landing-page {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             width: 100%;
-            gap: 2vw;
+            gap: 1.5rem;
             padding: 2rem;
             perspective: 2500px;
             background: var(--bg-main);
             transition: opacity var(--transition-speed) ease-in-out, background-color 0.5s ease;
+        }
+        .landing-cards-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2vw;
+            width: 100%;
         }
         .mode-section {
             position: relative;
@@ -122,41 +130,76 @@
             color: #fff;
             text-shadow: 0 0 10px rgba(0,0,0,0.7);
         }
-        .mode-section .tagline { font-family: 'Exo 2', sans-serif; font-size: clamp(1rem, 2vw, 1.25rem); margin-top: 1rem; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s; color: #fff; }
-        .mode-section .view-btn { margin-top: 2rem; padding: 0.75rem 2rem; border: 2px solid #fff; color: #fff; border-radius: 50px; text-transform: uppercase; font-weight: bold; background: rgba(0,0,0,0.2); backdrop-filter: blur(5px); opacity: 0; transform: translateY(20px); transition: all 0.5s ease 0.3s; }
+        .mode-section .tagline { font-family: 'Exo 2', font-size: clamp(1rem, 2vw, 1.25rem); margin-top: 1rem; color: #fff; }
         
         /* New Hover/Split/3D Effect */
-        #landing-page:hover .mode-section {
+        .landing-cards-container:hover .mode-section {
              box-shadow: 0 25px 50px -12px var(--shadow-color);
         }
-        #landing-page:hover #cs-section {
-            transform: translateX(-8%) rotateY(-8deg);
+        .landing-cards-container:hover #cs-section {
+            transform: translateX(-5%) rotateY(-6deg);
         }
-        #landing-page:hover #br-section {
-            transform: translateX(8%) rotateY(8deg);
+        .landing-cards-container:hover #br-section {
+            transform: translateX(5%) rotateY(6deg);
         }
         .mode-section:hover {
-            transform: translateZ(80px) scale(1.08) !important;
+            transform: translateZ(60px) scale(1.05) !important;
             box-shadow: 0 30px 60px -10px var(--shadow-color);
         }
-        #landing-page:hover .mode-section:not(:hover) {
+        .landing-cards-container:hover .mode-section:not(:hover) {
             filter: brightness(0.6); /* Shade effect */
-            transform: scale(0.95);
+            transform: scale(0.98);
         }
         .mode-section:hover .bg-video {
             filter: grayscale(0%) brightness(1);
             transform: scale(1.15);
         }
-        .mode-section:hover .tagline, .mode-section:hover .view-btn {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        #cs-section:hover .view-btn { background: var(--accent-blue); border-color: var(--accent-blue); }
-        #br-section:hover .view-btn { background: var(--accent-purple); border-color: var(--accent-purple); }
         #cs-section:hover h2 { color: var(--accent-blue); text-shadow: 0 0 15px var(--accent-blue); }
         #br-section:hover h2 { color: var(--accent-purple); text-shadow: 0 0 15px var(--accent-purple); }
 
-        .center-title { position: absolute; top: 5%; left: 50%; transform: translateX(-50%); z-index: 10; text-align: center; pointer-events: none; }
+        /* New 3D Buttons Below Cards */
+        .landing-buttons-container {
+            display: flex;
+            gap: 2rem;
+            margin-top: -1rem; /* Pulls buttons up slightly */
+            z-index: 20;
+        }
+        .view-btn-3d {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.75rem 2.5rem;
+            border-radius: 50px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+        }
+        .view-btn-3d.cs-btn {
+            background: var(--accent-blue);
+            box-shadow: 0 5px 0 #1D4ED8;
+        }
+        .view-btn-3d.br-btn {
+            background: var(--accent-purple);
+            box-shadow: 0 5px 0 #5B21B6;
+        }
+        .view-btn-3d:hover {
+            transform: translateY(-2px);
+        }
+        .view-btn-3d:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #1D4ED8;
+        }
+        .view-btn-3d.br-btn:active {
+            box-shadow: 0 2px 0 #5B21B6;
+        }
+        html.dark .view-btn-3d.cs-btn { box-shadow: 0 5px 0 #2563EB; }
+        html.dark .view-btn-3d.br-btn { box-shadow: 0 5px 0 #7C3AED; }
+        html.dark .view-btn-3d.cs-btn:active { box-shadow: 0 2px 0 #1D4ED8; }
+        html.dark .view-btn-3d.br-btn:active { box-shadow: 0 2px 0 #6D28D9; }
+
+        .center-title { position: absolute; top: 2%; left: 50%; transform: translateX(-50%); z-index: 10; text-align: center; pointer-events: none; }
         .center-title h1 { font-family: 'Orbitron'; font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 900; text-transform: uppercase; color: var(--text-dark); }
         html.dark .center-title h1 { color: var(--accent-purple); text-shadow: 0 0 10px var(--accent-purple); }
         
@@ -195,7 +238,7 @@
         .scroller { overflow: hidden; perspective: 1000px; }
         .scroller__inner { display: flex; flex-wrap: nowrap; gap: 2rem; width: max-content; }
         .scroller:hover .scroller__inner { animation-play-state: paused; }
-        .leader-scroller .scroller__inner { animation: scroll-leaders 30s linear infinite; }
+        .leader-scroller .scroller__inner { animation: scroll-leaders 40s linear infinite; }
         @keyframes scroll-leaders { to { transform: translate(calc(-50% - 1rem)); } }
         #map-scroller .scroller__inner { transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); }
         .map-card { transition: transform 0.4s ease, opacity 0.4s ease; transform: scale(0.9); opacity: 0.7; width: 300px; height: 450px; background-size: cover; background-position: center; border-radius: 1rem; border: 1px solid var(--border-color); position: relative; overflow: hidden; flex-shrink: 0; box-shadow: 0 10px 15px -3px var(--shadow-color); }
@@ -219,13 +262,13 @@
         .modal-player-row { opacity: 0; transform: translateX(-20px); animation: slide-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
         @keyframes slide-in { to { opacity: 1; transform: translateX(0); } }
         .role-icon { font-size: 1.1rem; margin-right: 0.5rem; width: 20px; text-align: center; display: inline-block; }
-        .matchup-card { background-color: var(--bg-card); border: 1px solid var(--border-color); backdrop-filter: blur(10px); border-radius: 1rem; padding: 2rem; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; transition: all 0.4s ease; cursor: pointer; box-shadow: 0 10px 15px -3px var(--shadow-color); }
-        .matchup-card:hover { transform: translateY(-10px) rotateX(5deg) scale(1.03); box-shadow: 0 25px 50px -12px var(--shadow-color); border-color: var(--accent-blue); }
+        .matchup-card, .final-match-card { background-color: var(--bg-card); border: 1px solid var(--border-color); backdrop-filter: blur(10px); border-radius: 1rem; padding: 2rem; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; transition: all 0.4s ease; cursor: pointer; box-shadow: 0 10px 15px -3px var(--shadow-color); flex-shrink: 0; width: 400px; }
+        .matchup-card:hover, .final-match-card:hover { transform: translateY(-10px) rotateX(5deg) scale(1.03); box-shadow: 0 25px 50px -12px var(--shadow-color); border-color: var(--accent-blue); }
         .matchup-team { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; text-align: center; flex: 1; }
         .vs-glow { font-size: 3rem; font-weight: 900; color: var(--text-dark); }
         #match-details-modal-overlay { position: fixed; inset: 0; z-index: 3000; background: rgba(10, 10, 20, 0.6); backdrop-filter: blur(8px) saturate(150%); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; }
         #match-details-modal-overlay.active { opacity: 1; visibility: visible; }
-        #match-details-modal { background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 1rem; width: 90%; max-width: 700px; text-align: center; transform: scale(0.9); opacity: 0; transition: transform 0.4s ease, opacity 0.4s ease; }
+        #match-details-modal { background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: 1rem; width: 90%; max-width: 800px; text-align: center; transform: scale(0.9); opacity: 0; transition: transform 0.4s ease, opacity 0.4s ease; }
         #match-details-modal-overlay.active #match-details-modal { transform: scale(1); opacity: 1; }
         .live-button { display: inline-block; margin-top: 1.5rem; padding: 0.75rem 2.5rem; background: #ef4444; color: white; font-family: 'Orbitron'; text-transform: uppercase; border-radius: 50px; transition: all 0.3s ease; }
         .live-button:hover { background: #dc2626; transform: scale(1.05); box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
@@ -275,14 +318,21 @@
         </div>
         <div class="center-title"><h1>BPUT E-Sports Tournament</h1></div>
         
-        <section id="cs-section" class="mode-section">
-            <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923088060_zzuumi&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true&aspect_ratio=16:9&gravity=center&crop=fill" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
-            <div class="content"><h2>Clash<br>Squad</h2><p class="tagline">4v4 Fast-Paced Combat</p><button class="view-btn">View Standings</button></div>
-        </section>
-        <section id="br-section" class="mode-section">
-             <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923870811_f31nl9&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true&aspect_ratio=16:9&gravity=center&crop=fill" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
-            <div class="content"><h2>Battle<br>Royale</h2><p class="tagline">The Ultimate Survival Challenge</p><button class="view-btn">View Standings</button></div>
-        </section>
+        <div class="landing-cards-container">
+            <section id="cs-section" class="mode-section">
+                <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923088060_zzuumi&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true&aspect_ratio=16:9&gravity=center&crop=fill" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
+                <div class="content"><h2>Clash<br>Squad</h2><p class="tagline">4v4 Fast-Paced Combat</p></div>
+            </section>
+            <section id="br-section" class="mode-section">
+                 <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923870811_f31nl9&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true&aspect_ratio=16:9&gravity=center&crop=fill" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
+                <div class="content"><h2>Battle<br>Royale</h2><p class="tagline">The Ultimate Survival Challenge</p></div>
+            </section>
+        </div>
+
+        <div class="landing-buttons-container">
+            <button id="cs-view-btn" class="view-btn-3d cs-btn">CS Standings</button>
+            <button id="br-view-btn" class="view-btn-3d br-btn">BR Standings</button>
+        </div>
 
         <div class="quotes-container"><p id="quotes-text" class="quote active"></p></div>
         <footer class="landing-footer">
@@ -298,21 +348,22 @@
             <div class="w-full max-w-7xl mx-auto p-4">
                 <header class="text-center my-8"><h1 class="font-orbitron text-4xl md:text-6xl font-black uppercase tracking-wider">CS Tournament Standings</h1></header>
                 <div class="bg-bg-card backdrop-blur-sm border border-border-color rounded-2xl shadow-lg overflow-hidden mb-16"><div class="overflow-x-auto"><table class="w-full text-text-dark"><thead class="bg-gray-100 dark:bg-gray-800"><tr class="text-left"><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light">Rank</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light">Team</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Booyah</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Loss</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center hidden sm:table-cell">W/L(Rounds)</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Kills</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">K/R Ratio</th></tr></thead><tbody id="cs-leaderboard-body" class="text-text-dark"></tbody></table></div></div>
-                <section id="cs-qualifiers-section" class="mb-16">
-                    <header class="text-center mb-12"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">Qualification Matches</h2></header>
-                    <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="matchup-card" data-match-id="1"><div class="matchup-team text-cyan-500">BRBO</div><div class="vs-glow">VS</div><div class="matchup-team text-orange-500">Utkal Warriors</div></div>
-                        <div class="matchup-card" data-match-id="2"><div class="matchup-team text-green-500">Team Survive</div><div class="vs-glow">VS</div><div class="matchup-team text-yellow-500">Team Exclusive</div></div>
-                        <div class="matchup-card lg:col-span-2" data-match-id="3"><div class="matchup-team text-yellow-500">Team Exclusive</div><div class="vs-glow">VS</div><div class="matchup-team text-orange-500">Utkal Warriors</div></div>
+                
+                <section id="cs-finals-section" class="mb-16 reveal-on-scroll">
+                    <header class="text-center mb-12"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">Grand Finals (Best of 3)</h2></header>
+                    <div class="scroller leader-scroller" id="cs-finals-scroller">
+                        <div id="cs-finals-container" class="scroller__inner"></div>
                     </div>
                 </section>
+
                 <section id="cs-semifinal-section" class="mb-16 reveal-on-scroll">
-                    <header class="text-center mb-12"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">Semi Final</h2></header>
+                    <header class="text-center mb-12"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">Semi Finals</h2></header>
                     <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div class="matchup-card" data-match-id="sf1"><div class="matchup-team text-cyan-500">BRBO</div><div class="vs-glow">VS</div><div class="matchup-team text-green-500">Team Survive</div></div>
-                        <div class="matchup-card" data-match-id="sf2"><div class="matchup-team text-yellow-500">Team Exclusive</div><div class="vs-glow">VS</div><div id="sf1-loser-name" class="matchup-team text-gray-500">SF1 Losing Team</div></div>
+                        <div class="matchup-card" data-match-id="sf2"><div class="matchup-team text-yellow-500">Team Exclusive</div><div class="vs-glow">VS</div><div class="matchup-team text-green-500">Team Survive</div></div>
                     </div>
                 </section>
+
                 <section class="mb-16"><header class="text-center mb-8"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">CS Kill Leaders</h2></header><div class="scroller leader-scroller" id="cs-kill-leaders-scroller"><div id="cs-kill-leaders-container" class="scroller__inner"></div></div></section>
             </div>
         </div>
@@ -340,7 +391,21 @@
         // --- DATA ---
         const createPlayers = () => Array(5).fill(null).map((_, i) => ({ ign: `Player ${i+1}`, role: 'N/A', kills: 0, roundsPlayed: 0 }));
         const csTeamData = [ { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, loss: 1, winRounds: 24, lossRounds: 17, kills: 110, players: [ { ign: 'Rajesh', role: 'IGL', kills: 26 + 6, roundsPlayed: 41 }, { ign: 'Rinku', role: 'Rusher', kills: 25 + 4, roundsPlayed: 41 }, { ign: 'Amrit', role: 'Rusher/Supporter', kills: 31 + 5, roundsPlayed: 41 }, { ign: 'Anirudh', role: 'Rusher', kills: 15 + 15, roundsPlayed: 41 }, { ign: 'Babroo', role: 'Supporter', kills: 13, roundsPlayed: 41 }, ]}, { name: 'Team Exclusive', booyah: 2, loss: 2, winRounds: 20, lossRounds: 17, kills: 93, players: [ { ign: 'Rudra', role: 'Rusher/Supporter', kills: 16 + 1 + 9, roundsPlayed: 37 }, { ign: 'Aditya', role: 'Rusher', kills: 25 + 1 + 8, roundsPlayed: 37 }, { ign: 'Sovan', role: 'Sniper', kills: 28 + 4 + 8, roundsPlayed: 37 }, { ign: 'Chiku', role: 'IGL', kills: 23 + 3 + 6, roundsPlayed: 37 }, { ign: 'Player 5', role: 'N/A', kills: 0, roundsPlayed: 0 }, ]}, { name: 'Team Survive', booyah: 4, loss: 0, winRounds: 28, lossRounds: 13, kills: 114, players: [ { ign: 'Ashirbad', role: 'Rusher', kills: 26 + 9, roundsPlayed: 41 }, { ign: 'Dibya', role: 'IGL', kills: 35 + 8, roundsPlayed: 41 }, { ign: 'Mohit', role: 'Rusher', kills: 33 + 8, roundsPlayed: 41 }, { ign: 'Nihar', role: 'Rusher/Supporter', kills: 7, roundsPlayed: 41 }, { ign: 'Amit', role: 'Supporter', kills: 13 + 5, roundsPlayed: 41 }, ]}, { name: 'Bengali Warriors', booyah: 2, loss: 2, winRounds: 18, lossRounds: 30, kills: 87, players: createPlayers() }, { name: 'Utkal Warriors', booyah: 2, loss: 2, winRounds: 23, lossRounds: 19, kills: 104, players: [ { ign: 'Anup', role: 'Rusher/Sniper', kills: 28 + 6 + 12, roundsPlayed: 42 }, { ign: 'Pritam', role: 'Rusher', kills: 22 + 4 + 7, roundsPlayed: 42 }, { ign: 'Chandan', role: 'IGL', kills: 30 + 0 + 6, roundsPlayed: 42 }, { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 26 + 1 + 6, roundsPlayed: 42 }, { ign: 'Player 5', role: 'N/A', kills: 0, roundsPlayed: 0 }, ]}, { name: 'Team Phoenix', booyah: 0, loss: 4, winRounds: 13, lossRounds: 28, kills: 76, players: [ { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 20, roundsPlayed: 41 }, { ign: 'OSH !!', role: 'RUSHHER', kills: 24, roundsPlayed: 41 }, { ign: 'Mr.Arpitt', role: 'ASSAULTER', kills: 7, roundsPlayed: 41 }, { ign: 'Srikanta', role: 'RUSHHER', kills: 13, roundsPlayed: 41 }, { ign: 'Sushobhan', role: 'ASSAULTER', kills: 10, roundsPlayed: 41 }, ]}, { name: 'Venom Ragers', booyah: 1, loss: 3, winRounds: 11, lossRounds: 21, kills: 65, players: createPlayers() }, ];
-        const brTeamData = [ { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, killPoints: 34, positions: '1/1/6/1', positionPoints: 41, players: [ { ign: 'Rajesh', role: 'IGL', kills: 7 }, { ign: 'Rinku', role: 'Rusher', kills: 12 }, { ign: 'Amrit', role: 'Rusher/Supporter', kills: 7 }, { ign: 'Anirudh', role: 'Rusher', kills: 8 }, { ign: 'Babroo', role: 'Supporter', kills: 0 }, ]}, { name: 'Bengali Warriors', booyah: 0, killPoints: 9, positions: '3/2/5/3', positionPoints: 31, players: createPlayers() }, { name: 'Team Exclusive', booyah: 0, killPoints: 22, positions: '2/5/3/7', positionPoints: 27, players: [ { ign: 'Rudra', role: 'Rusher/Supporter', kills: 0 }, { ign: 'Aditya', role: 'Rusher', kills: 7 }, { ign: 'Sovan', role: 'Sniper', kills: 9 }, { ign: 'Chiku', role: 'IGL', kills: 6 }, { ign: 'Player 5', role: 'N/A', kills: 0 }, ]}, { name: 'Team Phoenix', booyah: 0, killPoints: 4, positions: '6/4/7/6', positionPoints: 21, players: [ { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 2 }, { ign: 'OSH !!', role: 'RUSHHER', kills: 0 }, { ign: 'Mr.Arpitt', role: 'ASSAULTER', kills: 1 }, { ign: 'Srikanta', role: 'RUSHHER', kills: 1 }, { ign: 'Sushobhan', role: 'ASSAULTER', kills: 0 }, ]}, { name: 'Team Survive', booyah: 0, killPoints: 13, positions: '4/7/2/5', positionPoints: 26, players: [ { ign: 'Ashirbad', role: 'Rusher', kills: 3 }, { ign: 'Dibya', role: 'IGL', kills: 3 }, { ign: 'Mohit', role: 'Rusher', kills: 7 }, { ign: 'Nihar', role: 'Rusher/Supporter', kills: 0 }, { ign: 'Amit', role: 'Supporter', kills: 0 }, ]}, { name: 'Utkal Warriors', booyah: 0, killPoints: 13, positions: '5/6/4/4', positionPoints: 25, players: [ { ign: 'Anup', role: 'Rusher/Sniper', kills: 1 }, { ign: 'Pritam', role: 'Rusher', kills: 5 }, { ign: 'Chandan', role: 'IGL', kills: 1 }, { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 6 }, { ign: 'Player 5', role: 'N/A', kills: 0 }, ]}, { name: 'Venom Ragers', booyah: 1, killPoints: 14, positions: '7/3/1/2', positionPoints: 33, players: createPlayers() }, ];
+        
+        // UPDATED BR DATA
+        const brTeamData = [ 
+            { name: 'Barsha Ranira Bhiga Odhani', positions: '1/1/6/1/4/2/1/1', killPoints: 63, positionPoints: 81, players: [ { ign: 'Rajesh', role: 'IGL', kills: 7 }, { ign: 'Rinku', role: 'Rusher', kills: 12 }, { ign: 'Amrit', role: 'Rusher/Supporter', kills: 7 }, { ign: 'Anirudh', role: 'Rusher', kills: 8 }, { ign: 'Babroo', role: 'Supporter', kills: 0 }, ]}, 
+            { name: 'Bengali Warriors', positions: '3/2/5/3/5/3/2/7', killPoints: 23, positionPoints: 58, players: createPlayers() }, 
+            { name: 'Team Exclusive', positions: '2/5/3/7/7/7/7/3', killPoints: 32, positionPoints: 47, players: [ { ign: 'Rudra', role: 'Rusher/Supporter', kills: 0 }, { ign: 'Aditya', role: 'Rusher', kills: 7 }, { ign: 'Sovan', role: 'Sniper', kills: 9 }, { ign: 'Chiku', role: 'IGL', kills: 6 }, { ign: 'Player 5', role: 'N/A', kills: 0 }, ]}, 
+            { name: 'Team Phoenix', positions: '6/4/7/6/1/1/6/4', killPoints: 27, positionPoints: 57, players: [ { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 2 }, { ign: 'OSH !!', role: 'RUSHHER', kills: 0 }, { ign: 'Mr.Arpitt', role: 'ASSAULTER', kills: 1 }, { ign: 'Srikanta', role: 'RUSHHER', kills: 1 }, { ign: 'Sushobhan', role: 'ASSAULTER', kills: 0 }, ]}, 
+            { name: 'Team Survive', positions: '5/6/4/4/2/6/5/2', killPoints: 35, positionPoints: 55, players: [ { ign: 'Ashirbad', role: 'Rusher', kills: 3 }, { ign: 'Dibya', role: 'IGL', kills: 3 }, { ign: 'Mohit', role: 'Rusher', kills: 7 }, { ign: 'Nihar', role: 'Rusher/Supporter', kills: 0 }, { ign: 'Amit', role: 'Supporter', kills: 0 }, ]}, 
+            { name: 'Utkal Warriors', positions: '5/6/4/4/3/4/3/5', killPoints: 13, positionPoints: 54, players: [ { ign: 'Anup', role: 'Rusher/Sniper', kills: 1 }, { ign: 'Pritam', role: 'Rusher', kills: 5 }, { ign: 'Chandan', role: 'IGL', kills: 1 }, { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 6 }, { ign: 'Player 5', role: 'N/A', kills: 0 }, ]}, 
+            { name: 'Venom Ragers', positions: '7/3/1/2/6/5/4/6', killPoints: 19, positionPoints: 56, players: createPlayers() }, 
+        ].map(team => ({
+            ...team,
+            booyah: (team.positions.match(/1/g) || []).length
+        }));
+
         const mapData = [ { matchNumber: 1, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg', booyah: 'BRBO', kills: 16, mvp: { name: 'BG RAJ', kills: 17, team: 'BRBO' } }, { matchNumber: 2, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg', booyah: 'BRBO', kills: 9, mvp: { name: 'ARJIT', kills: null, team: 'BW' } }, { matchNumber: 3, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg', booyah: 'Venom Ragers', kills: 7, mvp: { name: 'SWAPNIL', kills: null, team: 'UW' } }, { matchNumber: 4, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg', booyah: 'BRBO', kills: 8, mvp: { name: 'RYL♡RINKU', kills: null, team: 'BRBO' } }, { matchNumber: 5, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg' }, { matchNumber: 6, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg' }, { matchNumber: 7, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg' }, { matchNumber: 8, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg' }, { matchNumber: 9, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg' }, { matchNumber: 10, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg' }, { matchNumber: 11, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg' }, { matchNumber: 12, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg' }, ];
         let csKillLeaders = [];
         let brKillLeaders = [];
@@ -348,8 +413,24 @@
             '1': { title: "BRBO Won", replayLink: "https://www.youtube.com/live/6KwRXOGBC3E?si=547-ZbB2NLcnZ9wj", teams: { teamA: { name: "Barsha Ranira Bhiga Odhani", players: [ { name: "Anirudh", kills: 15, dmg: 4267 }, { name: "Rajesh", kills: 6, dmg: 2912 }, { name: "Amrit", kills: 5, dmg: 2770 }, { name: "Rinku", kills: 4, dmg: 3156 } ] }, teamB: { name: "Utkal Warriors", players: [ { name: "Anup", kills: 6, dmg: 4876 }, { name: "Pritam", kills: 4, dmg: 2260 }, { name: "Swapnil", kills: 1, dmg: 1582 }, { name: "Chandan", kills: 0, dmg: 1266 } ] } } },
             '2': { title: "Team Survive Won By 7-1", replayLink: "https://youtube.com/@bg_raj_17_live?si=-ZkrtXszMHSpVzk0", teams: { teamA: { name: "Team Survive", players: [ { name: "Ashirbad", kills: 9, dmg: 2426 }, { name: "Mohit", kills: 8, dmg: 3850 }, { name: "Dibya", kills: 8, dmg: 3328 }, { name: "Amit", kills: 5, dmg: 2047 } ] }, teamB: { name: "Team Exclusive", players: [ { name: "Sovan", kills: 4, dmg: 3857 }, { name: "Chiku", kills: 3, dmg: 2484 }, { name: "Aditya", kills: 1, dmg: 2217 }, { name: "Rudra", kills: 1, dmg: 2105 } ] } } },
             '3': { title: "Team Exclusive Won By 7-6", tag: "Do or Die Match", replayLink: "https://www.youtube.com/live/kjig76NwyBw?si=P0HlrWxTWgGeS5re", teams: { teamA: { name: "Team Exclusive", players: [ { name: "Rudra", kills: 9, dmg: 4242 }, { name: "Aditya", kills: 8, dmg: 5623 }, { name: "Sovan", kills: 8, dmg: 5569 }, { name: "Chiku", kills: 6, dmg: 3144 } ] }, teamB: { name: "Utkal Warriors", players: [ { name: "Anup", kills: 12, dmg: 5896 }, { name: "Pritam", kills: 7, dmg: 3462 }, { name: "Chandan", kills: 6, dmg: 3851 }, { name: "Swapnil", kills: 6, dmg: 3633 } ] } } },
-            'sf1': { title: "BRBO vs Team Survive", liveLink: "https://youtube.com/@bg_raj_17_live?si=-ZkrtXszMHSpVzk0", winner: "BRBO", teams: { teamA: { name: "Barsha Ranira Bhiga Odhani", players: csTeamData.find(t => t.name === 'Barsha Ranira Bhiga Odhani').players }, teamB: { name: "Team Survive", players: csTeamData.find(t => t.name === 'Team Survive').players } } },
-            'sf2': { title: "Team Exclusive vs SF1 Losing Team", liveLink: "https://youtube.com/@bg_raj_17_live?si=-ZkrtXszMHSpVzk0", teams: { teamA: { name: "Team Exclusive", players: csTeamData.find(t => t.name === 'Team Exclusive').players }, teamB: { name: "SF1 Losing Team", players: [ { ign: 'P1', role: 'N/A'}, { ign: 'P2', role: 'N/A'}, { ign: 'P3', role: 'N/A'}, { ign: 'P4', role: 'N/A'}, { ign: 'P5', role: 'N/A'} ] } } }
+            'sf1': { 
+                title: "BRBO Won By 7-1", 
+                winner: "BRBO",
+                replayLink: "https://youtube.com/@bg_raj_17_live?si=-ZkrtXszMHSpVzk0",
+                teams: { 
+                    teamA: { name: "Barsha Ranira Bhiga Odhani", players: [ { name: "Rajesh", kda: "5/2/3", dmg: 4003 }, { name: "Anirudh", kda: "6/2/7", dmg: 3685 }, { name: "Amrit", kda: "5/2/5", dmg: 1169 }, { name: "Rinku", kda: "6/2/3", dmg: 1900 } ] }, 
+                    teamB: { name: "Team Survive", players: [ { name: "Dibya", kda: "0/7/3", dmg: 1870 }, { name: "Nihal", kda: "3/7/2", dmg: 2228 }, { name: "Ashirbad", kda: "2/7/2", dmg: 2126 }, { name: "Mukesh", kda: "3/7/1", dmg: 1813 } ] } 
+                } 
+            },
+            'sf2': { 
+                title: "Team Exclusive Won By 7-6", 
+                winner: "Team Exclusive",
+                replayLink: "https://youtube.com/@bg_raj_17_live?si=-ZkrtXszMHSpVzk0",
+                teams: { 
+                    teamA: { name: "Team Exclusive", players: [ { name: "Aditya", kda: "12/7/10", dmg: 4117 }, { name: "Chiku", kda: "9/7/10", dmg: 3963 }, { name: "Sovan", kda: "8/7/12", dmg: 5629 }, { name: "Rudra", kda: "5/9/10", dmg: 3226 } ] }, 
+                    teamB: { name: "Team Survive", players: [ { name: "Dibya", kda: "12/7/7", dmg: 5720 }, { name: "Ashirbad", kda: "6/9/7", dmg: 4115 }, { name: "Mohit", kda: "6/8/9", dmg: 3665 }, { name: "Mukesh", kda: "6/10/6", dmg: 3219 } ] } 
+                } 
+            }
         };
 
         // --- JS Functions ---
@@ -401,18 +482,40 @@
         }
         function createMapHighlights() { const container=document.getElementById("map-highlights-container"); if(!container) return; container.innerHTML=""; mapData.forEach(map=>{ const card=document.createElement("div"); card.className="map-card"; card.style.backgroundImage=`url('${map.img}')`; let mvpHtml=map.mvp?`<div class="pt-2"><p class="font-bold text-yellow-400 text-xl">MVP</p><p class="font-semibold">${map.mvp.name} (${map.mvp.team})</p>${map.mvp.kills?`<p class="font-semibold text-sm text-gray-300">Kills: ${map.mvp.kills}</p>`:""}</div>`:""; card.innerHTML=`<div class="match-badge"><span class="bg-cyan-500/80 backdrop-blur-sm text-white font-orbitron font-bold text-sm py-1 px-3 rounded-full shadow-lg border border-cyan-400/50">MATCH ${map.matchNumber}</span></div><div class="map-card-content"><h3 class="font-orbitron text-3xl font-bold uppercase tracking-wider">${map.name}</h3><div class="mt-4 space-y-2 text-lg"><p><span class="font-bold text-green-400">Booyah:</span> <span class="font-semibold">${map.booyah||""}</span></p><p><span class="font-bold text-red-400">Kills:</span> <span class="font-semibold">${map.kills||""}</span></p>${mvpHtml}</div></div>`; container.appendChild(card); }); }
         function createKillLeaderCards(data, containerId) { const container=document.getElementById(containerId); if(!container) return; container.innerHTML=""; data.forEach((player,i)=>{ const rank=i+1; let crownHtml="", nameClass=""; if(rank===1){crownHtml='<i class="fas fa-crown crown crown-gold"></i>'; nameClass="text-gold-glow";} else if(rank===2){crownHtml='<i class="fas fa-crown crown crown-silver"></i>'; nameClass="text-silver-glow";} else if(rank===3){crownHtml='<i class="fas fa-crown crown crown-bronze"></i>'; nameClass="text-bronze-glow";} else if(rank===4){nameClass="text-cyan-glow";} else if(rank===5){nameClass="text-fuchsia-glow";} const card=document.createElement("div"); card.className="kill-leader-card relative"; const kr = player.roundsPlayed > 0 ? (player.totalKills / player.roundsPlayed).toFixed(2) : "N/A"; card.innerHTML=`${crownHtml}<div class="player-icon-bg"><svg class="player-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg></div><h3 class="player-name font-exo ${nameClass}">${player.ign}</h3><p class="text-xs text-text-light">(${player.teamName})</p><div class="text-left mt-2 text-xs w-full"><p class="flex justify-between items-center"><strong class="text-red-500 font-bold">Kills:</strong> <span class="font-semibold">${player.totalKills}</span></p><p class="flex justify-between items-center"><strong class="text-purple-500 font-bold">K/R:</strong> <span class="font-semibold">${kr}</span></p></div>`; container.appendChild(card); }); }
-        function calculateKillLeaders() { const allCsPlayers=csTeamData.flatMap(team=>team.players.map(p=>({...p,teamName:team.name,totalKills:p.kills}))); const allBrPlayers=brTeamData.flatMap(team=>team.players.map(p=>({...p,teamName:team.name,totalKills:p.kills}))); csKillLeaders=allCsPlayers.sort((a,b)=>b.totalKills-a.totalKills).slice(0,10); brKillLeaders=allBrPlayers.sort((a,b)=>b.totalKills-a.totalKills).slice(0,10); }
+        function calculateKillLeaders() { const allCsPlayers=csTeamData.flatMap(team=>team.players.map(p=>({...p,teamName:team.name,totalKills:p.kills}))); const allBrPlayers=brTeamData.flatMap(team=>team.players.map(p=>({...p,teamName:team.name,totalKills:p.killPoints}))); csKillLeaders=allCsPlayers.sort((a,b)=>b.totalKills-a.totalKills).slice(0,10); brKillLeaders=allBrPlayers.sort((a,b)=>b.totalKills-a.totalKills).slice(0,10); }
         function setupPausingScroller(scrollerId) { const scroller=document.getElementById(scrollerId); if(!scroller) return; const inner=scroller.querySelector(".scroller__inner"); if(!inner||inner.children.length===0) return; const originalCards=Array.from(inner.children); originalCards.forEach(card=>inner.appendChild(card.cloneNode(true))); let currentIndex=0; let timeoutId; function advance() { const cards=Array.from(inner.children); const activeCard=cards[currentIndex]; const scrollAmount=activeCard.offsetLeft+activeCard.offsetWidth/2-scroller.offsetWidth/2; inner.style.transform=`translateX(-${scrollAmount}px)`; cards.forEach(c=>c.classList.remove("is-active")); activeCard.classList.add("is-active"); currentIndex++; if(currentIndex>=originalCards.length) { setTimeout(()=>{ inner.style.transition="none"; currentIndex=0; const resetScrollAmount=cards[0].offsetLeft+cards[0].offsetWidth/2-scroller.offsetWidth/2; inner.style.transform=`translateX(-${resetScrollAmount}px)`; setTimeout(()=>{inner.style.transition="transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)"},50); },800); } timeoutId=setTimeout(advance,2500); } advance(); scroller.addEventListener("mouseenter",()=>clearTimeout(timeoutId)); scroller.addEventListener("mouseleave",()=>timeoutId=setTimeout(advance,2500)); }
         function setupContinuousScroller(containerId) { const container=document.getElementById(containerId); if(!container||container.children.length===0) return; const originalCards=Array.from(container.children); originalCards.forEach(card=>{ const clone=card.cloneNode(true); clone.setAttribute("aria-hidden",true); container.appendChild(clone); }); }
         function updateTimestamp() { const timestampEl=document.getElementById("last-updated"); if(!timestampEl) return; const now=new Date(); timestampEl.textContent=now.toLocaleString("en-IN",{weekday:"long",year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"numeric",second:"numeric",timeZone:"Asia/Kolkata",hour12:true}); }
-        function setupModalListeners() { const playerModal=document.getElementById("player-stats-modal-overlay"), closeBtn=document.getElementById("modal-close-btn"); if(playerModal) playerModal.addEventListener("click",e=>{if(e.target===playerModal) playerModal.classList.remove("active");}); if(closeBtn) closeBtn.addEventListener("click",()=>playerModal.classList.remove("active")); const matchModal=document.getElementById("match-details-modal-overlay"), matchModalContent=document.getElementById("match-details-modal"); if(matchModal) matchModal.addEventListener("click",e=>{if(e.target===matchModal) matchModal.classList.remove("active");}); document.querySelectorAll('.matchup-card').forEach(card => { card.addEventListener('click', () => { const matchId = card.dataset.matchId; const details = matchDetailsData[matchId]; const csRanks = csTeamData.map(t => t.name); if (details && details.teams) { const findMvp = (players) => players.reduce((mvp, player) => (player.kills > mvp.kills) ? player : mvp, players[0]); const teamAMvp = findMvp(details.teams.teamA.players); const teamBMvp = findMvp(details.teams.teamB.players); const teamARank = csRanks.indexOf(details.teams.teamA.name) + 1; const teamBRank = csRanks.indexOf(details.teams.teamB.name) + 1; const generatePlayerRows = (players, mvp, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${p.name === mvp.name ? '<span class="player-badge badge-mvp" title="Match MVP"><i class="fas fa-star"></i></span>' : getPlayerBadgeHtml(p.name, teamRank, teamRank <= 4)}<span>${p.name}</span></td><td class="p-2 text-center">${p.kills}</td><td class="p-2 text-center">${p.dmg}</td></tr>`).join(''); const generateUpcomingPlayerRows = (players, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${getPlayerBadgeHtml(p.ign, teamRank, teamRank <= 4)}<span>${p.ign}</span></td><td class="p-2 text-center">${p.role}</td></tr>`).join(''); if (details.liveLink) { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-green-500 font-bold uppercase tracking-widest">Starting Soon</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamA.players, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamB.players, teamBRank)}</tbody></table></div></div><a href="${details.liveLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Live</a></div>`; } else { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-red-500 font-bold uppercase tracking-widest">${details.tag || "Match Ended"}</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-yellow-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Kills</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamA.players, teamAMvp, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-orange-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Kills</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamB.players, teamBMvp, teamBRank)}</tbody></table></div></div><a href="${details.replayLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Replay</a></div>`; } } if(matchModal) matchModal.classList.add('active'); }); }); }
-        function populateSemiFinals() { const sf1_details = matchDetailsData['sf1']; if (sf1_details && sf1_details.winner) { const winnerName = sf1_details.winner; const loserTeamData = csTeamData.find(t => t.name !== winnerName && (t.name === sf1_details.teams.teamA.name || t.name === sf1_details.teams.teamB.name)); if (loserTeamData) { matchDetailsData['sf2'].teams.teamB = loserTeamData; matchDetailsData['sf2'].title = `Team Exclusive vs ${loserTeamData.name}`; const sf2_card_loser_name = document.getElementById('sf1-loser-name'); if (sf2_card_loser_name) { sf2_card_loser_name.textContent = loserTeamData.name; sf2_card_loser_name.classList.remove('text-gray-500'); sf2_card_loser_name.classList.add('text-red-500'); } } } }
+        function setupModalListeners() { const playerModal=document.getElementById("player-stats-modal-overlay"), closeBtn=document.getElementById("modal-close-btn"); if(playerModal) playerModal.addEventListener("click",e=>{if(e.target===playerModal) playerModal.classList.remove("active");}); if(closeBtn) closeBtn.addEventListener("click",()=>playerModal.classList.remove("active")); const matchModal=document.getElementById("match-details-modal-overlay"), matchModalContent=document.getElementById("match-details-modal"); if(matchModal) matchModal.addEventListener("click",e=>{if(e.target===matchModal) matchModal.classList.remove("active");}); document.querySelectorAll('.matchup-card').forEach(card => { card.addEventListener('click', () => { const matchId = card.dataset.matchId; const details = matchDetailsData[matchId]; const csRanks = csTeamData.map(t => t.name); if (details && details.teams) { const findMvp = (players) => { if (!players || players.length === 0 || !players[0].kda) return { name: '', kda: '0/0/0' }; return players.reduce((mvp, player) => (parseInt(player.kda.split('/')[0]) > parseInt(mvp.kda.split('/')[0])) ? player : mvp, players[0]); }; const teamAMvp = findMvp(details.teams.teamA.players); const teamBMvp = findMvp(details.teams.teamB.players); const teamARank = csRanks.indexOf(details.teams.teamA.name) + 1; const teamBRank = csRanks.indexOf(details.teams.teamB.name) + 1; const generatePlayerRows = (players, mvp, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${mvp && p.name === mvp.name ? '<span class="player-badge badge-mvp" title="Match MVP"><i class="fas fa-star"></i></span>' : getPlayerBadgeHtml(p.name, teamRank, teamRank <= 4)}<span>${p.name}</span></td><td class="p-2 text-center">${p.kda}</td><td class="p-2 text-center">${p.dmg}</td></tr>`).join(''); const generateUpcomingPlayerRows = (players, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${getPlayerBadgeHtml(p.ign, teamRank, teamRank <= 4)}<span>${p.ign}</span></td><td class="p-2 text-center">${p.role}</td></tr>`).join(''); if (details.liveLink) { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-green-500 font-bold uppercase tracking-widest">Starting Soon</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamA.players, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamB.players, teamBRank)}</tbody></table></div></div><a href="${details.liveLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Live</a></div>`; } else { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-red-500 font-bold uppercase tracking-widest">${details.tag || "Match Ended"}</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">K/D/A</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamA.players, teamAMvp, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">K/D/A</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamB.players, teamBMvp, teamBRank)}</tbody></table></div></div><a href="${details.replayLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Replay</a></div>`; } } if(matchModal) matchModal.classList.add('active'); }); }); }
+        function createFinalsCards() {
+            const container = document.getElementById('cs-finals-container');
+            if (!container) return;
+            container.innerHTML = ''; // Clear existing content
+            const finalTeamA = matchDetailsData.sf1.winner || 'Winner of SF1';
+            const finalTeamB = matchDetailsData.sf2.winner || 'Winner of SF2';
+
+            for (let i = 1; i <= 3; i++) {
+                const card = document.createElement('div');
+                card.className = 'final-match-card';
+                card.innerHTML = `
+                    <div class="text-center w-full">
+                        <p class="font-orbitron text-lg font-bold text-yellow-400 mb-2">Match ${i}</p>
+                        <div class="flex items-center justify-around">
+                            <div class="matchup-team text-cyan-400">${finalTeamA}</div>
+                            <div class="vs-glow">VS</div>
+                            <div class="matchup-team text-red-400">${finalTeamB}</div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+        }
 
         document.addEventListener("DOMContentLoaded", () => {
             const landingPage = document.getElementById('landing-page');
             const leaderboardView = document.getElementById('leaderboard-view');
-            const csSection = document.getElementById('cs-section');
-            const brSection = document.getElementById('br-section');
+            const csViewBtn = document.getElementById('cs-view-btn');
+            const brViewBtn = document.getElementById('br-view-btn');
             const csView = document.getElementById('cs-view');
             const brView = document.getElementById('br-view');
             const backButton = document.getElementById('back-button');
@@ -443,8 +546,8 @@
                 }, 300);
             };
 
-            csSection.addEventListener('click', () => showLeaderboard('cs'));
-            brSection.addEventListener('click', () => showLeaderboard('br'));
+            csViewBtn.addEventListener('click', () => showLeaderboard('cs'));
+            brViewBtn.addEventListener('click', () => showLeaderboard('br'));
             backButton.addEventListener('click', hideLeaderboard);
 
             bgAudio.volume = 0.5;
@@ -484,7 +587,7 @@
 
             const loader = document.getElementById('loader');
             calculateKillLeaders();
-            populateSemiFinals();
+            createFinalsCards();
             processAndDisplayLeaderboard("cs-leaderboard-body", csTeamData, true);
             processAndDisplayLeaderboard("br-leaderboard-body", brTeamData, false);
             createMapHighlights();
@@ -494,6 +597,7 @@
             setupPausingScroller("map-scroller");
             setupContinuousScroller("cs-kill-leaders-container");
             setupContinuousScroller("br-kill-leaders-container");
+            setupContinuousScroller("cs-finals-container");
             updateTimestamp();
             setInterval(updateTimestamp, 1000);
 
