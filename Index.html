@@ -320,6 +320,21 @@
         .final-match-card .final-player-list li { margin-bottom: 0.25rem; display: flex; align-items: center; }
         .final-match-card .final-player-list .player-badge { width: 1rem; height: 1rem; font-size: 0.6rem; margin-right: 0.25rem; }
 
+        /* Player Stat Card */
+        .player-stat-card {
+            background-color: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1rem;
+            transform-style: preserve-3d;
+            transition: transform 0.5s var(--transition-ease), box-shadow 0.5s ease;
+        }
+        .player-stat-card:hover {
+            transform: translateZ(20px) rotateY(5deg);
+            box-shadow: 0 20px 40px -10px var(--shadow-color);
+        }
+
         /* Reveal Animation */
         .reveal-on-scroll { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .reveal-on-scroll.revealed { opacity: 1; transform: translateY(0); }
@@ -386,6 +401,13 @@
                 <header class="text-center my-8"><h1 class="font-orbitron text-4xl md:text-6xl font-black uppercase tracking-wider">CS Tournament Standings</h1></header>
                 <div class="bg-bg-card backdrop-blur-sm border border-border-color rounded-2xl shadow-lg overflow-hidden mb-16"><div class="overflow-x-auto"><table class="w-full text-text-dark"><thead class="bg-gray-100 dark:bg-gray-800"><tr class="text-left"><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light">Rank</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light">Team</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Booyah</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Loss</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center hidden sm:table-cell">W/L(Rounds)</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Kills</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">K/R Ratio</th></tr></thead><tbody id="cs-leaderboard-body" class="text-text-dark"></tbody></table></div></div>
                 
+                <section id="cs-player-stats-section" class="mb-16 reveal-on-scroll">
+                    <header class="text-center mb-12"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">Player Statistics</h2></header>
+                    <div id="cs-player-stats-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                        <!-- Player cards will be injected here -->
+                    </div>
+                </section>
+
                 <section id="cs-finals-section" class="mb-16 reveal-on-scroll">
                     <header class="text-center mb-12"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">Grand Finals (Best of 3)</h2></header>
                     <div class="scroller leader-scroller" id="cs-finals-scroller">
@@ -502,6 +524,30 @@
                 } 
             }
         };
+        const csPlayerStats = [
+          // BRBO
+          { ign: 'Amrit', team: 'BRBO', kills: 67, deaths: 44 },
+          { ign: 'Rajesh', team: 'BRBO', kills: 63, deaths: 36 },
+          { ign: 'Anirudh', team: 'BRBO', kills: 63, deaths: 27 },
+          { ign: 'Rinku', team: 'BRBO', kills: 56, deaths: 43 },
+          { ign: 'Babroo', team: 'BRBO', kills: 13, deaths: 11 },
+          // Team Exclusive
+          { ign: 'Sovan', team: 'TE', kills: 64, deaths: 64 },
+          { ign: 'Aditya', team: 'TE', kills: 64, deaths: 66 },
+          { ign: 'Chiku', team: 'TE', kills: 41, deaths: 48 },
+          { ign: 'Rudra', team: 'TE', kills: 39, deaths: 61 },
+          // Utkal Warriors
+          { ign: 'Anup', team: 'UW', kills: 46, deaths: 45 },
+          { ign: 'Chandan', team: 'UW', kills: 36, deaths: 42 },
+          { ign: 'Swapnil', team: 'UW', kills: 33, deaths: 53 },
+          { ign: 'Pritam', team: 'UW', kills: 33, deaths: 43 },
+          // Venom Ragers
+          { ign: 'Vivek', team: 'VR', kills: 20, deaths: 25 },
+          { ign: 'Tanmay', team: 'VR', kills: 17, deaths: 27 },
+          { ign: 'Suvam', team: 'VR', kills: 16, deaths: 18 },
+          { ign: 'Sachin', team: 'VR', kills: 11, deaths: 26 },
+          { ign: 'Viper', team: 'VR', kills: 1, deaths: 8 },
+        ];
 
         // --- JS Functions ---
         function getRoleIcon(role) { const l=role.toLowerCase(); let t=""; if(l.includes("sniper")) t+='<i class="fa-solid fa-crosshairs role-icon" title="Sniper"></i>'; if(l.includes("igl")) t+='<i class="fa-solid fa-crown role-icon" title="IGL"></i>'; if(l.includes("rusher") || l.includes("assaulter")) t+='<i class="fa-solid fa-bolt role-icon" title="Rusher/Assaulter"></i>'; if(l.includes("supporter")) t+='<i class="fa-solid fa-shield-halved role-icon" title="Supporter"></i>'; if(l.includes("flanker")) t+='<i class="fa-solid fa-user-secret role-icon" title="Flanker"></i>'; return t||"N/A"; }
@@ -556,7 +602,7 @@
         function setupPausingScroller(scrollerId) { const scroller=document.getElementById(scrollerId); if(!scroller) return; const inner=scroller.querySelector(".scroller__inner"); if(!inner||inner.children.length===0) return; const originalCards=Array.from(inner.children); originalCards.forEach(card=>inner.appendChild(card.cloneNode(true))); let currentIndex=0; let timeoutId; function advance() { const cards=Array.from(inner.children); const activeCard=cards[currentIndex]; const scrollAmount=activeCard.offsetLeft+activeCard.offsetWidth/2-scroller.offsetWidth/2; inner.style.transform=`translateX(-${scrollAmount}px)`; cards.forEach(c=>c.classList.remove("is-active")); activeCard.classList.add("is-active"); currentIndex++; if(currentIndex>=originalCards.length) { setTimeout(()=>{ inner.style.transition="none"; currentIndex=0; const resetScrollAmount=cards[0].offsetLeft+cards[0].offsetWidth/2-scroller.offsetWidth/2; inner.style.transform=`translateX(-${resetScrollAmount}px)`; setTimeout(()=>{inner.style.transition="transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)"},50); },800); } timeoutId=setTimeout(advance,2500); } advance(); scroller.addEventListener("mouseenter",()=>clearTimeout(timeoutId)); scroller.addEventListener("mouseleave",()=>timeoutId=setTimeout(advance,2500)); }
         function setupContinuousScroller(containerId) { const container=document.getElementById(containerId); if(!container||container.children.length===0) return; const originalCards=Array.from(container.children); originalCards.forEach(card=>{ const clone=card.cloneNode(true); clone.setAttribute("aria-hidden",true); container.appendChild(clone); }); }
         function updateTimestamp() { const timestampEl=document.getElementById("last-updated"); if(!timestampEl) return; const now=new Date(); timestampEl.textContent=now.toLocaleString("en-IN",{weekday:"long",year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"numeric",second:"numeric",timeZone:"Asia/Kolkata",hour12:true}); }
-        function setupModalListeners() { const playerModal=document.getElementById("player-stats-modal-overlay"), closeBtn=document.getElementById("modal-close-btn"); if(playerModal) playerModal.addEventListener("click",e=>{if(e.target===playerModal) playerModal.classList.remove("active");}); if(closeBtn) closeBtn.addEventListener("click",()=>playerModal.classList.remove("active")); const matchModal=document.getElementById("match-details-modal-overlay"), matchModalContent=document.getElementById("match-details-modal"); if(matchModal) matchModal.addEventListener("click",e=>{if(e.target===matchModal) matchModal.classList.remove("active");}); document.querySelectorAll('.matchup-card, .final-match-card').forEach(card => { card.addEventListener('click', () => { const matchId = card.dataset.matchId; const details = matchDetailsData[matchId]; const csRanks = csTeamData.map(t => t.name); if (details && details.teams) { const findMvp = (players) => { if (!players || players.length === 0 || !players[0].kda) return { name: '', kda: '0/0/0' }; return players.reduce((mvp, player) => (parseInt(player.kda.split('/')[0]) > parseInt(mvp.kda.split('/')[0])) ? player : mvp, players[0]); }; const teamAMvp = findMvp(details.teams.teamA.players); const teamBMvp = findMvp(details.teams.teamB.players); const teamARank = csRanks.indexOf(details.teams.teamA.name) + 1; const teamBRank = csRanks.indexOf(details.teams.teamB.name) + 1; const generatePlayerRows = (players, mvp, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${mvp && p.name === mvp.name ? '<span class="player-badge badge-mvp" title="Match MVP"><i class="fas fa-star"></i></span>' : getPlayerBadgeHtml(p.name, teamRank, teamRank <= 4)}<span>${p.name}</span></td><td class="p-2 text-center">${p.kda}</td><td class="p-2 text-center">${p.dmg}</td></tr>`).join(''); const generateUpcomingPlayerRows = (players, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${getPlayerBadgeHtml(p.ign, teamRank, teamRank <= 4)}<span>${p.ign}</span></td><td class="p-2 text-center">${p.role}</td></tr>`).join(''); if (details.liveLink || matchId.startsWith('final')) { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-green-500 font-bold uppercase tracking-widest">${details.liveLink ? "Starting Soon" : "Upcoming"}</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamA.players, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamB.players, teamBRank)}</tbody></table></div></div>${details.liveLink ? `<a href="${details.liveLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Live</a>` : ''}</div>`; } else { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-red-500 font-bold uppercase tracking-widest">${details.tag || "Match Ended"}</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">K/D/A</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamA.players, teamAMvp, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">K/D/A</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamB.players, teamBMvp, teamBRank)}</tbody></table></div></div><a href="${details.replayLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Replay</a></div>`; } } if(matchModal) matchModal.classList.add('active'); }); }); }
+        function setupModalListeners() { const playerModal=document.getElementById("player-stats-modal-overlay"), closeBtn=document.getElementById("modal-close-btn"); if(playerModal) playerModal.addEventListener("click",e=>{if(e.target===playerModal) playerModal.classList.remove("active");}); if(closeBtn) closeBtn.addEventListener("click",()=>playerModal.classList.remove("active")); const matchModal=document.getElementById("match-details-modal-overlay"), matchModalContent=document.getElementById("match-details-modal"); if(matchModal) matchModal.addEventListener("click",e=>{if(e.target===matchModal) matchModal.classList.remove("active");}); document.querySelectorAll('.matchup-card, .final-match-card').forEach(card => { card.addEventListener('click', () => { const matchId = card.dataset.matchId; const details = matchDetailsData[matchId]; const csRanks = csTeamData.map(t => t.name); if (details && details.teams) { const findMvp = (players) => { if (!players || players.length === 0 || !players[0].kda) return { name: '', kda: '0/0/0' }; return players.reduce((mvp, player) => (parseInt(player.kda.split('/')[0]) > parseInt(mvp.kda.split('/')[0])) ? player : mvp, players[0]); }; const teamAMvp = findMvp(details.teams.teamA.players); const teamBMvp = findMvp(details.teams.teamB.players); const teamARank = csRanks.indexOf(details.teams.teamA.name) + 1; const teamBRank = csRanks.indexOf(details.teams.teamB.name) + 1; const generatePlayerRows = (players, mvp, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${mvp && p.name === mvp.name ? '<span class="player-badge badge-mvp" title="Match MVP"><i class="fas fa-star"></i></span>' : getPlayerBadgeHtml(p.name, teamRank, teamRank <= 4)}<span>${p.name}</span></td><td class="p-2 text-center">${p.kda}</td><td class="p-2 text-center">${p.dmg}</td></tr>`).join(''); const generateUpcomingPlayerRows = (players, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${getPlayerBadgeHtml(p.ign, teamRank, teamRank <= 4)}<span>${p.ign}</span></td><td class="p-2 text-center">${getRoleIcon(p.role)}</td></tr>`).join(''); if (details.liveLink || matchId.startsWith('final')) { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-green-500 font-bold uppercase tracking-widest">${details.liveLink ? "Starting Soon" : "Upcoming"}</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamA.players, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamB.players, teamBRank)}</tbody></table></div></div>${details.liveLink ? `<a href="${details.liveLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Live</a>` : ''}</div>`; } else { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-red-500 font-bold uppercase tracking-widest">${details.tag || "Match Ended"}</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">K/D/A</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamA.players, teamAMvp, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">K/D/A</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamB.players, teamBMvp, teamBRank)}</tbody></table></div></div><a href="${details.replayLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Replay</a></div>`; } } if(matchModal) matchModal.classList.add('active'); }); }); }
         function createFinalsCards() {
             const container = document.getElementById('cs-finals-container');
             if (!container) return;
@@ -586,6 +632,28 @@
                 `;
                 container.appendChild(card);
             }
+        }
+        function createPlayerStatCards() {
+            const container = document.getElementById('cs-player-stats-container');
+            if (!container) return;
+            container.innerHTML = '';
+            const sortedPlayers = [...csPlayerStats].sort((a, b) => b.kills - a.kills);
+
+            sortedPlayers.forEach(player => {
+                const kd = player.deaths > 0 ? (player.kills / player.deaths).toFixed(2) : player.kills.toFixed(2);
+                const card = document.createElement('div');
+                card.className = 'player-stat-card text-center';
+                card.innerHTML = `
+                    <h3 class="font-exo font-bold text-lg truncate">${player.ign}</h3>
+                    <p class="text-sm text-text-light font-semibold">${player.team}</p>
+                    <div class="mt-2 text-left space-y-1 text-sm">
+                        <p class="flex justify-between"><strong>Kills:</strong> <span class="font-bold text-green-500">${player.kills}</span></p>
+                        <p class="flex justify-between"><strong>Deaths:</strong> <span class="font-bold text-red-500">${player.deaths}</span></p>
+                        <p class="flex justify-between"><strong>K/D:</strong> <span class="font-bold text-blue-500">${kd}</span></p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -694,6 +762,7 @@
 
             calculateKillLeaders();
             createFinalsCards();
+            createPlayerStatCards();
             processAndDisplayLeaderboard("cs-leaderboard-body", csTeamData, true);
             processAndDisplayLeaderboard("br-leaderboard-body", brTeamData, false);
             createMapHighlights();
