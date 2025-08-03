@@ -157,47 +157,69 @@
         #cs-section:hover h2 { color: var(--accent-blue); text-shadow: 0 0 15px var(--accent-blue); }
         #br-section:hover h2 { color: var(--accent-purple); text-shadow: 0 0 15px var(--accent-purple); }
 
-        /* New 3D Buttons Below Cards */
+        /* New Cyberpunk Buttons */
         .landing-buttons-container {
             display: flex;
             gap: 2rem;
             margin-top: -1rem; /* Pulls buttons up slightly */
             z-index: 20;
         }
-        .view-btn-3d {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 0.75rem 2.5rem;
-            border-radius: 50px;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        .cyber-btn {
+            border: 3px solid;
+            padding: 17px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            background: none;
+            perspective: 1000px;
+            transition: all 0.8s;
             position: relative;
+            overflow: hidden;
+            cursor: pointer;
         }
-        .view-btn-3d.cs-btn {
-            background: var(--accent-blue);
-            box-shadow: 0 5px 0 #1D4ED8;
+        .cyber-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            z-index: -1;
+            transform-origin: 0 0;
+            transition: transform 0.8s;
+            transform: rotateX(90deg);
         }
-        .view-btn-3d.br-btn {
-            background: var(--accent-purple);
-            box-shadow: 0 5px 0 #5B21B6;
+        .cyber-btn:hover {
+            color: #0a0a0a;
+            background: transparent;
+            border: none;
+            padding: 20px 40px;
         }
-        .view-btn-3d:hover {
-            transform: translateY(-2px);
+        .cyber-btn:hover::before { transform: rotateX(0deg); }
+        .cyber-btn::after {
+            content: '»';
+            display: inline-block;
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%) rotate(0deg);
+            width: 15px;
+            height: 15px;
+            transition: right 0.8s, transform 0.8s;
+            filter: blur(1px);
+            opacity: 0;
         }
-        .view-btn-3d:active {
-            transform: translateY(3px);
-            box-shadow: 0 2px 0 #1D4ED8;
+        .cyber-btn:hover::after { right: 10px; opacity: 1; }
+        .cyber-btn:active {
+            transform: scale(0.96);
         }
-        .view-btn-3d.br-btn:active {
-            box-shadow: 0 2px 0 #5B21B6;
-        }
-        html.dark .view-btn-3d.cs-btn { box-shadow: 0 5px 0 #2563EB; }
-        html.dark .view-btn-3d.br-btn { box-shadow: 0 5px 0 #7C3AED; }
-        html.dark .view-btn-3d.cs-btn:active { box-shadow: 0 2px 0 #1D4ED8; }
-        html.dark .view-btn-3d.br-btn:active { box-shadow: 0 2px 0 #6D28D9; }
+        /* CS Button Colors */
+        .cyber-btn.cs-btn { color: var(--accent-blue); }
+        .cyber-btn.cs-btn::before { background: linear-gradient(90deg, var(--accent-blue), #60a5fa); }
+        .cyber-btn.cs-btn:hover { box-shadow: 0 0 20px var(--accent-blue), 0 0 40px var(--accent-blue), 0 0 80px var(--accent-blue); }
+        /* BR Button Colors */
+        .cyber-btn.br-btn { color: var(--accent-purple); }
+        .cyber-btn.br-btn::before { background: linear-gradient(90deg, var(--accent-purple), #c084fc); }
+        .cyber-btn.br-btn:hover { box-shadow: 0 0 20px var(--accent-purple), 0 0 40px var(--accent-purple), 0 0 80px var(--accent-purple); }
 
         .center-title { position: absolute; top: 2%; left: 50%; transform: translateX(-50%); z-index: 10; text-align: center; pointer-events: none; }
         .center-title h1 { font-family: 'Orbitron'; font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 900; text-transform: uppercase; color: var(--text-dark); }
@@ -214,8 +236,11 @@
         .control-button { background: var(--bg-card); backdrop-filter: blur(5px); border: 1px solid var(--border-color); color: var(--text-light); width: 40px; height: 40px; border-radius: 50%; transition: all 0.3s ease; }
         .control-button:hover { background: var(--text-light); color: var(--bg-main); }
         .bput-badge { background: var(--bg-card); backdrop-filter: blur(5px); border: 1px solid var(--border-color); color: var(--text-dark); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron'; font-weight: 900; }
-        .volume-slider { -webkit-appearance: none; width: 100px; height: 5px; background: var(--border-color); border-radius: 5px; outline: none; opacity: 0.7; transition: opacity .2s; }
-        .volume-slider:hover { opacity: 1; }
+        
+        /* Volume Slider Styling */
+        .volume-container { position: relative; }
+        .volume-slider { -webkit-appearance: none; width: 100px; height: 5px; background: var(--border-color); border-radius: 5px; outline: none; transition: opacity 0.3s ease, visibility 0.3s ease; opacity: 0; visibility: hidden; position: absolute; right: 110%; top: 50%; transform: translateY(-50%); }
+        .volume-container.visible .volume-slider { opacity: 1; visibility: visible; }
         .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 15px; height: 15px; background: var(--text-light); border-radius: 50%; cursor: pointer; }
         .volume-slider::-moz-range-thumb { width: 15px; height: 15px; background: var(--text-light); border-radius: 50%; cursor: pointer; }
 
@@ -285,7 +310,17 @@
         .badge-mvp { background: #ef4444; color: #fff; box-shadow: 0 0 8px #ef4444; animation: mvp-pulse 1.5s infinite; }
         @keyframes mvp-pulse { 0% { transform: scale(1); box-shadow: 0 0 8px var(--accent-purple); } 50% { transform: scale(1.1); box-shadow: 0 0 16px var(--accent-purple); } 100% { transform: scale(1); box-shadow: 0 0 8px var(--accent-purple); } }
         
-        /* --- Reveal Animation --- */
+        /* Semi-Finals Fade Effect */
+        #semi-final-cards-container { position: relative; width: 100%; max-width: 500px; height: 250px; }
+        #semi-final-cards-container .matchup-card { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transition: opacity 0.8s ease-in-out; }
+        #semi-final-cards-container .matchup-card:not(.active) { opacity: 0; pointer-events: none; }
+
+        /* Final Match Card Player Lists */
+        .final-match-card .final-player-list { font-size: 0.75rem; text-align: left; margin-top: 1rem; list-style: none; padding-left: 0; }
+        .final-match-card .final-player-list li { margin-bottom: 0.25rem; display: flex; align-items: center; }
+        .final-match-card .final-player-list .player-badge { width: 1rem; height: 1rem; font-size: 0.6rem; margin-right: 0.25rem; }
+
+        /* Reveal Animation */
         .reveal-on-scroll { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .reveal-on-scroll.revealed { opacity: 1; transform: translateY(0); }
         
@@ -312,8 +347,10 @@
         </audio>
         <div class="top-left-controls"><div class="bput-badge">B</div></div>
         <div class="top-right-controls">
-            <button id="sound-toggle" class="control-button"><i class="fas fa-volume-mute"></i></button>
-            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.05" value="0.5">
+            <div class="volume-container">
+                <button id="sound-toggle" class="control-button"><i class="fas fa-volume-mute"></i></button>
+                <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.05" value="0.5">
+            </div>
             <button id="theme-toggle" class="control-button"><i class="fas fa-sun"></i></button>
         </div>
         <div class="center-title"><h1>BPUT E-Sports Tournament</h1></div>
@@ -330,8 +367,8 @@
         </div>
 
         <div class="landing-buttons-container">
-            <button id="cs-view-btn" class="view-btn-3d cs-btn">CS Standings</button>
-            <button id="br-view-btn" class="view-btn-3d br-btn">BR Standings</button>
+            <button id="cs-view-btn" class="cyber-btn cs-btn">CS Standings</button>
+            <button id="br-view-btn" class="cyber-btn br-btn">BR Standings</button>
         </div>
 
         <div class="quotes-container"><p id="quotes-text" class="quote active"></p></div>
@@ -358,9 +395,29 @@
 
                 <section id="cs-semifinal-section" class="mb-16 reveal-on-scroll">
                     <header class="text-center mb-12"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">Semi Finals</h2></header>
-                    <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <div class="matchup-card" data-match-id="sf1"><div class="matchup-team text-cyan-500">BRBO</div><div class="vs-glow">VS</div><div class="matchup-team text-green-500">Team Survive</div></div>
-                        <div class="matchup-card" data-match-id="sf2"><div class="matchup-team text-yellow-500">Team Exclusive</div><div class="vs-glow">VS</div><div class="matchup-team text-green-500">Team Survive</div></div>
+                    <div class="flex justify-center">
+                        <div id="semi-final-cards-container">
+                            <div class="matchup-card active" data-match-id="sf1">
+                                <div class="text-center w-full">
+                                    <p class="font-orbitron text-lg font-bold text-yellow-400 mb-2">Semi Final 1</p>
+                                    <div class="flex items-center justify-around">
+                                        <div class="matchup-team text-cyan-500">BRBO</div>
+                                        <div class="vs-glow">VS</div>
+                                        <div class="matchup-team text-green-500">Team Survive</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="matchup-card" data-match-id="sf2">
+                                <div class="text-center w-full">
+                                    <p class="font-orbitron text-lg font-bold text-yellow-400 mb-2">Semi Final 2</p>
+                                    <div class="flex items-center justify-around">
+                                        <div class="matchup-team text-yellow-500">Team Exclusive</div>
+                                        <div class="vs-glow">VS</div>
+                                        <div class="matchup-team text-green-500">Team Survive</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
@@ -399,14 +456,27 @@
             { name: 'Team Exclusive', positions: '2/5/3/7/7/7/7/3', killPoints: 32, positionPoints: 47, players: [ { ign: 'Rudra', role: 'Rusher/Supporter', kills: 0 }, { ign: 'Aditya', role: 'Rusher', kills: 7 }, { ign: 'Sovan', role: 'Sniper', kills: 9 }, { ign: 'Chiku', role: 'IGL', kills: 6 }, { ign: 'Player 5', role: 'N/A', kills: 0 }, ]}, 
             { name: 'Team Phoenix', positions: '6/4/7/6/1/1/6/4', killPoints: 27, positionPoints: 57, players: [ { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 2 }, { ign: 'OSH !!', role: 'RUSHHER', kills: 0 }, { ign: 'Mr.Arpitt', role: 'ASSAULTER', kills: 1 }, { ign: 'Srikanta', role: 'RUSHHER', kills: 1 }, { ign: 'Sushobhan', role: 'ASSAULTER', kills: 0 }, ]}, 
             { name: 'Team Survive', positions: '5/6/4/4/2/6/5/2', killPoints: 35, positionPoints: 55, players: [ { ign: 'Ashirbad', role: 'Rusher', kills: 3 }, { ign: 'Dibya', role: 'IGL', kills: 3 }, { ign: 'Mohit', role: 'Rusher', kills: 7 }, { ign: 'Nihar', role: 'Rusher/Supporter', kills: 0 }, { ign: 'Amit', role: 'Supporter', kills: 0 }, ]}, 
-            { name: 'Utkal Warriors', positions: '5/6/4/4/3/4/3/5', killPoints: 13, positionPoints: 54, players: [ { ign: 'Anup', role: 'Rusher/Sniper', kills: 1 }, { ign: 'Pritam', role: 'Rusher', kills: 5 }, { ign: 'Chandan', role: 'IGL', kills: 1 }, { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 6 }, { ign: 'Player 5', role: 'N/A', kills: 0 }, ]}, 
+            { name: 'Utkal Warriors', positions: '5/6/4/4/3/4/3/5', killPoints: 25, positionPoints: 54, players: [ { ign: 'Anup', role: 'Rusher/Sniper', kills: 1 }, { ign: 'Pritam', role: 'Rusher', kills: 5 }, { ign: 'Chandan', role: 'IGL', kills: 1 }, { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 6 }, { ign: 'Player 5', role: 'N/A', kills: 0 }, ]}, 
             { name: 'Venom Ragers', positions: '7/3/1/2/6/5/4/6', killPoints: 19, positionPoints: 56, players: createPlayers() }, 
         ].map(team => ({
             ...team,
             booyah: (team.positions.match(/1/g) || []).length
         }));
 
-        const mapData = [ { matchNumber: 1, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg', booyah: 'BRBO', kills: 16, mvp: { name: 'BG RAJ', kills: 17, team: 'BRBO' } }, { matchNumber: 2, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg', booyah: 'BRBO', kills: 9, mvp: { name: 'ARJIT', kills: null, team: 'BW' } }, { matchNumber: 3, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg', booyah: 'Venom Ragers', kills: 7, mvp: { name: 'SWAPNIL', kills: null, team: 'UW' } }, { matchNumber: 4, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg', booyah: 'BRBO', kills: 8, mvp: { name: 'RYL♡RINKU', kills: null, team: 'BRBO' } }, { matchNumber: 5, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg' }, { matchNumber: 6, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg' }, { matchNumber: 7, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg' }, { matchNumber: 8, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg' }, { matchNumber: 9, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg' }, { matchNumber: 10, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg' }, { matchNumber: 11, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg' }, { matchNumber: 12, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg' }, ];
+        const mapData = [ 
+            { matchNumber: 1, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg', booyah: 'BRBO', kills: 16, mvp: { name: 'BG RAJ', kills: 17, team: 'BRBO' } }, 
+            { matchNumber: 2, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg', booyah: 'BRBO', kills: 9, mvp: { name: 'ARJIT', kills: null, team: 'BW' } }, 
+            { matchNumber: 3, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg', booyah: 'Venom Ragers', kills: 7, mvp: { name: 'SWAPNIL', kills: null, team: 'UW' } }, 
+            { matchNumber: 4, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg', booyah: 'BRBO', kills: 8, mvp: { name: 'RYL♡RINKU', kills: null, team: 'BRBO' } }, 
+            { matchNumber: 5, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg', booyah: 'Team Phoenix', kills: 13 }, 
+            { matchNumber: 6, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg', booyah: 'Team Phoenix', kills: 8 }, 
+            { matchNumber: 7, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg', booyah: 'Barsha Ranira Bhiga Odhani', kills: 6 }, 
+            { matchNumber: 8, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg', booyah: 'Barsha Ranira Bhiga Odhani', kills: 15 }, 
+            { matchNumber: 9, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg' }, 
+            { matchNumber: 10, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg' }, 
+            { matchNumber: 11, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg' }, 
+            { matchNumber: 12, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg' }, 
+        ];
         let csKillLeaders = [];
         let brKillLeaders = [];
         const matchDetailsData = {
@@ -415,8 +485,8 @@
             '3': { title: "Team Exclusive Won By 7-6", tag: "Do or Die Match", replayLink: "https://www.youtube.com/live/kjig76NwyBw?si=P0HlrWxTWgGeS5re", teams: { teamA: { name: "Team Exclusive", players: [ { name: "Rudra", kills: 9, dmg: 4242 }, { name: "Aditya", kills: 8, dmg: 5623 }, { name: "Sovan", kills: 8, dmg: 5569 }, { name: "Chiku", kills: 6, dmg: 3144 } ] }, teamB: { name: "Utkal Warriors", players: [ { name: "Anup", kills: 12, dmg: 5896 }, { name: "Pritam", kills: 7, dmg: 3462 }, { name: "Chandan", kills: 6, dmg: 3851 }, { name: "Swapnil", kills: 6, dmg: 3633 } ] } } },
             'sf1': { 
                 title: "BRBO Won By 7-1", 
-                winner: "BRBO",
-                replayLink: "https://youtube.com/@bg_raj_17_live?si=-ZkrtXszMHSpVzk0",
+                winner: "Barsha Ranira Bhiga Odhani",
+                replayLink: "https://www.youtube.com/live/qKcfZ-p0xuU?si=VS1jFgCzKbKNpDsc",
                 teams: { 
                     teamA: { name: "Barsha Ranira Bhiga Odhani", players: [ { name: "Rajesh", kda: "5/2/3", dmg: 4003 }, { name: "Anirudh", kda: "6/2/7", dmg: 3685 }, { name: "Amrit", kda: "5/2/5", dmg: 1169 }, { name: "Rinku", kda: "6/2/3", dmg: 1900 } ] }, 
                     teamB: { name: "Team Survive", players: [ { name: "Dibya", kda: "0/7/3", dmg: 1870 }, { name: "Nihal", kda: "3/7/2", dmg: 2228 }, { name: "Ashirbad", kda: "2/7/2", dmg: 2126 }, { name: "Mukesh", kda: "3/7/1", dmg: 1813 } ] } 
@@ -425,7 +495,7 @@
             'sf2': { 
                 title: "Team Exclusive Won By 7-6", 
                 winner: "Team Exclusive",
-                replayLink: "https://youtube.com/@bg_raj_17_live?si=-ZkrtXszMHSpVzk0",
+                replayLink: "https://www.youtube.com/live/gGit7IAPh8A?si=xniN0FETzP0OmLhL",
                 teams: { 
                     teamA: { name: "Team Exclusive", players: [ { name: "Aditya", kda: "12/7/10", dmg: 4117 }, { name: "Chiku", kda: "9/7/10", dmg: 3963 }, { name: "Sovan", kda: "8/7/12", dmg: 5629 }, { name: "Rudra", kda: "5/9/10", dmg: 3226 } ] }, 
                     teamB: { name: "Team Survive", players: [ { name: "Dibya", kda: "12/7/7", dmg: 5720 }, { name: "Ashirbad", kda: "6/9/7", dmg: 4115 }, { name: "Mohit", kda: "6/8/9", dmg: 3665 }, { name: "Mukesh", kda: "6/10/6", dmg: 3219 } ] } 
@@ -486,24 +556,31 @@
         function setupPausingScroller(scrollerId) { const scroller=document.getElementById(scrollerId); if(!scroller) return; const inner=scroller.querySelector(".scroller__inner"); if(!inner||inner.children.length===0) return; const originalCards=Array.from(inner.children); originalCards.forEach(card=>inner.appendChild(card.cloneNode(true))); let currentIndex=0; let timeoutId; function advance() { const cards=Array.from(inner.children); const activeCard=cards[currentIndex]; const scrollAmount=activeCard.offsetLeft+activeCard.offsetWidth/2-scroller.offsetWidth/2; inner.style.transform=`translateX(-${scrollAmount}px)`; cards.forEach(c=>c.classList.remove("is-active")); activeCard.classList.add("is-active"); currentIndex++; if(currentIndex>=originalCards.length) { setTimeout(()=>{ inner.style.transition="none"; currentIndex=0; const resetScrollAmount=cards[0].offsetLeft+cards[0].offsetWidth/2-scroller.offsetWidth/2; inner.style.transform=`translateX(-${resetScrollAmount}px)`; setTimeout(()=>{inner.style.transition="transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)"},50); },800); } timeoutId=setTimeout(advance,2500); } advance(); scroller.addEventListener("mouseenter",()=>clearTimeout(timeoutId)); scroller.addEventListener("mouseleave",()=>timeoutId=setTimeout(advance,2500)); }
         function setupContinuousScroller(containerId) { const container=document.getElementById(containerId); if(!container||container.children.length===0) return; const originalCards=Array.from(container.children); originalCards.forEach(card=>{ const clone=card.cloneNode(true); clone.setAttribute("aria-hidden",true); container.appendChild(clone); }); }
         function updateTimestamp() { const timestampEl=document.getElementById("last-updated"); if(!timestampEl) return; const now=new Date(); timestampEl.textContent=now.toLocaleString("en-IN",{weekday:"long",year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"numeric",second:"numeric",timeZone:"Asia/Kolkata",hour12:true}); }
-        function setupModalListeners() { const playerModal=document.getElementById("player-stats-modal-overlay"), closeBtn=document.getElementById("modal-close-btn"); if(playerModal) playerModal.addEventListener("click",e=>{if(e.target===playerModal) playerModal.classList.remove("active");}); if(closeBtn) closeBtn.addEventListener("click",()=>playerModal.classList.remove("active")); const matchModal=document.getElementById("match-details-modal-overlay"), matchModalContent=document.getElementById("match-details-modal"); if(matchModal) matchModal.addEventListener("click",e=>{if(e.target===matchModal) matchModal.classList.remove("active");}); document.querySelectorAll('.matchup-card').forEach(card => { card.addEventListener('click', () => { const matchId = card.dataset.matchId; const details = matchDetailsData[matchId]; const csRanks = csTeamData.map(t => t.name); if (details && details.teams) { const findMvp = (players) => { if (!players || players.length === 0 || !players[0].kda) return { name: '', kda: '0/0/0' }; return players.reduce((mvp, player) => (parseInt(player.kda.split('/')[0]) > parseInt(mvp.kda.split('/')[0])) ? player : mvp, players[0]); }; const teamAMvp = findMvp(details.teams.teamA.players); const teamBMvp = findMvp(details.teams.teamB.players); const teamARank = csRanks.indexOf(details.teams.teamA.name) + 1; const teamBRank = csRanks.indexOf(details.teams.teamB.name) + 1; const generatePlayerRows = (players, mvp, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${mvp && p.name === mvp.name ? '<span class="player-badge badge-mvp" title="Match MVP"><i class="fas fa-star"></i></span>' : getPlayerBadgeHtml(p.name, teamRank, teamRank <= 4)}<span>${p.name}</span></td><td class="p-2 text-center">${p.kda}</td><td class="p-2 text-center">${p.dmg}</td></tr>`).join(''); const generateUpcomingPlayerRows = (players, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${getPlayerBadgeHtml(p.ign, teamRank, teamRank <= 4)}<span>${p.ign}</span></td><td class="p-2 text-center">${p.role}</td></tr>`).join(''); if (details.liveLink) { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-green-500 font-bold uppercase tracking-widest">Starting Soon</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamA.players, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamB.players, teamBRank)}</tbody></table></div></div><a href="${details.liveLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Live</a></div>`; } else { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-red-500 font-bold uppercase tracking-widest">${details.tag || "Match Ended"}</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">K/D/A</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamA.players, teamAMvp, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">K/D/A</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamB.players, teamBMvp, teamBRank)}</tbody></table></div></div><a href="${details.replayLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Replay</a></div>`; } } if(matchModal) matchModal.classList.add('active'); }); }); }
+        function setupModalListeners() { const playerModal=document.getElementById("player-stats-modal-overlay"), closeBtn=document.getElementById("modal-close-btn"); if(playerModal) playerModal.addEventListener("click",e=>{if(e.target===playerModal) playerModal.classList.remove("active");}); if(closeBtn) closeBtn.addEventListener("click",()=>playerModal.classList.remove("active")); const matchModal=document.getElementById("match-details-modal-overlay"), matchModalContent=document.getElementById("match-details-modal"); if(matchModal) matchModal.addEventListener("click",e=>{if(e.target===matchModal) matchModal.classList.remove("active");}); document.querySelectorAll('.matchup-card, .final-match-card').forEach(card => { card.addEventListener('click', () => { const matchId = card.dataset.matchId; const details = matchDetailsData[matchId]; const csRanks = csTeamData.map(t => t.name); if (details && details.teams) { const findMvp = (players) => { if (!players || players.length === 0 || !players[0].kda) return { name: '', kda: '0/0/0' }; return players.reduce((mvp, player) => (parseInt(player.kda.split('/')[0]) > parseInt(mvp.kda.split('/')[0])) ? player : mvp, players[0]); }; const teamAMvp = findMvp(details.teams.teamA.players); const teamBMvp = findMvp(details.teams.teamB.players); const teamARank = csRanks.indexOf(details.teams.teamA.name) + 1; const teamBRank = csRanks.indexOf(details.teams.teamB.name) + 1; const generatePlayerRows = (players, mvp, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${mvp && p.name === mvp.name ? '<span class="player-badge badge-mvp" title="Match MVP"><i class="fas fa-star"></i></span>' : getPlayerBadgeHtml(p.name, teamRank, teamRank <= 4)}<span>${p.name}</span></td><td class="p-2 text-center">${p.kda}</td><td class="p-2 text-center">${p.dmg}</td></tr>`).join(''); const generateUpcomingPlayerRows = (players, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${getPlayerBadgeHtml(p.ign, teamRank, teamRank <= 4)}<span>${p.ign}</span></td><td class="p-2 text-center">${p.role}</td></tr>`).join(''); if (details.liveLink || matchId.startsWith('final')) { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-green-500 font-bold uppercase tracking-widest">${details.liveLink ? "Starting Soon" : "Upcoming"}</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamA.players, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamB.players, teamBRank)}</tbody></table></div></div>${details.liveLink ? `<a href="${details.liveLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Live</a>` : ''}</div>`; } else { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-red-500 font-bold uppercase tracking-widest">${details.tag || "Match Ended"}</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">K/D/A</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamA.players, teamAMvp, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">K/D/A</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamB.players, teamBMvp, teamBRank)}</tbody></table></div></div><a href="${details.replayLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Replay</a></div>`; } } if(matchModal) matchModal.classList.add('active'); }); }); }
         function createFinalsCards() {
             const container = document.getElementById('cs-finals-container');
             if (!container) return;
             container.innerHTML = ''; // Clear existing content
-            const finalTeamA = matchDetailsData.sf1.winner || 'Winner of SF1';
-            const finalTeamB = matchDetailsData.sf2.winner || 'Winner of SF2';
+            const finalTeamA_name = matchDetailsData.sf1.winner;
+            const finalTeamB_name = matchDetailsData.sf2.winner;
+            const finalTeamA_data = csTeamData.find(t => t.name === finalTeamA_name);
+            const finalTeamB_data = csTeamData.find(t => t.name === finalTeamB_name);
+            
+            matchDetailsData['final-1'] = { title: 'Grand Final - Match 1', teams: { teamA: finalTeamA_data, teamB: finalTeamB_data } };
+            matchDetailsData['final-2'] = { title: 'Grand Final - Match 2', teams: { teamA: finalTeamA_data, teamB: finalTeamB_data } };
+            matchDetailsData['final-3'] = { title: 'Grand Final - Match 3', teams: { teamA: finalTeamA_data, teamB: finalTeamB_data } };
 
             for (let i = 1; i <= 3; i++) {
                 const card = document.createElement('div');
                 card.className = 'final-match-card';
+                card.dataset.matchId = `final-${i}`;
                 card.innerHTML = `
                     <div class="text-center w-full">
                         <p class="font-orbitron text-lg font-bold text-yellow-400 mb-2">Match ${i}</p>
                         <div class="flex items-center justify-around">
-                            <div class="matchup-team text-cyan-400">${finalTeamA}</div>
+                            <div class="matchup-team text-cyan-400">${finalTeamA_name}</div>
                             <div class="vs-glow">VS</div>
-                            <div class="matchup-team text-red-400">${finalTeamB}</div>
+                            <div class="matchup-team text-red-400">${finalTeamB_name}</div>
                         </div>
                     </div>
                 `;
@@ -521,9 +598,11 @@
             const backButton = document.getElementById('back-button');
             const bgAudio = document.getElementById('background-audio');
             const soundToggle = document.getElementById('sound-toggle');
+            const volumeContainer = document.querySelector('.volume-container');
             const volumeSlider = document.getElementById('volume-slider');
             const themeToggle = document.getElementById('theme-toggle');
             let isMuted = true;
+            let volumeTimeout;
 
             const showLeaderboard = (viewToShow) => {
                 landingPage.classList.add('fade-out');
@@ -552,15 +631,19 @@
 
             bgAudio.volume = 0.5;
             soundToggle.addEventListener('click', () => {
-                isMuted = !isMuted;
-                bgAudio.muted = isMuted;
-                soundToggle.innerHTML = isMuted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+                volumeContainer.classList.toggle('visible');
+                if (volumeContainer.classList.contains('visible')) {
+                    clearTimeout(volumeTimeout);
+                    volumeTimeout = setTimeout(() => volumeContainer.classList.remove('visible'), 3000);
+                }
             });
             volumeSlider.addEventListener('input', (e) => {
+                clearTimeout(volumeTimeout);
                 bgAudio.volume = e.target.value;
                 bgAudio.muted = e.target.value == 0;
                 isMuted = e.target.value == 0;
                 soundToggle.innerHTML = isMuted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+                volumeTimeout = setTimeout(() => volumeContainer.classList.remove('visible'), 3000);
             });
             
             document.body.addEventListener('click', () => {
@@ -586,6 +669,29 @@
             if (savedTheme) { applyTheme(savedTheme); } else if (systemPrefersDark) { applyTheme('dark'); } else { applyTheme('light'); }
 
             const loader = document.getElementById('loader');
+            
+            // Semi-final fade effect logic
+            const semiFinalContainer = document.getElementById('semi-final-cards-container');
+            if (semiFinalContainer) {
+                const semiCards = semiFinalContainer.querySelectorAll('.matchup-card');
+                let currentCard = 0;
+                let semiInterval = setInterval(() => {
+                    semiCards[currentCard].classList.remove('active');
+                    currentCard = (currentCard + 1) % semiCards.length;
+                    semiCards[currentCard].classList.add('active');
+                }, 5000);
+
+                semiFinalContainer.addEventListener('mouseenter', () => clearInterval(semiInterval));
+                semiFinalContainer.addEventListener('mouseleave', () => {
+                     if(semiInterval) clearInterval(semiInterval);
+                    semiInterval = setInterval(() => {
+                        semiCards[currentCard].classList.remove('active');
+                        currentCard = (currentCard + 1) % semiCards.length;
+                        semiCards[currentCard].classList.add('active');
+                    }, 5000);
+                });
+            }
+
             calculateKillLeaders();
             createFinalsCards();
             processAndDisplayLeaderboard("cs-leaderboard-body", csTeamData, true);
@@ -593,7 +699,7 @@
             createMapHighlights();
             createKillLeaderCards(csKillLeaders, "cs-kill-leaders-container");
             createKillLeaderCards(brKillLeaders, "br-kill-leaders-container");
-            setupModalListeners();
+            setupModalListeners(); // Must be after createFinalsCards
             setupPausingScroller("map-scroller");
             setupContinuousScroller("cs-kill-leaders-container");
             setupContinuousScroller("br-kill-leaders-container");
