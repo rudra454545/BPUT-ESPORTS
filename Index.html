@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Fire Tournament Hub</title>
-    <link rel="icon" type="image/jpeg" href="https://static.vecteezy.com/system/resources/previews/007/994/829/original/professional-esports-logo-template-for-game-team-or-gaming-tournament-free-vector.jpg">
+    <link rel="icon" type="image/jpeg" href="https://i.ibb.co/6g4PCd6/b713625a-00b7-41a0-b962-24da685bccc1.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,28 +14,28 @@
         :root {
             --transition-speed: 0.6s;
             --transition-ease: cubic-bezier(0.25, 1, 0.5, 1);
-
-            /* Light Mode Palette (Polar White & Neon Sharp Grey) */
-            --bg-main: #FFFFFF; /* Polar White */
-            --bg-card: rgba(229, 231, 235, 0.5); /* Neon Sharp Grey */
-            --text-dark: #1F2937;
-            --text-light: #4B5563;
-            --border-color: #D1D5DB;
+            
+            /* Light Mode: Polar White & Grey Shades */
+            --bg-main: #F7FAFC;
+            --bg-card: rgba(255, 255, 255, 0.6);
+            --text-dark: #1A202C;
+            --text-light: #4A5568;
+            --border-color: #E2E8F0;
             --accent-blue: #3B82F6;
             --accent-purple: #8B5CF6;
-            --shadow-color: rgba(0,0,0,0.1);
+            --shadow-color: rgba(0,0,0,0.15);
         }
 
         html.dark {
-            /* Dark Mode Palette (Dark Navy Blue & Neon Violet) */
-            --bg-main: #0F172A; /* Darkest Black */
-            --bg-card: rgba(30, 41, 59, 0.5);
+            /* Dark Mode: Light-Bright Polar White-Grey mix */
+            --bg-main: #374151; /* Lighter, cool grey background */
+            --bg-card: rgba(15, 23, 42, 0.5);
             --text-dark: #E5E7EB;
-            --text-light: #9CA3AF;
+            --text-light: #94A3B8;
             --border-color: #4B5563;
             --accent-blue: #60A5FA; /* Neon Navy Blue */
             --accent-purple: #A78BFA; /* Neon Violet */
-            --shadow-color: rgba(0,0,0,0.4);
+            --shadow-color: rgba(0,0,0,0.5);
         }
 
         /* --- Base Styles --- */
@@ -60,24 +60,106 @@
         .loader-text { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.2em; opacity: 0; animation: fade-in-up 1s ease-out 0.5s forwards; }
         @keyframes fade-in-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- Landing Page --- */
-        #landing-page { display: flex; height: 100vh; width: 100%; perspective: 2000px; transition: opacity var(--transition-speed) ease-in-out; background: var(--bg-main); }
-        .mode-section { position: relative; width: 50%; height: 100%; overflow: hidden; cursor: pointer; transition: transform 0.5s var(--transition-ease), filter 0.5s var(--transition-ease); transform-style: preserve-3d; }
-        .mode-section .bg-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: 1; transform: translateX(-50%) translateY(-50%) scale(1.1); filter: grayscale(100%) brightness(0.8); transition: filter 0.5s ease, transform 0.5s ease; pointer-events: none; object-fit: cover; }
-        .mode-section .content { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; background: var(--bg-card); backdrop-filter: blur(2px); }
-        .mode-section h2 { font-family: 'Orbitron', sans-serif; font-size: clamp(1.5rem, 6vw, 4.5rem); font-weight: 900; text-transform: uppercase; letter-spacing: 2px; transition: color 0.5s ease, text-shadow 0.5s ease; color: var(--text-dark); }
-        .mode-section .tagline { font-family: 'Exo 2', sans-serif; font-size: clamp(1rem, 2vw, 1.25rem); margin-top: 1rem; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s; }
-        .mode-section .view-btn { margin-top: 2rem; padding: 0.75rem 2rem; border: 2px solid var(--text-dark); color: var(--text-dark); border-radius: 50px; text-transform: uppercase; font-weight: bold; backdrop-filter: blur(5px); opacity: 0; transform: translateY(20px); transition: all 0.5s ease 0.3s; }
-        #landing-page:has(.mode-section:hover) .mode-section:not(:hover) { transform: scale(0.95); filter: brightness(0.8); }
-        .mode-section:hover { transform: scale(1.05); }
-        .mode-section:hover .bg-video { filter: grayscale(0%) brightness(1); transform: translateX(-50%) translateY(-50%) scale(1.15); }
-        .mode-section:hover .tagline, .mode-section:hover .view-btn { opacity: 1; transform: translateY(0); }
-        #cs-section:hover .view-btn { background: var(--accent-blue); color: white; border-color: var(--accent-blue); }
-        #br-section:hover .view-btn { background: var(--accent-purple); color: white; border-color: var(--accent-purple); }
-        #cs-section:hover h2 { color: var(--accent-blue); }
-        #br-section:hover h2 { color: var(--accent-purple); }
+        /* --- Landing Page (NEW 3D Card Layout) --- */
+        #landing-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            gap: 2vw;
+            padding: 2rem;
+            perspective: 2500px;
+            background: var(--bg-main);
+            transition: opacity var(--transition-speed) ease-in-out, background-color 0.5s ease;
+        }
+        .mode-section {
+            position: relative;
+            width: 45vw; /* Adjusted width */
+            max-width: 600px; /* Max width for large screens */
+            aspect-ratio: 12 / 9; /* Enforce 12:9 aspect ratio */
+            border-radius: 1.5rem;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.6s var(--transition-ease), box-shadow 0.6s var(--transition-ease), filter 0.6s var(--transition-ease);
+            transform-style: preserve-3d;
+            box-shadow: 0 20px 40px -15px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+        .mode-section .bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            object-fit: cover;
+            transform: scale(1.1);
+            filter: grayscale(80%) brightness(0.7);
+            transition: filter 0.5s ease, transform 0.5s ease;
+            pointer-events: none;
+        }
+        .mode-section .content {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(1px);
+        }
+        .mode-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.5s ease, text-shadow 0.5s ease;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0,0,0,0.7);
+        }
+        .mode-section .tagline { font-family: 'Exo 2', sans-serif; font-size: clamp(1rem, 2vw, 1.25rem); margin-top: 1rem; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s; color: #fff; }
+        .mode-section .view-btn { margin-top: 2rem; padding: 0.75rem 2rem; border: 2px solid #fff; color: #fff; border-radius: 50px; text-transform: uppercase; font-weight: bold; background: rgba(0,0,0,0.2); backdrop-filter: blur(5px); opacity: 0; transform: translateY(20px); transition: all 0.5s ease 0.3s; }
+        
+        /* New Hover/Split/3D Effect */
+        #landing-page:hover .mode-section {
+             box-shadow: 0 25px 50px -12px var(--shadow-color);
+        }
+        #landing-page:hover #cs-section {
+            transform: translateX(-8%) rotateY(-8deg);
+        }
+        #landing-page:hover #br-section {
+            transform: translateX(8%) rotateY(8deg);
+        }
+        .mode-section:hover {
+            transform: translateZ(80px) scale(1.08) !important;
+            box-shadow: 0 30px 60px -10px var(--shadow-color);
+        }
+        #landing-page:hover .mode-section:not(:hover) {
+            filter: brightness(0.6); /* Shade effect */
+            transform: scale(0.95);
+        }
+        .mode-section:hover .bg-video {
+            filter: grayscale(0%) brightness(1);
+            transform: scale(1.15);
+        }
+        .mode-section:hover .tagline, .mode-section:hover .view-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #cs-section:hover .view-btn { background: var(--accent-blue); border-color: var(--accent-blue); }
+        #br-section:hover .view-btn { background: var(--accent-purple); border-color: var(--accent-purple); }
+        #cs-section:hover h2 { color: var(--accent-blue); text-shadow: 0 0 15px var(--accent-blue); }
+        #br-section:hover h2 { color: var(--accent-purple); text-shadow: 0 0 15px var(--accent-purple); }
+
         .center-title { position: absolute; top: 5%; left: 50%; transform: translateX(-50%); z-index: 10; text-align: center; pointer-events: none; }
         .center-title h1 { font-family: 'Orbitron'; font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 900; text-transform: uppercase; color: var(--text-dark); }
+        html.dark .center-title h1 { color: var(--accent-purple); text-shadow: 0 0 10px var(--accent-purple); }
+        
         .quotes-container { position: absolute; bottom: 15%; left: 2rem; transform: none; z-index: 10; text-align: left; pointer-events: none; width: 40%; }
         .quote { font-family: 'Exo 2'; font-style: italic; font-size: clamp(0.8rem, 1.2vw, 1rem); color: var(--text-light); position: absolute; width: 100%; left: 0; opacity: 0; transition: opacity 1s ease-in-out; }
         .quote.active { opacity: 1; }
@@ -89,16 +171,19 @@
         .control-button { background: var(--bg-card); backdrop-filter: blur(5px); border: 1px solid var(--border-color); color: var(--text-light); width: 40px; height: 40px; border-radius: 50%; transition: all 0.3s ease; }
         .control-button:hover { background: var(--text-light); color: var(--bg-main); }
         .bput-badge { background: var(--bg-card); backdrop-filter: blur(5px); border: 1px solid var(--border-color); color: var(--text-dark); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron'; font-weight: 900; }
-        .volume-slider { width: 100px; }
+        .volume-slider { -webkit-appearance: none; width: 100px; height: 5px; background: var(--border-color); border-radius: 5px; outline: none; opacity: 0.7; transition: opacity .2s; }
+        .volume-slider:hover { opacity: 1; }
+        .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 15px; height: 15px; background: var(--text-light); border-radius: 50%; cursor: pointer; }
+        .volume-slider::-moz-range-thumb { width: 15px; height: 15px; background: var(--text-light); border-radius: 50%; cursor: pointer; }
 
         /* --- Leaderboard View & Other Styles --- */
-        #leaderboard-view { position: fixed; inset: 0; z-index: 100; opacity: 0; visibility: hidden; background-color: var(--bg-main); transition: opacity var(--transition-speed) ease-in-out, visibility var(--transition-speed) ease-in-out; overflow-y: auto; }
+        #leaderboard-view { position: fixed; inset: 0; z-index: 100; opacity: 0; visibility: hidden; background-color: var(--bg-main); transition: opacity var(--transition-speed) ease-in-out, visibility var(--transition-speed) ease-in-out, background-color 0.5s ease; overflow-y: auto; }
         #leaderboard-view.visible { opacity: 1; visibility: visible; }
         .back-button { position: fixed; top: 20px; left: 20px; z-index: 1001; background: var(--bg-card); backdrop-filter: blur(5px); border: 1px solid var(--border-color); color: var(--text-dark); width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; transition: all 0.3s ease; }
         .back-button:hover { background: var(--text-dark); color: var(--bg-main); transform: scale(1.1); }
         ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: var(--border-color); } ::-webkit-scrollbar-thumb { background-color: var(--text-light); border-radius: 10px; border: 2px solid var(--border-color); }
-        .leaderboard-row { transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; cursor: pointer; }
-        .leaderboard-row:hover { transform: scale(1.02) translateZ(20px); box-shadow: 0 10px 20px var(--shadow-color); z-index: 10; }
+        .leaderboard-row { transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; cursor: pointer; perspective: 500px; }
+        .leaderboard-row:hover { transform: scale(1.02) translateZ(10px); box-shadow: 0 10px 20px var(--shadow-color); z-index: 10; }
         .rank-1 { background: linear-gradient(135deg, #fef08a, #fde047); border-left-color: #facc15; color: #713f12; }
         .rank-2 { background: linear-gradient(135deg, #e5e7eb, #d1d5db); border-left-color: #9ca3af; color: #374151; }
         .rank-3 { background: linear-gradient(135deg, #fcd34d, #fbbf24); border-left-color: #f59e0b; color: #78350f; }
@@ -118,7 +203,7 @@
         .map-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,32,44,0.9) 0%, rgba(26,32,44,0.5) 50%, transparent 100%); z-index: 1; }
         .map-card-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; z-index: 3; color: white; }
         .match-badge { position: absolute; top: 1rem; right: 1rem; z-index: 3; }
-        .kill-leader-card { width: 180px; height: 180px; background-color: var(--bg-card); backdrop-filter: blur(10px); border: 1px solid var(--border-color); border-radius: 1rem; padding: 1rem; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease; box-shadow: 0 10px 15px -3px var(--shadow-color); }
+        .kill-leader-card { width: 180px; height: 200px; background-color: var(--bg-card); backdrop-filter: blur(10px); border: 1px solid var(--border-color); border-radius: 1rem; padding: 1rem; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease; box-shadow: 0 10px 15px -3px var(--shadow-color); }
         .kill-leader-card:hover { transform: translateZ(30px) rotateY(15deg); box-shadow: 0 25px 50px -12px var(--shadow-color); }
         .crown { font-size: 1.75rem; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); }
         .crown-gold { color: #facc15; } .crown-silver { color: #9ca3af; } .crown-bronze { color: #f59e0b; }
@@ -128,11 +213,9 @@
         .text-gold-glow { color: #ca8a04; } .text-silver-glow { color: #6b7280; } .text-bronze-glow { color: #d97706; } .text-cyan-glow { color: #0891b2; } .text-fuchsia-glow { color: #c026d3; }
         #player-stats-modal-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(10, 10, 20, 0.6); backdrop-filter: blur(8px) saturate(150%); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         #player-stats-modal-overlay.active { opacity: 1; visibility: visible; }
-        #player-stats-modal { background-color: var(--bg-main); border: 1px solid var(--border-color); box-shadow: 0 25px 50px -12px var(--shadow-color); border-radius: 1rem; width: 90%; max-width: 600px; color: var(--text-dark); transform: scale(0.9) translateY(20px); opacity: 0; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        #player-stats-modal:hover {
-            border-color: var(--accent-blue); /* Neon Navy Blue hover effect */
-        }
+        #player-stats-modal { background-color: var(--bg-main); border: 1px solid var(--border-color); box-shadow: 0 25px 50px -12px var(--shadow-color); border-radius: 1rem; width: 90%; max-width: 600px; color: var(--text-dark); transform: scale(0.9) translateY(20px); opacity: 0; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease; }
         #player-stats-modal-overlay.active #player-stats-modal { transform: scale(1) translateY(0); opacity: 1; }
+        #player-stats-modal:hover { border-color: var(--accent-blue); }
         .modal-player-row { opacity: 0; transform: translateX(-20px); animation: slide-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
         @keyframes slide-in { to { opacity: 1; transform: translateX(0); } }
         .role-icon { font-size: 1.1rem; margin-right: 0.5rem; width: 20px; text-align: center; display: inline-block; }
@@ -147,63 +230,60 @@
         .live-button { display: inline-block; margin-top: 1.5rem; padding: 0.75rem 2.5rem; background: #ef4444; color: white; font-family: 'Orbitron'; text-transform: uppercase; border-radius: 50px; transition: all 0.3s ease; }
         .live-button:hover { background: #dc2626; transform: scale(1.05); box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
         .live-button .fa-youtube { margin-right: 0.5rem; }
-
-        /* --- NEW Badge Styles --- */
-        .player-badge { display: inline-flex; align-items: center; justify-content: center; width: 1.25rem; height: 1.25rem; border-radius: 50%; margin-right: 0.5rem; font-size: 0.7rem; vertical-align: middle; }
+        
+        /* --- Badge Styles --- */
+        .player-badge { display: inline-flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; margin-right: 0.5rem; font-size: 0.8rem; vertical-align: middle; }
+        .badge-semifinalist { background: linear-gradient(135deg, var(--accent-purple), #c084fc); color: white; box-shadow: 0 0 12px var(--accent-purple); animation: mvp-pulse 1.8s infinite; }
         .badge-diamond { background: #b9f2ff; color: #0c4a6e; box-shadow: 0 0 8px #b9f2ff; }
         .badge-gold { background: #FFD700; color: #78350f; box-shadow: 0 0 8px #FFD700; }
         .badge-silver { background: #C0C0C0; color: #4b5563; box-shadow: 0 0 8px #C0C0C0; }
         .badge-bronze { background: #CD7F32; color: #78350f; box-shadow: 0 0 8px #CD7F32; }
-        .badge-semifinalist { background: var(--accent-purple); color: white; box-shadow: 0 0 8px var(--accent-purple); }
         .badge-default { background: var(--text-light); color: var(--bg-main); }
         .badge-mvp { background: #ef4444; color: #fff; box-shadow: 0 0 8px #ef4444; animation: mvp-pulse 1.5s infinite; }
-        @keyframes mvp-pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-        .badge-animated-default { animation: default-pulse 2s infinite alternate; }
-        @keyframes default-pulse { from { background: var(--cool-dark); } to { background: var(--cool-mid); } }
-
-        /* --- NEW Reveal Animation --- */
+        @keyframes mvp-pulse { 0% { transform: scale(1); box-shadow: 0 0 8px var(--accent-purple); } 50% { transform: scale(1.1); box-shadow: 0 0 16px var(--accent-purple); } 100% { transform: scale(1); box-shadow: 0 0 8px var(--accent-purple); } }
+        
+        /* --- Reveal Animation --- */
         .reveal-on-scroll { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .reveal-on-scroll.revealed { opacity: 1; transform: translateY(0); }
-
-        /* NEW Dark Mode Table Colors */
-        html.dark .leaderboard-row:not(.rank-1):not(.rank-2):not(.rank-3) { background-color: rgba(30, 41, 59, 0.5); border-left-color: var(--accent-blue); }
-        html.dark .leaderboard-row td:nth-child(2) {
-            color: var(--accent-purple); /* Neon Violet */
-            font-weight: 700;
-            transition: color 0.3s ease;
-        }
-        html.dark .leaderboard-row:hover td:nth-child(2) {
-            color: #fff;
-        }
+        
+        /* Dark Mode Table & Text Colors */
+        html.dark .leaderboard-row:not(.rank-1):not(.rank-2):not(.rank-3) { background-color: var(--bg-card); border-left-color: var(--accent-blue); }
+        html.dark .leaderboard-row td:nth-child(2) { color: var(--accent-purple); font-weight: 700; transition: all 0.3s ease; }
+        html.dark .leaderboard-row:hover td:nth-child(2) { color: #fff; text-shadow: 0 0 8px var(--accent-purple); }
+        html.dark h1, html.dark h2 { color: var(--accent-purple); text-shadow: 0 0 5px var(--accent-purple); }
     </style>
 </head>
 <body>
+    <!-- Loader -->
     <div id="loader">
         <div class="loader-content">
             <div class="loader-logo">B</div>
             <div class="loader-text">BPUT E-Sports</div>
         </div>
     </div>
-
-    <main id="landing-page" class="flex">
+    
+    <!-- Main Landing Page -->
+    <main id="landing-page">
         <audio id="background-audio" loop>
             <source src="https://res.cloudinary.com/dqh7olosv/video/upload/v1753927171/35a0-8af6-42b3-9f52-4fa5834621e6_yeq3wv.mp3" type="audio/mpeg">
         </audio>
         <div class="top-left-controls"><div class="bput-badge">B</div></div>
         <div class="top-right-controls">
             <button id="sound-toggle" class="control-button"><i class="fas fa-volume-mute"></i></button>
-            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.1" value="1">
+            <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.05" value="0.5">
             <button id="theme-toggle" class="control-button"><i class="fas fa-sun"></i></button>
         </div>
         <div class="center-title"><h1>BPUT E-Sports Tournament</h1></div>
+        
         <section id="cs-section" class="mode-section">
-            <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923088060_zzuumi&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true&aspect_ratio=9:16&gravity=center&crop=fill" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
+            <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923088060_zzuumi&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true&aspect_ratio=16:9&gravity=center&crop=fill" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
             <div class="content"><h2>Clash<br>Squad</h2><p class="tagline">4v4 Fast-Paced Combat</p><button class="view-btn">View Standings</button></div>
         </section>
         <section id="br-section" class="mode-section">
-             <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923870811_f31nl9&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true&aspect_ratio=9:16&gravity=center&crop=fill" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
+             <iframe class="bg-video" src="https://player.cloudinary.com/embed/?cloud_name=dqh7olosv&public_id=1753923870811_f31nl9&profile=cld-default&autoplay=true&loop=true&show_logo=false&controls=false&muted=true&aspect_ratio=16:9&gravity=center&crop=fill" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen frameborder="0"></iframe>
             <div class="content"><h2>Battle<br>Royale</h2><p class="tagline">The Ultimate Survival Challenge</p><button class="view-btn">View Standings</button></div>
         </section>
+
         <div class="quotes-container"><p id="quotes-text" class="quote active"></p></div>
         <footer class="landing-footer">
             <p class="text-sm" style="color: var(--text-light);">Last Updated: <span id="last-updated"></span></p>
@@ -211,14 +291,15 @@
         </footer>
     </main>
 
+    <!-- Leaderboard View -->
     <div id="leaderboard-view">
         <button id="back-button" class="back-button"><i class="fas fa-arrow-left"></i></button>
         <div id="cs-view" class="hidden">
             <div class="w-full max-w-7xl mx-auto p-4">
-                <header class="text-center my-8"><h1 class="font-orbitron text-4xl md:text-6xl font-black uppercase text-accent-blue tracking-wider">CS Tournament Standings</h1></header>
+                <header class="text-center my-8"><h1 class="font-orbitron text-4xl md:text-6xl font-black uppercase tracking-wider">CS Tournament Standings</h1></header>
                 <div class="bg-bg-card backdrop-blur-sm border border-border-color rounded-2xl shadow-lg overflow-hidden mb-16"><div class="overflow-x-auto"><table class="w-full text-text-dark"><thead class="bg-gray-100 dark:bg-gray-800"><tr class="text-left"><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light">Rank</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light">Team</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Booyah</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Loss</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center hidden sm:table-cell">W/L(Rounds)</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Kills</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">K/R Ratio</th></tr></thead><tbody id="cs-leaderboard-body" class="text-text-dark"></tbody></table></div></div>
                 <section id="cs-qualifiers-section" class="mb-16">
-                    <header class="text-center mb-12"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase text-accent-blue tracking-wider">Qualification Matches</h2></header>
+                    <header class="text-center mb-12"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">Qualification Matches</h2></header>
                     <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div class="matchup-card" data-match-id="1"><div class="matchup-team text-cyan-500">BRBO</div><div class="vs-glow">VS</div><div class="matchup-team text-orange-500">Utkal Warriors</div></div>
                         <div class="matchup-card" data-match-id="2"><div class="matchup-team text-green-500">Team Survive</div><div class="vs-glow">VS</div><div class="matchup-team text-yellow-500">Team Exclusive</div></div>
@@ -226,31 +307,33 @@
                     </div>
                 </section>
                 <section id="cs-semifinal-section" class="mb-16 reveal-on-scroll">
-                    <header class="text-center mb-12"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase text-accent-blue tracking-wider">Semi Final</h2></header>
+                    <header class="text-center mb-12"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">Semi Final</h2></header>
                     <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div class="matchup-card" data-match-id="sf1"><div class="matchup-team text-cyan-500">BRBO</div><div class="vs-glow">VS</div><div class="matchup-team text-green-500">Team Survive</div></div>
                         <div class="matchup-card" data-match-id="sf2"><div class="matchup-team text-yellow-500">Team Exclusive</div><div class="vs-glow">VS</div><div id="sf1-loser-name" class="matchup-team text-gray-500">SF1 Losing Team</div></div>
                     </div>
                 </section>
-                <section class="mb-16"><header class="text-center mb-8"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase text-accent-blue tracking-wider">CS Kill Leaders</h2></header><div class="scroller leader-scroller" id="cs-kill-leaders-scroller"><div id="cs-kill-leaders-container" class="scroller__inner"></div></div></section>
+                <section class="mb-16"><header class="text-center mb-8"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">CS Kill Leaders</h2></header><div class="scroller leader-scroller" id="cs-kill-leaders-scroller"><div id="cs-kill-leaders-container" class="scroller__inner"></div></div></section>
             </div>
         </div>
         <div id="br-view" class="hidden">
             <div class="w-full max-w-7xl mx-auto p-4">
-                <header class="text-center my-8"><h1 class="font-orbitron text-4xl md:text-6xl font-black uppercase text-accent-purple tracking-wider">BR Tournament Standings</h1><p class="br-live-banner mt-2">BR Tournament Is Live</p></header>
+                <header class="text-center my-8"><h1 class="font-orbitron text-4xl md:text-6xl font-black uppercase tracking-wider">BR Tournament Standings</h1><p class="br-live-banner mt-2">BR Tournament Is Live</p></header>
                 <div class="bg-bg-card backdrop-blur-sm border border-border-color rounded-2xl shadow-lg overflow-hidden"><div class="overflow-x-auto"><table class="w-full text-text-dark"><thead class="bg-gray-100 dark:bg-gray-800"><tr class="text-left"><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light">Rank</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light">Team</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Booyah</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Kill Points</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Position</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Pos. Points</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Total Points</th></tr></thead><tbody id="br-leaderboard-body" class="text-text-dark"></tbody></table></div></div>
-                <section class="mt-16"><header class="text-center mb-8"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase text-accent-purple tracking-wider">Match Highlights</h2></header><div class="scroller" id="map-scroller"><div class="scroller__inner" id="map-highlights-container"></div></div></section>
-                <section class="my-16"><header class="text-center mb-8"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase text-accent-purple tracking-wider">BR Kill Leaders</h2></header><div class="scroller leader-scroller" id="br-kill-leaders-scroller"><div id="br-kill-leaders-container" class="scroller__inner"></div></div></section>
+                <section class="mt-16"><header class="text-center mb-8"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">Match Highlights</h2></header><div class="scroller" id="map-scroller"><div class="scroller__inner" id="map-highlights-container"></div></div></section>
+                <section class="my-16"><header class="text-center mb-8"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">BR Kill Leaders</h2></header><div class="scroller leader-scroller" id="br-kill-leaders-scroller"><div id="br-kill-leaders-container" class="scroller__inner"></div></div></section>
             </div>
         </div>
     </div>
 
+    <!-- Modals -->
     <div id="player-stats-modal-overlay">
-        <div id="player-stats-modal"><div class="p-4 sm:p-6 border-b border-border-color relative"><h2 id="modal-team-name" class="font-orbitron text-2xl sm:text-3xl font-bold text-center text-text-dark">Team Name</h2><button id="modal-close-btn" class="absolute top-3 right-4 text-text-light hover:text-text-dark transition-colors text-2xl">×</button></div><div class="p-4 sm:p-6"><table class="w-full"><thead><tr class="border-b border-border-color"><th class="p-3 text-left font-orbitron text-sm uppercase tracking-widest text-text-light">Name/IGN</th><th class="p-3 text-center font-orbitron text-sm uppercase tracking-widest text-text-light">Role</th><th class="p-3 text-right font-orbitron text-sm uppercase tracking-widest text-text-light">Kills</th><th class="p-3 text-right font-orbitron text-sm uppercase tracking-widest text-text-light">K/R</th></tr></thead><tbody id="modal-player-stats-body"></tbody></table></div></div>
+        <div id="player-stats-modal"><div class="p-4 sm:p-6 border-b border-border-color relative"><h2 id="modal-team-name" class="font-orbitron text-2xl sm:text-3xl font-bold text-center">Team Name</h2><button id="modal-close-btn" class="absolute top-3 right-4 text-text-light hover:text-text-dark transition-colors text-2xl">&times;</button></div><div class="p-4 sm:p-6"><table class="w-full"><thead><tr class="border-b border-border-color"><th class="p-3 text-left font-orbitron text-sm uppercase tracking-widest text-text-light">Name/IGN</th><th class="p-3 text-center font-orbitron text-sm uppercase tracking-widest text-text-light">Role</th><th class="p-3 text-right font-orbitron text-sm uppercase tracking-widest text-text-light">Kills</th><th class="p-3 text-right font-orbitron text-sm uppercase tracking-widest text-text-light">K/R</th></tr></thead><tbody id="modal-player-stats-body"></tbody></table></div></div>
     </div>
     <div id="match-details-modal-overlay">
         <div id="match-details-modal">
-            </div>
+            <!-- Content will be injected by JS -->
+        </div>
     </div>
 
     <script>
@@ -269,12 +352,12 @@
             'sf2': { title: "Team Exclusive vs SF1 Losing Team", liveLink: "https://youtube.com/@bg_raj_17_live?si=-ZkrtXszMHSpVzk0", teams: { teamA: { name: "Team Exclusive", players: csTeamData.find(t => t.name === 'Team Exclusive').players }, teamB: { name: "SF1 Losing Team", players: [ { ign: 'P1', role: 'N/A'}, { ign: 'P2', role: 'N/A'}, { ign: 'P3', role: 'N/A'}, { ign: 'P4', role: 'N/A'}, { ign: 'P5', role: 'N/A'} ] } } }
         };
 
-        // --- All JS functions remain here, now readable and debugged ---
+        // --- JS Functions ---
         function getRoleIcon(role) { const l=role.toLowerCase(); let t=""; if(l.includes("sniper")) t+='<i class="fa-solid fa-crosshairs role-icon" title="Sniper"></i>'; if(l.includes("igl")) t+='<i class="fa-solid fa-crown role-icon" title="IGL"></i>'; if(l.includes("rusher") || l.includes("assaulter")) t+='<i class="fa-solid fa-bolt role-icon" title="Rusher/Assaulter"></i>'; if(l.includes("supporter")) t+='<i class="fa-solid fa-shield-halved role-icon" title="Supporter"></i>'; if(l.includes("flanker")) t+='<i class="fa-solid fa-user-secret role-icon" title="Flanker"></i>'; return t||"N/A"; }
-        function getRankClass(rank) { if(rank===1) return 'rank-1'; if(rank===2) return 'rank-2'; if(rank===3) return 'rank-3'; return 'bg-gray-100 dark:bg-cool-dark'; }
+        function getRankClass(rank) { if(rank===1) return 'rank-1'; if(rank===2) return 'rank-2'; if(rank===3) return 'rank-3'; return ''; }
         function getPlayerBadgeHtml(playerName, teamRank, isSemifinalist) {
             if (isSemifinalist) {
-                return '<span class="player-badge badge-semifinalist" title="Semifinalist"><i class="fas fa-star"></i></span>';
+                return '<span class="player-badge badge-semifinalist" title="Semifinalist"><i class="fas fa-star-half-alt"></i></span>';
             }
             const csRank = csKillLeaders.findIndex(p => p.ign === playerName) + 1;
             const brRank = brKillLeaders.findIndex(p => p.ign === playerName) + 1;
@@ -287,10 +370,9 @@
                 if (rank === 2) return '<span class="player-badge badge-silver" title="Top 3 Killer"><i class="fas fa-medal"></i></span>';
                 if (rank === 3) return '<span class="player-badge badge-bronze" title="Top 3 Killer"><i class="fas fa-medal"></i></span>';
             }
-            const animatedClass = teamRank <= 3 ? 'badge-animated-default' : '';
-            return `<span class="player-badge badge-default ${animatedClass}" title="Player"><i class="fas fa-user"></i></span>`;
+            return `<span class="player-badge badge-default" title="Player"><i class="fas fa-user"></i></span>`;
         }
-        function showPlayerStatsModal(teamData, teamRank) { const modalOverlay=document.getElementById("player-stats-modal-overlay"), teamNameEl=document.getElementById("modal-team-name"), playerStatsBody=document.getElementById("modal-player-stats-body"); if(!modalOverlay||!teamNameEl||!playerStatsBody) return; teamNameEl.textContent=teamData.name; playerStatsBody.innerHTML=""; const sortedPlayers=[...teamData.players].sort((a,b)=>b.kills-a.kills); sortedPlayers.forEach((player,index)=>{ const row=document.createElement("tr"); row.className="modal-player-row border-t border-border-color"; row.style.animationDelay=`${index*0.07}s`; const badgeHtml = getPlayerBadgeHtml(player.ign, teamRank, teamRank <= 4); const kr = player.roundsPlayed > 0 ? (player.kills / player.roundsPlayed).toFixed(2) : "N/A"; row.innerHTML=`<td class="p-3 font-semibold text-base flex items-center">${badgeHtml}<span>${player.ign}</span></td><td class="p-3 text-center text-text-light text-sm">${getRoleIcon(player.role)} ${player.role}</td><td class="p-3 text-right font-bold text-lg text-accent-blue">${player.kills}</td><td class="p-3 text-right font-bold text-lg text-accent-purple">${kr}</td>`; playerStatsBody.appendChild(row); }); modalOverlay.classList.add("active"); }
+        function showPlayerStatsModal(teamData, teamRank) { const modalOverlay=document.getElementById("player-stats-modal-overlay"), teamNameEl=document.getElementById("modal-team-name"), playerStatsBody=document.getElementById("modal-player-stats-body"); if(!modalOverlay||!teamNameEl||!playerStatsBody) return; teamNameEl.textContent=teamData.name; playerStatsBody.innerHTML=""; const sortedPlayers=[...teamData.players].sort((a,b)=>b.kills-a.kills); const isSemifinalist = teamRank <= 4; sortedPlayers.forEach((player,index)=>{ const row=document.createElement("tr"); row.className="modal-player-row border-t border-border-color"; row.style.animationDelay=`${index*0.07}s`; const badgeHtml = getPlayerBadgeHtml(player.ign, teamRank, isSemifinalist); const kr = player.roundsPlayed > 0 ? (player.kills / player.roundsPlayed).toFixed(2) : "N/A"; row.innerHTML=`<td class="p-3 font-semibold text-base flex items-center">${badgeHtml}<span>${player.ign}</span></td><td class="p-3 text-center text-text-light text-sm">${getRoleIcon(player.role)} ${player.role}</td><td class="p-3 text-right font-bold text-lg text-accent-blue">${player.kills}</td><td class="p-3 text-right font-bold text-lg text-accent-purple">${kr}</td>`; playerStatsBody.appendChild(row); }); modalOverlay.classList.add("active"); }
         function processAndDisplayLeaderboard(tbodyId, teamData, isCS) {
             const tbody = document.getElementById(tbodyId);
             if (!tbody) return;
@@ -319,11 +401,11 @@
         }
         function createMapHighlights() { const container=document.getElementById("map-highlights-container"); if(!container) return; container.innerHTML=""; mapData.forEach(map=>{ const card=document.createElement("div"); card.className="map-card"; card.style.backgroundImage=`url('${map.img}')`; let mvpHtml=map.mvp?`<div class="pt-2"><p class="font-bold text-yellow-400 text-xl">MVP</p><p class="font-semibold">${map.mvp.name} (${map.mvp.team})</p>${map.mvp.kills?`<p class="font-semibold text-sm text-gray-300">Kills: ${map.mvp.kills}</p>`:""}</div>`:""; card.innerHTML=`<div class="match-badge"><span class="bg-cyan-500/80 backdrop-blur-sm text-white font-orbitron font-bold text-sm py-1 px-3 rounded-full shadow-lg border border-cyan-400/50">MATCH ${map.matchNumber}</span></div><div class="map-card-content"><h3 class="font-orbitron text-3xl font-bold uppercase tracking-wider">${map.name}</h3><div class="mt-4 space-y-2 text-lg"><p><span class="font-bold text-green-400">Booyah:</span> <span class="font-semibold">${map.booyah||""}</span></p><p><span class="font-bold text-red-400">Kills:</span> <span class="font-semibold">${map.kills||""}</span></p>${mvpHtml}</div></div>`; container.appendChild(card); }); }
         function createKillLeaderCards(data, containerId) { const container=document.getElementById(containerId); if(!container) return; container.innerHTML=""; data.forEach((player,i)=>{ const rank=i+1; let crownHtml="", nameClass=""; if(rank===1){crownHtml='<i class="fas fa-crown crown crown-gold"></i>'; nameClass="text-gold-glow";} else if(rank===2){crownHtml='<i class="fas fa-crown crown crown-silver"></i>'; nameClass="text-silver-glow";} else if(rank===3){crownHtml='<i class="fas fa-crown crown crown-bronze"></i>'; nameClass="text-bronze-glow";} else if(rank===4){nameClass="text-cyan-glow";} else if(rank===5){nameClass="text-fuchsia-glow";} const card=document.createElement("div"); card.className="kill-leader-card relative"; const kr = player.roundsPlayed > 0 ? (player.totalKills / player.roundsPlayed).toFixed(2) : "N/A"; card.innerHTML=`${crownHtml}<div class="player-icon-bg"><svg class="player-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg></div><h3 class="player-name font-exo ${nameClass}">${player.ign}</h3><p class="text-xs text-text-light">(${player.teamName})</p><div class="text-left mt-2 text-xs w-full"><p class="flex justify-between items-center"><strong class="text-red-500 font-bold">Kills:</strong> <span class="font-semibold">${player.totalKills}</span></p><p class="flex justify-between items-center"><strong class="text-purple-500 font-bold">K/R:</strong> <span class="font-semibold">${kr}</span></p></div>`; container.appendChild(card); }); }
-        function calculateKillLeaders() { const allCsPlayers=csTeamData.flatMap(team=>team.players.map(p=>({...p,teamName:team.name,totalKills:p.kills}))); const allBrPlayers=brTeamData.flatMap(team=>team.players.map(p=>({...p,teamName:team.name,totalKills:p.kills}))); csKillLeaders=allCsPlayers.sort((a,b)=>b.totalKills-a.totalKills).slice(0,5); brKillLeaders=allBrPlayers.sort((a,b)=>b.totalKills-a.totalKills).slice(0,5); }
+        function calculateKillLeaders() { const allCsPlayers=csTeamData.flatMap(team=>team.players.map(p=>({...p,teamName:team.name,totalKills:p.kills}))); const allBrPlayers=brTeamData.flatMap(team=>team.players.map(p=>({...p,teamName:team.name,totalKills:p.kills}))); csKillLeaders=allCsPlayers.sort((a,b)=>b.totalKills-a.totalKills).slice(0,10); brKillLeaders=allBrPlayers.sort((a,b)=>b.totalKills-a.totalKills).slice(0,10); }
         function setupPausingScroller(scrollerId) { const scroller=document.getElementById(scrollerId); if(!scroller) return; const inner=scroller.querySelector(".scroller__inner"); if(!inner||inner.children.length===0) return; const originalCards=Array.from(inner.children); originalCards.forEach(card=>inner.appendChild(card.cloneNode(true))); let currentIndex=0; let timeoutId; function advance() { const cards=Array.from(inner.children); const activeCard=cards[currentIndex]; const scrollAmount=activeCard.offsetLeft+activeCard.offsetWidth/2-scroller.offsetWidth/2; inner.style.transform=`translateX(-${scrollAmount}px)`; cards.forEach(c=>c.classList.remove("is-active")); activeCard.classList.add("is-active"); currentIndex++; if(currentIndex>=originalCards.length) { setTimeout(()=>{ inner.style.transition="none"; currentIndex=0; const resetScrollAmount=cards[0].offsetLeft+cards[0].offsetWidth/2-scroller.offsetWidth/2; inner.style.transform=`translateX(-${resetScrollAmount}px)`; setTimeout(()=>{inner.style.transition="transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)"},50); },800); } timeoutId=setTimeout(advance,2500); } advance(); scroller.addEventListener("mouseenter",()=>clearTimeout(timeoutId)); scroller.addEventListener("mouseleave",()=>timeoutId=setTimeout(advance,2500)); }
         function setupContinuousScroller(containerId) { const container=document.getElementById(containerId); if(!container||container.children.length===0) return; const originalCards=Array.from(container.children); originalCards.forEach(card=>{ const clone=card.cloneNode(true); clone.setAttribute("aria-hidden",true); container.appendChild(clone); }); }
         function updateTimestamp() { const timestampEl=document.getElementById("last-updated"); if(!timestampEl) return; const now=new Date(); timestampEl.textContent=now.toLocaleString("en-IN",{weekday:"long",year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"numeric",second:"numeric",timeZone:"Asia/Kolkata",hour12:true}); }
-        function setupModalListeners() { const playerModal=document.getElementById("player-stats-modal-overlay"), closeBtn=document.getElementById("modal-close-btn"); if(playerModal) playerModal.addEventListener("click",e=>{if(e.target===playerModal) playerModal.classList.remove("active");}); if(closeBtn) closeBtn.addEventListener("click",()=>playerModal.classList.remove("active")); const matchModal=document.getElementById("match-details-modal-overlay"), matchModalContent=document.getElementById("match-details-modal"); if(matchModal) matchModal.addEventListener("click",e=>{if(e.target===matchModal) matchModal.classList.remove("active");}); document.querySelectorAll('.matchup-card').forEach(card => { card.addEventListener('click', () => { const matchId = card.dataset.matchId; const details = matchDetailsData[matchId]; const csRanks = csTeamData.map(t => t.name); if (details && details.teams) { const findMvp = (players) => players.reduce((mvp, player) => (player.kills > mvp.kills) ? player : mvp, players[0]); const teamAMvp = findMvp(details.teams.teamA.players); const teamBMvp = findMvp(details.teams.teamB.players); const teamARank = csRanks.indexOf(details.teams.teamA.name) + 1; const teamBRank = csRanks.indexOf(details.teams.teamB.name) + 1; const generatePlayerRows = (players, mvp, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${p.name === mvp.name ? '<span class="player-badge badge-mvp" title="Match MVP"><i class="fas fa-star"></i></span>' : getPlayerBadgeHtml(p.name, teamRank)}<span>${p.name}</span></td><td class="p-2 text-center">${p.kills}</td><td class="p-2 text-center">${p.dmg}</td></tr>`).join(''); const generateUpcomingPlayerRows = (players, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${getPlayerBadgeHtml(p.ign, teamRank)}<span>${p.ign}</span></td><td class="p-2 text-center">${p.role}</td></tr>`).join(''); if (details.liveLink) { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-green-500 font-bold uppercase tracking-widest">Starting Soon</span><h3 class="font-orbitron text-2xl text-text-dark mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamA.players, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamB.players, teamBRank)}</tbody></table></div></div><a href="${details.liveLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Live</a></div>`; } else { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-red-500 font-bold uppercase tracking-widest">${details.tag || "Match Ended"}</span><h3 class="font-orbitron text-2xl text-text-dark mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-yellow-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Kills</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamA.players, teamAMvp, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-orange-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Kills</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamB.players, teamBMvp, teamBRank)}</tbody></table></div></div><a href="${details.replayLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Replay</a></div>`; } } if(matchModal) matchModal.classList.add('active'); }); }); }
+        function setupModalListeners() { const playerModal=document.getElementById("player-stats-modal-overlay"), closeBtn=document.getElementById("modal-close-btn"); if(playerModal) playerModal.addEventListener("click",e=>{if(e.target===playerModal) playerModal.classList.remove("active");}); if(closeBtn) closeBtn.addEventListener("click",()=>playerModal.classList.remove("active")); const matchModal=document.getElementById("match-details-modal-overlay"), matchModalContent=document.getElementById("match-details-modal"); if(matchModal) matchModal.addEventListener("click",e=>{if(e.target===matchModal) matchModal.classList.remove("active");}); document.querySelectorAll('.matchup-card').forEach(card => { card.addEventListener('click', () => { const matchId = card.dataset.matchId; const details = matchDetailsData[matchId]; const csRanks = csTeamData.map(t => t.name); if (details && details.teams) { const findMvp = (players) => players.reduce((mvp, player) => (player.kills > mvp.kills) ? player : mvp, players[0]); const teamAMvp = findMvp(details.teams.teamA.players); const teamBMvp = findMvp(details.teams.teamB.players); const teamARank = csRanks.indexOf(details.teams.teamA.name) + 1; const teamBRank = csRanks.indexOf(details.teams.teamB.name) + 1; const generatePlayerRows = (players, mvp, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${p.name === mvp.name ? '<span class="player-badge badge-mvp" title="Match MVP"><i class="fas fa-star"></i></span>' : getPlayerBadgeHtml(p.name, teamRank, teamRank <= 4)}<span>${p.name}</span></td><td class="p-2 text-center">${p.kills}</td><td class="p-2 text-center">${p.dmg}</td></tr>`).join(''); const generateUpcomingPlayerRows = (players, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${getPlayerBadgeHtml(p.ign, teamRank, teamRank <= 4)}<span>${p.ign}</span></td><td class="p-2 text-center">${p.role}</td></tr>`).join(''); if (details.liveLink) { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-green-500 font-bold uppercase tracking-widest">Starting Soon</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamA.players, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamB.players, teamBRank)}</tbody></table></div></div><a href="${details.liveLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Live</a></div>`; } else { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-red-500 font-bold uppercase tracking-widest">${details.tag || "Match Ended"}</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-yellow-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Kills</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamA.players, teamAMvp, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-orange-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Kills</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamB.players, teamBMvp, teamBRank)}</tbody></table></div></div><a href="${details.replayLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Replay</a></div>`; } } if(matchModal) matchModal.classList.add('active'); }); }); }
         function populateSemiFinals() { const sf1_details = matchDetailsData['sf1']; if (sf1_details && sf1_details.winner) { const winnerName = sf1_details.winner; const loserTeamData = csTeamData.find(t => t.name !== winnerName && (t.name === sf1_details.teams.teamA.name || t.name === sf1_details.teams.teamB.name)); if (loserTeamData) { matchDetailsData['sf2'].teams.teamB = loserTeamData; matchDetailsData['sf2'].title = `Team Exclusive vs ${loserTeamData.name}`; const sf2_card_loser_name = document.getElementById('sf1-loser-name'); if (sf2_card_loser_name) { sf2_card_loser_name.textContent = loserTeamData.name; sf2_card_loser_name.classList.remove('text-gray-500'); sf2_card_loser_name.classList.add('text-red-500'); } } } }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -365,28 +447,23 @@
             brSection.addEventListener('click', () => showLeaderboard('br'));
             backButton.addEventListener('click', hideLeaderboard);
 
+            bgAudio.volume = 0.5;
             soundToggle.addEventListener('click', () => {
                 isMuted = !isMuted;
                 bgAudio.muted = isMuted;
                 soundToggle.innerHTML = isMuted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
             });
-
             volumeSlider.addEventListener('input', (e) => {
                 bgAudio.volume = e.target.value;
-                if (bgAudio.volume === 0) {
-                    isMuted = true;
-                    soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                } else {
-                    isMuted = false;
-                    soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-                }
+                bgAudio.muted = e.target.value == 0;
+                isMuted = e.target.value == 0;
+                soundToggle.innerHTML = isMuted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
             });
             
             document.body.addEventListener('click', () => {
                 if(bgAudio.paused) bgAudio.play().catch(e => console.log("Audio autoplay was prevented by browser."));
             }, { once: true });
             
-            // Theme Toggle Logic
             const applyTheme = (theme) => {
                 if (theme === 'dark') {
                     document.documentElement.classList.add('dark');
@@ -403,18 +480,11 @@
             });
             const savedTheme = localStorage.getItem('theme');
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (savedTheme) {
-                applyTheme(savedTheme);
-            } else if (systemPrefersDark) {
-                applyTheme('dark');
-            } else {
-                applyTheme('light');
-            }
-
+            if (savedTheme) { applyTheme(savedTheme); } else if (systemPrefersDark) { applyTheme('dark'); } else { applyTheme('light'); }
 
             const loader = document.getElementById('loader');
             calculateKillLeaders();
-            // populateSemiFinals(); // Paused for now
+            populateSemiFinals();
             processAndDisplayLeaderboard("cs-leaderboard-body", csTeamData, true);
             processAndDisplayLeaderboard("br-leaderboard-body", brTeamData, false);
             createMapHighlights();
@@ -464,3 +534,4 @@
     </script>
 </body>
 </html>
+
