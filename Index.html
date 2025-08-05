@@ -365,6 +365,23 @@
         .stats-panel-btn:hover i {
             transform: rotate(-15deg) scale(1.1);
         }
+        
+        /* MVP Section Transition */
+        .mvp-section.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            max-height: 0;
+            overflow: hidden;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+        .mvp-section {
+            transition: all 0.5s ease-in-out;
+            max-height: 2000px; /* Large enough to not clip content */
+        }
+
 
         /* Individual Player Modal */
         #individual-player-stats-modal-overlay { position: fixed; inset: 0; z-index: 4000; background: rgba(10, 10, 20, 0.6); backdrop-filter: blur(8px) saturate(150%); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -445,7 +462,7 @@
                     </button>
                 </div>
                 
-                <section id="valuable-players-section-cs" class="mb-16 hidden">
+                <section id="valuable-players-section-cs" class="mvp-section hidden">
                     <!-- MVP Table will be injected here -->
                 </section>
 
@@ -498,7 +515,7 @@
                     </button>
                 </div>
 
-                <section id="valuable-players-section-br" class="mb-16 hidden">
+                <section id="valuable-players-section-br" class="mvp-section hidden">
                     <!-- MVP Table will be injected here -->
                 </section>
 
@@ -527,130 +544,35 @@
 
     <script>
         // --- DATA ---
-        let csTeamData = [ { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, loss: 1, winRounds: 24, lossRounds: 17, kills: 110, players: [ { ign: 'Rajesh', role: 'IGL', kills: 26 + 6, roundsPlayed: 41 }, { ign: 'Rinku', role: 'Rusher', kills: 25 + 4, roundsPlayed: 41 }, { ign: 'Amrit', role: 'Rusher/Supporter', kills: 31 + 5, roundsPlayed: 41 }, { ign: 'Anirudh', role: 'Rusher', kills: 15 + 15, roundsPlayed: 41 }, { ign: 'Babroo', role: 'Supporter', kills: 13, roundsPlayed: 41 }, ]}, { name: 'Team Exclusive', booyah: 2, loss: 2, winRounds: 20, lossRounds: 17, kills: 93, players: [ { ign: 'Rudra', role: 'Rusher/Supporter', kills: 16 + 1 + 9, roundsPlayed: 37 }, { ign: 'Aditya', role: 'Rusher', kills: 25 + 1 + 8, roundsPlayed: 37 }, { ign: 'Sovan', role: 'Sniper', kills: 28 + 4 + 8, roundsPlayed: 37 }, { ign: 'Chiku', role: 'IGL', kills: 23 + 3 + 6, roundsPlayed: 37 }, ]}, { name: 'Team Survive', booyah: 4, loss: 0, winRounds: 28, lossRounds: 13, kills: 114, players: [ { ign: 'Ashirbad', role: 'Rusher', kills: 26 + 9, roundsPlayed: 41 }, { ign: 'Dibya', role: 'IGL', kills: 35 + 8, roundsPlayed: 41 }, { ign: 'Mohit', role: 'Rusher', kills: 33 + 8, roundsPlayed: 41 }, { ign: 'Nihar', role: 'Rusher/Supporter', kills: 7, roundsPlayed: 41 }, { ign: 'Amit', role: 'Supporter', kills: 13 + 5, roundsPlayed: 41 }, ]}, { name: 'Bengali Warriors', booyah: 2, loss: 2, winRounds: 18, lossRounds: 30, kills: 87, players: [] }, { name: 'Utkal Warriors', booyah: 2, loss: 2, winRounds: 23, lossRounds: 19, kills: 104, players: [ { ign: 'Anup', role: 'Rusher/Sniper', kills: 28 + 6 + 12, roundsPlayed: 42 }, { ign: 'Pritam', role: 'Rusher', kills: 22 + 4 + 7, roundsPlayed: 42 }, { ign: 'Chandan', role: 'IGL', kills: 30 + 0 + 6, roundsPlayed: 42 }, { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 26 + 1 + 6, roundsPlayed: 42 }, ]}, { name: 'Team Phoenix', booyah: 0, loss: 4, winRounds: 13, lossRounds: 28, kills: 76, players: [ { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 20, roundsPlayed: 41 }, { ign: 'OSH !!', role: 'RUSHHER', kills: 24, roundsPlayed: 41 }, { ign: 'Mr.Arpitt', role: 'ASSAULTER', kills: 7, roundsPlayed: 41 }, { ign: 'Srikant', role: 'RUSHHER', kills: 13, roundsPlayed: 41 }, { ign: 'Shusho', role: 'ASSAULTER', kills: 10, roundsPlayed: 41 }, ]}, { name: 'Venom Ragers', booyah: 1, loss: 3, winRounds: 11, lossRounds: 21, kills: 65, players: [] }, ];
+        let csTeamData = [
+            { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, loss: 1, winRounds: 24, lossRounds: 17, kills: 110, players: [ { ign: 'Rajesh', role: 'IGL', kills: 32, roundsPlayed: 41 }, { ign: 'Rinku', role: 'Rusher', kills: 29, roundsPlayed: 41 }, { ign: 'Amrit', role: 'Rusher/Supporter', kills: 36, roundsPlayed: 41 }, { ign: 'Anirudh', role: 'Rusher', kills: 30, roundsPlayed: 41 }, { ign: 'Babroo', role: 'Supporter', kills: 13, roundsPlayed: 41 } ] },
+            { name: 'Team Exclusive', booyah: 2, loss: 2, winRounds: 20, lossRounds: 17, kills: 93, players: [ { ign: 'Rudra', role: 'Rusher/Supporter', kills: 26, roundsPlayed: 37 }, { ign: 'Aditya', role: 'Rusher', kills: 34, roundsPlayed: 37 }, { ign: 'Sovan', role: 'Sniper', kills: 40, roundsPlayed: 37 }, { ign: 'Chiku', role: 'IGL', kills: 32, roundsPlayed: 37 }, { ign: 'Sekhar', role: 'N/A', kills: 0, roundsPlayed: 0 } ] },
+            { name: 'Team Survive', booyah: 4, loss: 0, winRounds: 28, lossRounds: 13, kills: 114, players: [ { ign: 'Ashirbad', role: 'Rusher', kills: 35, roundsPlayed: 41 }, { ign: 'Dibya', role: 'IGL', kills: 43, roundsPlayed: 41 }, { ign: 'Mohit', role: 'Rusher', kills: 41, roundsPlayed: 41 }, { ign: 'Nihar', role: 'Rusher/Supporter', kills: 7, roundsPlayed: 41 }, { ign: 'Amit', role: 'Supporter', kills: 18, roundsPlayed: 41 } ] },
+            { name: 'Bengali Warriors', booyah: 2, loss: 2, winRounds: 18, lossRounds: 30, kills: 87, players: [ { ign: 'Minar', role: 'N/A', kills: 0, roundsPlayed: 0 }, { ign: 'Arijit', role: 'N/A', kills: 0, roundsPlayed: 0 }, { ign: 'Dablu', role: 'N/A', kills: 0, roundsPlayed: 0 }, { ign: 'Amrit(c)', role: 'N/A', kills: 0, roundsPlayed: 0 }, { ign: 'Raja', role: 'N/A', kills: 0, roundsPlayed: 0 } ] },
+            { name: 'Utkal Warriors', booyah: 2, loss: 2, winRounds: 23, lossRounds: 19, kills: 104, players: [ { ign: 'Anup', role: 'Rusher/Sniper', kills: 46, roundsPlayed: 42 }, { ign: 'Pritam', role: 'Rusher', kills: 33, roundsPlayed: 42 }, { ign: 'Chandan', role: 'IGL', kills: 36, roundsPlayed: 42 }, { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 33, roundsPlayed: 42 }, { ign: 'Rakesh', role: 'N/A', kills: 0, roundsPlayed: 0 } ] },
+            { name: 'Team Phoenix', booyah: 0, loss: 4, winRounds: 13, lossRounds: 28, kills: 76, players: [ { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 20, roundsPlayed: 41 }, { ign: 'OSH !!', role: 'RUSHHER', kills: 24, roundsPlayed: 41 }, { ign: 'Mr.Arpitt', role: 'ASSAULTER', kills: 7, roundsPlayed: 41 }, { ign: 'Srikant', role: 'RUSHHER', kills: 13, roundsPlayed: 41 }, { ign: 'Shusho', role: 'ASSAULTER', kills: 10, roundsPlayed: 41 } ] },
+            { name: 'Venom Ragers', booyah: 1, loss: 3, winRounds: 11, lossRounds: 21, kills: 65, players: [ { ign: 'Linga', role: 'N/A', kills: 0, roundsPlayed: 0 }, { ign: 'Venom', role: 'N/A', kills: 0, roundsPlayed: 0 }, { ign: 'Victor', role: 'N/A', kills: 0, roundsPlayed: 0 }, { ign: 'Mafia', role: 'N/A', kills: 0, roundsPlayed: 0 } ] },
+        ];
         
         let brTeamData = [ 
-            { 
-                name: 'Barsha Ranira Bhiga Odhani', // BRBO
-                positions: '1/1/6/1/4/2/1/1/1/3/6/6', 
-                killPoints: 79, 
-                positionPoints: 112, 
-                players: [ 
-                    { ign: 'Rajesh', role: 'IGL', kills: 21 }, 
-                    { ign: 'Rinku', role: 'Rusher', kills: 29 }, 
-                    { ign: 'Amrit', role: 'Rusher/Supporter', kills: 13 }, 
-                    { ign: 'Anirudh', role: 'Rusher', kills: 16 }, 
-                    { ign: 'Babroo', role: 'Supporter', kills: 0 }, 
-                ]
-            }, 
-            { 
-                name: 'Bengali Warriors', // BW
-                positions: '3/2/5/3/5/3/2/7/6/6/3/4', 
-                killPoints: 33, 
-                positionPoints: 83, 
-                players: [
-                    { ign: 'Minar', role: 'N/A', kills: 8 },
-                    { ign: 'Arijit', role: 'N/A', kills: 5 },
-                    { ign: 'Dablu', role: 'N/A', kills: 2 },
-                    { ign: 'Amrit(c)', role: 'N/A', kills: 4 },
-                    { ign: 'Raja', role: 'N/A', kills: 5 },
-                ]
-            }, 
-            { 
-                name: 'Team Exclusive', // TE
-                positions: '2/5/3/7/7/7/7/3/3/1/4/5', 
-                killPoints: 66, 
-                positionPoints: 80, 
-                players: [ 
-                    { ign: 'Rudra', role: 'Rusher/Supporter', kills: 6 }, 
-                    { ign: 'Aditya', role: 'Rusher', kills: 20 }, 
-                    { ign: 'Sovan', role: 'Sniper', kills: 9 }, 
-                    { ign: 'Chiku', role: 'IGL', kills: 17 }, 
-                    { ign: 'Sekhar', role: 'N/A', kills: 5, matchesPlayed: 2 },
-                ]
-            }, 
-            { 
-                name: 'Team Phoenix', // TP
-                positions: '6/4/7/6/1/1/6/4/5/2/7/3', 
-                killPoints: 43, 
-                positionPoints: 84, 
-                players: [ 
-                    { ign: 'Shusho', role: 'N/A', kills: 15 + 10 },
-                    { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 9 },
-                    { ign: 'OSH !!', role: 'RUSHHER', kills: 0 },
-                    { ign: 'Srikant', role: 'RUSHHER', kills: 7 + 9 + 13 },
-                    { ign: 'Osh', role: 'N/A', kills: 9 },
-                ]
-            }, 
-            { 
-                name: 'Team Survive', // TS
-                positions: '5/6/4/4/2/6/5/2/4/4/1/1', 
-                killPoints: 67, 
-                positionPoints: 93, 
-                players: [ 
-                    { ign: 'Dibya', role: 'IGL', kills: 27 },
-                    { ign: 'Ashirbad', role: 'Rusher', kills: 16 }, 
-                    { ign: 'Mohit', role: 'Rusher', kills: 20 }, 
-                    { ign: 'Mukesh', role: 'N/A', kills: 4 },
-                ]
-            }, 
-            { 
-                name: 'Utkal Warriors', // UW
-                positions: '5/6/4/4/3/4/3/5/2/7/5/7', 
-                killPoints: 29, 
-                positionPoints: 77, 
-                players: [ 
-                    { ign: 'Anup', role: 'Rusher/Sniper', kills: 3 }, 
-                    { ign: 'Pritam', role: 'Rusher', kills: 5 }, 
-                    { ign: 'Chandan', role: 'IGL', kills: 3 }, 
-                    { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 6 }, 
-                    { ign: 'Rakesh', role: 'N/A', kills: 0 },
-                ]
-            }, 
-            { 
-                name: 'Venom Ragers', // VR
-                positions: '7/3/1/2/6/5/4/6/7/5/2/2', 
-                killPoints: 33, 
-                positionPoints: 84, 
-                players: [
-                    { ign: 'Linga', role: 'N/A', kills: 3 },
-                    { ign: 'Venom', role: 'N/A', kills: 8 },
-                    { ign: 'Victor', role: 'N/A', kills: 3 },
-                    { ign: 'Mafia', role: 'N/A', kills: 5 },
-                ]
-            }, 
+            { name: 'Barsha Ranira Bhiga Odhani', positions: '1/1/6/1/4/2/1/1/1/3/6/6', killPoints: 79, positionPoints: 112, players: [ { ign: 'Rajesh', role: 'IGL', kills: 21 }, { ign: 'Rinku', role: 'Rusher', kills: 29 }, { ign: 'Amrit', role: 'Rusher/Supporter', kills: 13 }, { ign: 'Anirudh', role: 'Rusher', kills: 16 }, { ign: 'Babroo', role: 'Supporter', kills: 0 } ] }, 
+            { name: 'Bengali Warriors', positions: '3/2/5/3/5/3/2/7/6/6/3/4', killPoints: 33, positionPoints: 83, players: [ { ign: 'Minar', role: 'N/A', kills: 8 }, { ign: 'Arijit', role: 'N/A', kills: 5 }, { ign: 'Dablu', role: 'N/A', kills: 2 }, { ign: 'Amrit(c)', role: 'N/A', kills: 4 }, { ign: 'Raja', role: 'N/A', kills: 5 } ] }, 
+            { name: 'Team Exclusive', positions: '2/5/3/7/7/7/7/3/3/1/4/5', killPoints: 66, positionPoints: 80, players: [ { ign: 'Rudra', role: 'Rusher/Supporter', kills: 6 }, { ign: 'Aditya', role: 'Rusher', kills: 20 }, { ign: 'Sovan', role: 'Sniper', kills: 9 }, { ign: 'Chiku', role: 'IGL', kills: 17 }, { ign: 'Sekhar', role: 'N/A', kills: 5 } ] }, 
+            { name: 'Team Phoenix', positions: '6/4/7/6/1/1/6/4/5/2/7/3', killPoints: 43, positionPoints: 84, players: [ { ign: 'Shusho', role: 'N/A', kills: 15 }, { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 9 }, { ign: 'Srikant', role: 'N/A', kills: 16 }, { ign: 'Osh', role: 'N/A', kills: 9 } ] }, 
+            { name: 'Team Survive', positions: '5/6/4/4/2/6/5/2/4/4/1/1', killPoints: 67, positionPoints: 93, players: [ { ign: 'Dibya', role: 'IGL', kills: 27 }, { ign: 'Ashirbad', role: 'Rusher', kills: 16 }, { ign: 'Mohit', role: 'Rusher', kills: 20 }, { ign: 'Mukesh', role: 'N/A', kills: 4 } ] }, 
+            { name: 'Utkal Warriors', positions: '5/6/4/4/3/4/3/5/2/7/5/7', killPoints: 29, positionPoints: 77, players: [ { ign: 'Anup', role: 'Rusher/Sniper', kills: 3 }, { ign: 'Pritam', role: 'Rusher', kills: 5 }, { ign: 'Chandan', role: 'IGL', kills: 3 }, { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 6 }, { ign: 'Rakesh', role: 'N/A', kills: 0 } ] }, 
+            { name: 'Venom Ragers', positions: '7/3/1/2/6/5/4/6/7/5/2/2', killPoints: 33, positionPoints: 84, players: [ { ign: 'Linga', role: 'N/A', kills: 3 }, { ign: 'Venom', role: 'N/A', kills: 8 }, { ign: 'Victor', role: 'N/A', kills: 3 }, { ign: 'Mafia', role: 'N/A', kills: 5 } ] }, 
         ].map(team => ({
             ...team,
             booyah: (team.positions.match(/1/g) || []).length
         }));
-        
-        // Filter out placeholder players
-        csTeamData.forEach(team => team.players = team.players.filter(p => !p.ign.toLowerCase().includes('player')));
-        brTeamData.forEach(team => team.players = team.players.filter(p => !p.ign.toLowerCase().includes('player')));
 
         const csPlayerStats = [
-          // BRBO
-          { ign: 'Amrit', team: 'BRBO', kills: 67, deaths: 44 },
-          { ign: 'Rajesh', team: 'BRBO', kills: 63, deaths: 36 },
-          { ign: 'Anirudh', team: 'BRBO', kills: 63, deaths: 27 },
-          { ign: 'Rinku', team: 'BRBO', kills: 56, deaths: 43 },
-          { ign: 'Babroo', team: 'BRBO', kills: 13, deaths: 11 },
-          // Team Exclusive
-          { ign: 'Sovan', team: 'TE', kills: 64, deaths: 64 },
-          { ign: 'Aditya', team: 'TE', kills: 64, deaths: 66 },
-          { ign: 'Chiku', team: 'TE', kills: 41, deaths: 48 },
-          { ign: 'Rudra', team: 'TE', kills: 39, deaths: 61 },
-          // Utkal Warriors
-          { ign: 'Anup', team: 'UW', kills: 46, deaths: 45 },
-          { ign: 'Chandan', team: 'UW', kills: 36, deaths: 42 },
-          { ign: 'Swapnil', team: 'UW', kills: 33, deaths: 53 },
-          { ign: 'Pritam', team: 'UW', kills: 33, deaths: 43 },
-          // Venom Ragers
-          { ign: 'Vivek', team: 'VR', kills: 20, deaths: 25 },
-          { ign: 'Tanmay', team: 'VR', kills: 17, deaths: 27 },
-          { ign: 'Suvam', team: 'VR', kills: 16, deaths: 18 },
-          { ign: 'Sachin', team: 'VR', kills: 11, deaths: 26 },
-          { ign: 'Viper', team: 'VR', kills: 1, deaths: 8 },
+          { ign: 'Amrit', team: 'BRBO', kills: 67, deaths: 44 }, { ign: 'Rajesh', team: 'BRBO', kills: 63, deaths: 36 }, { ign: 'Anirudh', team: 'BRBO', kills: 63, deaths: 27 }, { ign: 'Rinku', team: 'BRBO', kills: 56, deaths: 43 }, { ign: 'Babroo', team: 'BRBO', kills: 13, deaths: 11 },
+          { ign: 'Sovan', team: 'TE', kills: 64, deaths: 64 }, { ign: 'Aditya', team: 'TE', kills: 64, deaths: 66 }, { ign: 'Chiku', team: 'TE', kills: 41, deaths: 48 }, { ign: 'Rudra', team: 'TE', kills: 39, deaths: 61 },
+          { ign: 'Anup', team: 'UW', kills: 46, deaths: 45 }, { ign: 'Chandan', team: 'UW', kills: 36, deaths: 42 }, { ign: 'Swapnil', team: 'UW', kills: 33, deaths: 53 }, { ign: 'Pritam', team: 'UW', kills: 33, deaths: 43 },
+          { ign: 'Vivek', team: 'VR', kills: 20, deaths: 25 }, { ign: 'Tanmay', team: 'VR', kills: 17, deaths: 27 }, { ign: 'Suvam', team: 'VR', kills: 16, deaths: 18 }, { ign: 'Sachin', team: 'VR', kills: 11, deaths: 26 }, { ign: 'Viper', team: 'VR', kills: 1, deaths: 8 },
+          { ign: 'Srikant', team: 'TP', kills: 13, deaths: 41 }, { ign: 'Shusho', team: 'TP', kills: 10, deaths: 41 }
         ];
 
         const mapData = [ 
@@ -810,7 +732,7 @@
 
             // Process BR Data and merge
             brTeamData.forEach(team => {
-                const defaultMatchesPlayed = (team.positions.split('/') || []).length;
+                const teamMatchesPlayed = (team.positions.split('/') || []).length;
                 team.players.forEach(player => {
                     const ign = player.ign.trim();
                     if (!combinedStats[ign]) {
@@ -821,7 +743,12 @@
                         };
                     }
                     combinedStats[ign].brKills = player.kills || 0;
-                    combinedStats[ign].brMatchesPlayed = player.matchesPlayed || defaultMatchesPlayed;
+                    // Special case for Sekhar's matches
+                    if (ign === 'Sekhar') {
+                        combinedStats[ign].brMatchesPlayed = 2;
+                    } else {
+                        combinedStats[ign].brMatchesPlayed = teamMatchesPlayed;
+                    }
                     combinedStats[ign].teamName = team.name; // Ensure BR team name is used if available
                 });
             });
