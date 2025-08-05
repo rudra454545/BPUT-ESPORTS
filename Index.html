@@ -28,11 +28,11 @@
 
         html.dark {
             /* Dark Mode: Light-Bright Polar White-Grey mix */
-            --bg-main: #374151; /* Lighter, cool grey background */
-            --bg-card: rgba(15, 23, 42, 0.5);
+            --bg-main: #111827; /* Darker background */
+            --bg-card: rgba(31, 41, 55, 0.5); /* Darker card background */
             --text-dark: #E5E7EB;
             --text-light: #94A3B8;
-            --border-color: #4B5563;
+            --border-color: #374151; /* Adjusted border color */
             --accent-blue: #60A5FA; /* Neon Navy Blue */
             --accent-purple: #A78BFA; /* Neon Violet */
             --shadow-color: rgba(0,0,0,0.5);
@@ -250,7 +250,7 @@
         .back-button { position: fixed; top: 20px; left: 20px; z-index: 1001; background: var(--bg-card); backdrop-filter: blur(5px); border: 1px solid var(--border-color); color: var(--text-dark); width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; transition: all 0.3s ease; }
         .back-button:hover { background: var(--text-dark); color: var(--bg-main); transform: scale(1.1); }
         ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: var(--border-color); } ::-webkit-scrollbar-thumb { background-color: var(--text-light); border-radius: 10px; border: 2px solid var(--border-color); }
-        .leaderboard-row { transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; cursor: pointer; perspective: 500px; }
+        .leaderboard-row { transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; perspective: 500px; }
         .leaderboard-row:hover { transform: scale(1.02) translateZ(10px); box-shadow: 0 10px 20px var(--shadow-color); z-index: 10; }
         .rank-1 { background: linear-gradient(135deg, #fef08a, #fde047); border-left-color: #facc15; color: #713f12; }
         .rank-2 { background: linear-gradient(135deg, #e5e7eb, #d1d5db); border-left-color: #9ca3af; color: #374151; }
@@ -271,7 +271,7 @@
         .map-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,32,44,0.9) 0%, rgba(26,32,44,0.5) 50%, transparent 100%); z-index: 1; }
         .map-card-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; z-index: 3; color: white; }
         .match-badge { position: absolute; top: 1rem; right: 1rem; z-index: 3; }
-        .kill-leader-card { width: 180px; height: 200px; background-color: var(--bg-card); backdrop-filter: blur(10px); border: 1px solid var(--border-color); border-radius: 1rem; padding: 1rem; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease; box-shadow: 0 10px 15px -3px var(--shadow-color); }
+        .kill-leader-card { width: 180px; height: 200px; background-color: var(--bg-card); backdrop-filter: blur(10px); border: 1px solid var(--border-color); border-radius: 1rem; padding: 1rem; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease; box-shadow: 0 10px 15px -3px var(--shadow-color); cursor: pointer; }
         .kill-leader-card:hover { transform: translateZ(30px) rotateY(15deg); box-shadow: 0 25px 50px -12px var(--shadow-color); }
         .crown { font-size: 1.75rem; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); }
         .crown-gold { color: #facc15; } .crown-silver { color: #9ca3af; } .crown-bronze { color: #f59e0b; }
@@ -279,11 +279,11 @@
         .player-icon { color: var(--text-light); width: 25px; height: 25px; }
         .player-name { font-weight: 900; font-size: 1.1rem; line-height: 1.1; word-break: break-all; margin-bottom: 0.25rem; }
         .text-gold-glow { color: #ca8a04; } .text-silver-glow { color: #6b7280; } .text-bronze-glow { color: #d97706; } .text-cyan-glow { color: #0891b2; } .text-fuchsia-glow { color: #c026d3; }
-        #player-stats-modal-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(10, 10, 20, 0.6); backdrop-filter: blur(8px) saturate(150%); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        #player-stats-modal-overlay.active { opacity: 1; visibility: visible; }
-        #player-stats-modal { background-color: var(--bg-main); border: 1px solid var(--border-color); box-shadow: 0 25px 50px -12px var(--shadow-color); border-radius: 1rem; width: 90%; max-width: 600px; color: var(--text-dark); transform: scale(0.9) translateY(20px); opacity: 0; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease; }
-        #player-stats-modal-overlay.active #player-stats-modal { transform: scale(1) translateY(0); opacity: 1; }
-        #player-stats-modal:hover { border-color: var(--accent-blue); }
+        #player-team-modal-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(10, 10, 20, 0.6); backdrop-filter: blur(8px) saturate(150%); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        #player-team-modal-overlay.active { opacity: 1; visibility: visible; }
+        #player-team-modal { background-color: var(--bg-main); border: 1px solid var(--border-color); box-shadow: 0 25px 50px -12px var(--shadow-color); border-radius: 1rem; width: 90%; max-width: 600px; color: var(--text-dark); transform: scale(0.9) translateY(20px); opacity: 0; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease; }
+        #player-team-modal-overlay.active #player-team-modal { transform: scale(1) translateY(0); opacity: 1; }
+        #player-team-modal:hover { border-color: var(--accent-blue); }
         .modal-player-row { opacity: 0; transform: translateX(-20px); animation: slide-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
         @keyframes slide-in { to { opacity: 1; transform: translateX(0); } }
         .role-icon { font-size: 1.1rem; margin-right: 0.5rem; width: 20px; text-align: center; display: inline-block; }
@@ -320,7 +320,7 @@
         .final-match-card .final-player-list li { margin-bottom: 0.25rem; display: flex; align-items: center; }
         .final-match-card .final-player-list .player-badge { width: 1rem; height: 1rem; font-size: 0.6rem; margin-right: 0.25rem; }
 
-        /* Player Stat Card */
+        /* Player Stat Card (for modal) */
         .player-stat-card {
             background-color: var(--bg-card);
             backdrop-filter: blur(10px);
@@ -331,9 +331,47 @@
             transition: transform 0.5s var(--transition-ease), box-shadow 0.5s ease;
         }
         .player-stat-card:hover {
-            transform: translateZ(20px) rotateY(5deg);
+            transform: translateZ(10px);
             box-shadow: 0 20px 40px -10px var(--shadow-color);
         }
+        
+        /* Stats Panel Button */
+        .stats-panel-btn {
+            background-color: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px var(--shadow-color);
+        }
+        .stats-panel-btn:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 30px -10px var(--shadow-color);
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+        .stats-panel-btn i {
+            margin-right: 0.75rem;
+            transition: transform 0.4s ease;
+        }
+        .stats-panel-btn:hover i {
+            transform: rotate(-15deg) scale(1.1);
+        }
+
+        /* Individual Player Modal */
+        #individual-player-stats-modal-overlay { position: fixed; inset: 0; z-index: 4000; background: rgba(10, 10, 20, 0.6); backdrop-filter: blur(8px) saturate(150%); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        #individual-player-stats-modal-overlay.active { opacity: 1; visibility: visible; }
+        #individual-player-stats-modal { background-color: var(--bg-main); border: 1px solid var(--border-color); box-shadow: 0 25px 50px -12px var(--shadow-color); border-radius: 1rem; width: 90%; max-width: 700px; color: var(--text-dark); transform: scale(0.9) translateY(20px); opacity: 0; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        #individual-player-stats-modal-overlay.active #individual-player-stats-modal { transform: scale(1) translateY(0); opacity: 1; }
+
 
         /* Reveal Animation */
         .reveal-on-scroll { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
@@ -401,11 +439,14 @@
                 <header class="text-center my-8"><h1 class="font-orbitron text-4xl md:text-6xl font-black uppercase tracking-wider">CS Tournament Standings</h1></header>
                 <div class="bg-bg-card backdrop-blur-sm border border-border-color rounded-2xl shadow-lg overflow-hidden mb-16"><div class="overflow-x-auto"><table class="w-full text-text-dark"><thead class="bg-gray-100 dark:bg-gray-800"><tr class="text-left"><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light">Rank</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light">Team</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Booyah</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Loss</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center hidden sm:table-cell">W/L(Rounds)</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Kills</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">K/R Ratio</th></tr></thead><tbody id="cs-leaderboard-body" class="text-text-dark"></tbody></table></div></div>
                 
-                <section id="cs-player-stats-section" class="mb-16 reveal-on-scroll">
-                    <header class="text-center mb-12"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">Player Statistics</h2></header>
-                    <div id="cs-player-stats-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                        <!-- Player cards will be injected here -->
-                    </div>
+                <div class="my-16 text-center">
+                    <button id="cs-stats-panel-btn" class="stats-panel-btn w-full max-w-2xl mx-auto">
+                        <i class="fas fa-chart-bar"></i> View Overall Player Standings
+                    </button>
+                </div>
+                
+                <section id="valuable-players-section-cs" class="mb-16 hidden">
+                    <!-- MVP Table will be injected here -->
                 </section>
 
                 <section id="cs-finals-section" class="mb-16 reveal-on-scroll">
@@ -450,6 +491,17 @@
             <div class="w-full max-w-7xl mx-auto p-4">
                 <header class="text-center my-8"><h1 class="font-orbitron text-4xl md:text-6xl font-black uppercase tracking-wider">BR Tournament Standings</h1><p class="br-live-banner mt-2">BR Tournament Is Live</p></header>
                 <div class="bg-bg-card backdrop-blur-sm border border-border-color rounded-2xl shadow-lg overflow-hidden"><div class="overflow-x-auto"><table class="w-full text-text-dark"><thead class="bg-gray-100 dark:bg-gray-800"><tr class="text-left"><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light">Rank</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light">Team</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Booyah</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Kill Points</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Position</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Pos. Points</th><th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Total Points</th></tr></thead><tbody id="br-leaderboard-body" class="text-text-dark"></tbody></table></div></div>
+                
+                 <div class="my-16 text-center">
+                    <button id="br-stats-panel-btn" class="stats-panel-btn w-full max-w-2xl mx-auto">
+                        <i class="fas fa-chart-bar"></i> View Overall Player Standings
+                    </button>
+                </div>
+
+                <section id="valuable-players-section-br" class="mb-16 hidden">
+                    <!-- MVP Table will be injected here -->
+                </section>
+
                 <section class="mt-16"><header class="text-center mb-8"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">Match Highlights</h2></header><div class="scroller" id="map-scroller"><div class="scroller__inner" id="map-highlights-container"></div></div></section>
                 <section class="my-16"><header class="text-center mb-8"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">BR Kill Leaders</h2></header><div class="scroller leader-scroller" id="br-kill-leaders-scroller"><div id="br-kill-leaders-container" class="scroller__inner"></div></div></section>
             </div>
@@ -457,73 +509,125 @@
     </div>
 
     <!-- Modals -->
-    <div id="player-stats-modal-overlay">
-        <div id="player-stats-modal"><div class="p-4 sm:p-6 border-b border-border-color relative"><h2 id="modal-team-name" class="font-orbitron text-2xl sm:text-3xl font-bold text-center">Team Name</h2><button id="modal-close-btn" class="absolute top-3 right-4 text-text-light hover:text-text-dark transition-colors text-2xl">&times;</button></div><div class="p-4 sm:p-6"><table class="w-full"><thead><tr class="border-b border-border-color"><th class="p-3 text-left font-orbitron text-sm uppercase tracking-widest text-text-light">Name/IGN</th><th class="p-3 text-center font-orbitron text-sm uppercase tracking-widest text-text-light">Role</th><th class="p-3 text-right font-orbitron text-sm uppercase tracking-widest text-text-light">Kills</th><th class="p-3 text-right font-orbitron text-sm uppercase tracking-widest text-text-light">K/R</th></tr></thead><tbody id="modal-player-stats-body"></tbody></table></div></div>
+    <div id="player-team-modal-overlay">
+        <div id="player-team-modal"><div class="p-4 sm:p-6 border-b border-border-color relative"><h2 id="modal-team-name" class="font-orbitron text-2xl sm:text-3xl font-bold text-center">Team Name</h2><button id="modal-close-btn" class="absolute top-3 right-4 text-text-light hover:text-text-dark transition-colors text-2xl">&times;</button></div><div class="p-4 sm:p-6"><table class="w-full"><thead><tr class="border-b border-border-color"><th class="p-3 text-left font-orbitron text-sm uppercase tracking-widest text-text-light">Name/IGN</th><th class="p-3 text-center font-orbitron text-sm uppercase tracking-widest text-text-light">Role</th><th class="p-3 text-right font-orbitron text-sm uppercase tracking-widest text-text-light">Kills</th><th class="p-3 text-right font-orbitron text-sm uppercase tracking-widest text-text-light">K/R</th></tr></thead><tbody id="modal-player-stats-body"></tbody></table></div></div>
     </div>
     <div id="match-details-modal-overlay">
         <div id="match-details-modal">
             <!-- Content will be injected by JS -->
         </div>
     </div>
+    <div id="individual-player-stats-modal-overlay">
+        <div id="individual-player-stats-modal">
+            <div id="individual-player-stats-modal-content">
+                <!-- Individual player stats will be injected here -->
+            </div>
+        </div>
+    </div>
 
     <script>
         // --- DATA ---
-        const createPlayers = () => Array(5).fill(null).map((_, i) => ({ ign: `Player ${i+1}`, role: 'N/A', kills: 0, roundsPlayed: 0 }));
-        const csTeamData = [ { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, loss: 1, winRounds: 24, lossRounds: 17, kills: 110, players: [ { ign: 'Rajesh', role: 'IGL', kills: 26 + 6, roundsPlayed: 41 }, { ign: 'Rinku', role: 'Rusher', kills: 25 + 4, roundsPlayed: 41 }, { ign: 'Amrit', role: 'Rusher/Supporter', kills: 31 + 5, roundsPlayed: 41 }, { ign: 'Anirudh', role: 'Rusher', kills: 15 + 15, roundsPlayed: 41 }, { ign: 'Babroo', role: 'Supporter', kills: 13, roundsPlayed: 41 }, ]}, { name: 'Team Exclusive', booyah: 2, loss: 2, winRounds: 20, lossRounds: 17, kills: 93, players: [ { ign: 'Rudra', role: 'Rusher/Supporter', kills: 16 + 1 + 9, roundsPlayed: 37 }, { ign: 'Aditya', role: 'Rusher', kills: 25 + 1 + 8, roundsPlayed: 37 }, { ign: 'Sovan', role: 'Sniper', kills: 28 + 4 + 8, roundsPlayed: 37 }, { ign: 'Chiku', role: 'IGL', kills: 23 + 3 + 6, roundsPlayed: 37 }, { ign: 'Player 5', role: 'N/A', kills: 0, roundsPlayed: 0 }, ]}, { name: 'Team Survive', booyah: 4, loss: 0, winRounds: 28, lossRounds: 13, kills: 114, players: [ { ign: 'Ashirbad', role: 'Rusher', kills: 26 + 9, roundsPlayed: 41 }, { ign: 'Dibya', role: 'IGL', kills: 35 + 8, roundsPlayed: 41 }, { ign: 'Mohit', role: 'Rusher', kills: 33 + 8, roundsPlayed: 41 }, { ign: 'Nihar', role: 'Rusher/Supporter', kills: 7, roundsPlayed: 41 }, { ign: 'Amit', role: 'Supporter', kills: 13 + 5, roundsPlayed: 41 }, ]}, { name: 'Bengali Warriors', booyah: 2, loss: 2, winRounds: 18, lossRounds: 30, kills: 87, players: createPlayers() }, { name: 'Utkal Warriors', booyah: 2, loss: 2, winRounds: 23, lossRounds: 19, kills: 104, players: [ { ign: 'Anup', role: 'Rusher/Sniper', kills: 28 + 6 + 12, roundsPlayed: 42 }, { ign: 'Pritam', role: 'Rusher', kills: 22 + 4 + 7, roundsPlayed: 42 }, { ign: 'Chandan', role: 'IGL', kills: 30 + 0 + 6, roundsPlayed: 42 }, { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 26 + 1 + 6, roundsPlayed: 42 }, { ign: 'Player 5', role: 'N/A', kills: 0, roundsPlayed: 0 }, ]}, { name: 'Team Phoenix', booyah: 0, loss: 4, winRounds: 13, lossRounds: 28, kills: 76, players: [ { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 20, roundsPlayed: 41 }, { ign: 'OSH !!', role: 'RUSHHER', kills: 24, roundsPlayed: 41 }, { ign: 'Mr.Arpitt', role: 'ASSAULTER', kills: 7, roundsPlayed: 41 }, { ign: 'Srikanta', role: 'RUSHHER', kills: 13, roundsPlayed: 41 }, { ign: 'Sushobhan', role: 'ASSAULTER', kills: 10, roundsPlayed: 41 }, ]}, { name: 'Venom Ragers', booyah: 1, loss: 3, winRounds: 11, lossRounds: 21, kills: 65, players: createPlayers() }, ];
+        let csTeamData = [ { name: 'Barsha Ranira Bhiga Odhani', booyah: 3, loss: 1, winRounds: 24, lossRounds: 17, kills: 110, players: [ { ign: 'Rajesh', role: 'IGL', kills: 26 + 6, roundsPlayed: 41 }, { ign: 'Rinku', role: 'Rusher', kills: 25 + 4, roundsPlayed: 41 }, { ign: 'Amrit', role: 'Rusher/Supporter', kills: 31 + 5, roundsPlayed: 41 }, { ign: 'Anirudh', role: 'Rusher', kills: 15 + 15, roundsPlayed: 41 }, { ign: 'Babroo', role: 'Supporter', kills: 13, roundsPlayed: 41 }, ]}, { name: 'Team Exclusive', booyah: 2, loss: 2, winRounds: 20, lossRounds: 17, kills: 93, players: [ { ign: 'Rudra', role: 'Rusher/Supporter', kills: 16 + 1 + 9, roundsPlayed: 37 }, { ign: 'Aditya', role: 'Rusher', kills: 25 + 1 + 8, roundsPlayed: 37 }, { ign: 'Sovan', role: 'Sniper', kills: 28 + 4 + 8, roundsPlayed: 37 }, { ign: 'Chiku', role: 'IGL', kills: 23 + 3 + 6, roundsPlayed: 37 }, ]}, { name: 'Team Survive', booyah: 4, loss: 0, winRounds: 28, lossRounds: 13, kills: 114, players: [ { ign: 'Ashirbad', role: 'Rusher', kills: 26 + 9, roundsPlayed: 41 }, { ign: 'Dibya', role: 'IGL', kills: 35 + 8, roundsPlayed: 41 }, { ign: 'Mohit', role: 'Rusher', kills: 33 + 8, roundsPlayed: 41 }, { ign: 'Nihar', role: 'Rusher/Supporter', kills: 7, roundsPlayed: 41 }, { ign: 'Amit', role: 'Supporter', kills: 13 + 5, roundsPlayed: 41 }, ]}, { name: 'Bengali Warriors', booyah: 2, loss: 2, winRounds: 18, lossRounds: 30, kills: 87, players: [] }, { name: 'Utkal Warriors', booyah: 2, loss: 2, winRounds: 23, lossRounds: 19, kills: 104, players: [ { ign: 'Anup', role: 'Rusher/Sniper', kills: 28 + 6 + 12, roundsPlayed: 42 }, { ign: 'Pritam', role: 'Rusher', kills: 22 + 4 + 7, roundsPlayed: 42 }, { ign: 'Chandan', role: 'IGL', kills: 30 + 0 + 6, roundsPlayed: 42 }, { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 26 + 1 + 6, roundsPlayed: 42 }, ]}, { name: 'Team Phoenix', booyah: 0, loss: 4, winRounds: 13, lossRounds: 28, kills: 76, players: [ { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 20, roundsPlayed: 41 }, { ign: 'OSH !!', role: 'RUSHHER', kills: 24, roundsPlayed: 41 }, { ign: 'Mr.Arpitt', role: 'ASSAULTER', kills: 7, roundsPlayed: 41 }, { ign: 'Srikant', role: 'RUSHHER', kills: 13, roundsPlayed: 41 }, { ign: 'Shusho', role: 'ASSAULTER', kills: 10, roundsPlayed: 41 }, ]}, { name: 'Venom Ragers', booyah: 1, loss: 3, winRounds: 11, lossRounds: 21, kills: 65, players: [] }, ];
         
-        // UPDATED BR DATA
-        const brTeamData = [ 
-            { name: 'Barsha Ranira Bhiga Odhani', positions: '1/1/6/1/4/2/1/1', killPoints: 63, positionPoints: 81, players: [ { ign: 'Rajesh', role: 'IGL', kills: 7 }, { ign: 'Rinku', role: 'Rusher', kills: 12 }, { ign: 'Amrit', role: 'Rusher/Supporter', kills: 7 }, { ign: 'Anirudh', role: 'Rusher', kills: 8 }, { ign: 'Babroo', role: 'Supporter', kills: 0 }, ]}, 
-            { name: 'Bengali Warriors', positions: '3/2/5/3/5/3/2/7', killPoints: 23, positionPoints: 58, players: createPlayers() }, 
-            { name: 'Team Exclusive', positions: '2/5/3/7/7/7/7/3', killPoints: 32, positionPoints: 47, players: [ { ign: 'Rudra', role: 'Rusher/Supporter', kills: 0 }, { ign: 'Aditya', role: 'Rusher', kills: 7 }, { ign: 'Sovan', role: 'Sniper', kills: 9 }, { ign: 'Chiku', role: 'IGL', kills: 6 }, { ign: 'Player 5', role: 'N/A', kills: 0 }, ]}, 
-            { name: 'Team Phoenix', positions: '6/4/7/6/1/1/6/4', killPoints: 27, positionPoints: 57, players: [ { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 2 }, { ign: 'OSH !!', role: 'RUSHHER', kills: 0 }, { ign: 'Mr.Arpitt', role: 'ASSAULTER', kills: 1 }, { ign: 'Srikanta', role: 'RUSHHER', kills: 1 }, { ign: 'Sushobhan', role: 'ASSAULTER', kills: 0 }, ]}, 
-            { name: 'Team Survive', positions: '5/6/4/4/2/6/5/2', killPoints: 35, positionPoints: 55, players: [ { ign: 'Ashirbad', role: 'Rusher', kills: 3 }, { ign: 'Dibya', role: 'IGL', kills: 3 }, { ign: 'Mohit', role: 'Rusher', kills: 7 }, { ign: 'Nihar', role: 'Rusher/Supporter', kills: 0 }, { ign: 'Amit', role: 'Supporter', kills: 0 }, ]}, 
-            { name: 'Utkal Warriors', positions: '5/6/4/4/3/4/3/5', killPoints: 25, positionPoints: 54, players: [ { ign: 'Anup', role: 'Rusher/Sniper', kills: 1 }, { ign: 'Pritam', role: 'Rusher', kills: 5 }, { ign: 'Chandan', role: 'IGL', kills: 1 }, { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 6 }, { ign: 'Player 5', role: 'N/A', kills: 0 }, ]}, 
-            { name: 'Venom Ragers', positions: '7/3/1/2/6/5/4/6', killPoints: 19, positionPoints: 56, players: createPlayers() }, 
+        let brTeamData = [ 
+            { 
+                name: 'Barsha Ranira Bhiga Odhani', // BRBO
+                positions: '1/1/6/1/4/2/1/1/1/3/6/6', 
+                killPoints: 79, 
+                positionPoints: 112, 
+                players: [ 
+                    { ign: 'Rajesh', role: 'IGL', kills: 21 }, 
+                    { ign: 'Rinku', role: 'Rusher', kills: 29 }, 
+                    { ign: 'Amrit', role: 'Rusher/Supporter', kills: 13 }, 
+                    { ign: 'Anirudh', role: 'Rusher', kills: 16 }, 
+                    { ign: 'Babroo', role: 'Supporter', kills: 0 }, 
+                ]
+            }, 
+            { 
+                name: 'Bengali Warriors', // BW
+                positions: '3/2/5/3/5/3/2/7/6/6/3/4', 
+                killPoints: 33, 
+                positionPoints: 83, 
+                players: [
+                    { ign: 'Minar', role: 'N/A', kills: 8 },
+                    { ign: 'Arijit', role: 'N/A', kills: 5 },
+                    { ign: 'Dablu', role: 'N/A', kills: 2 },
+                    { ign: 'Amrit(c)', role: 'N/A', kills: 4 },
+                    { ign: 'Raja', role: 'N/A', kills: 5 },
+                ]
+            }, 
+            { 
+                name: 'Team Exclusive', // TE
+                positions: '2/5/3/7/7/7/7/3/3/1/4/5', 
+                killPoints: 66, 
+                positionPoints: 80, 
+                players: [ 
+                    { ign: 'Rudra', role: 'Rusher/Supporter', kills: 6 }, 
+                    { ign: 'Aditya', role: 'Rusher', kills: 20 }, 
+                    { ign: 'Sovan', role: 'Sniper', kills: 9 }, 
+                    { ign: 'Chiku', role: 'IGL', kills: 17 }, 
+                    { ign: 'Sekhar', role: 'N/A', kills: 5, matchesPlayed: 2 },
+                ]
+            }, 
+            { 
+                name: 'Team Phoenix', // TP
+                positions: '6/4/7/6/1/1/6/4/5/2/7/3', 
+                killPoints: 43, 
+                positionPoints: 84, 
+                players: [ 
+                    { ign: 'Shusho', role: 'N/A', kills: 15 + 10 },
+                    { ign: 'RAHUL', role: 'IGL / SNIPER', kills: 9 },
+                    { ign: 'OSH !!', role: 'RUSHHER', kills: 0 },
+                    { ign: 'Srikant', role: 'RUSHHER', kills: 7 + 9 + 13 },
+                    { ign: 'Osh', role: 'N/A', kills: 9 },
+                ]
+            }, 
+            { 
+                name: 'Team Survive', // TS
+                positions: '5/6/4/4/2/6/5/2/4/4/1/1', 
+                killPoints: 67, 
+                positionPoints: 93, 
+                players: [ 
+                    { ign: 'Dibya', role: 'IGL', kills: 27 },
+                    { ign: 'Ashirbad', role: 'Rusher', kills: 16 }, 
+                    { ign: 'Mohit', role: 'Rusher', kills: 20 }, 
+                    { ign: 'Mukesh', role: 'N/A', kills: 4 },
+                ]
+            }, 
+            { 
+                name: 'Utkal Warriors', // UW
+                positions: '5/6/4/4/3/4/3/5/2/7/5/7', 
+                killPoints: 29, 
+                positionPoints: 77, 
+                players: [ 
+                    { ign: 'Anup', role: 'Rusher/Sniper', kills: 3 }, 
+                    { ign: 'Pritam', role: 'Rusher', kills: 5 }, 
+                    { ign: 'Chandan', role: 'IGL', kills: 3 }, 
+                    { ign: 'Swapnil', role: 'Supporter/Flanker', kills: 6 }, 
+                    { ign: 'Rakesh', role: 'N/A', kills: 0 },
+                ]
+            }, 
+            { 
+                name: 'Venom Ragers', // VR
+                positions: '7/3/1/2/6/5/4/6/7/5/2/2', 
+                killPoints: 33, 
+                positionPoints: 84, 
+                players: [
+                    { ign: 'Linga', role: 'N/A', kills: 3 },
+                    { ign: 'Venom', role: 'N/A', kills: 8 },
+                    { ign: 'Victor', role: 'N/A', kills: 3 },
+                    { ign: 'Mafia', role: 'N/A', kills: 5 },
+                ]
+            }, 
         ].map(team => ({
             ...team,
             booyah: (team.positions.match(/1/g) || []).length
         }));
+        
+        // Filter out placeholder players
+        csTeamData.forEach(team => team.players = team.players.filter(p => !p.ign.toLowerCase().includes('player')));
+        brTeamData.forEach(team => team.players = team.players.filter(p => !p.ign.toLowerCase().includes('player')));
 
-        const mapData = [ 
-            { matchNumber: 1, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg', booyah: 'BRBO', kills: 16, mvp: { name: 'BG RAJ', kills: 17, team: 'BRBO' } }, 
-            { matchNumber: 2, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg', booyah: 'BRBO', kills: 9, mvp: { name: 'ARJIT', kills: null, team: 'BW' } }, 
-            { matchNumber: 3, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg', booyah: 'Venom Ragers', kills: 7, mvp: { name: 'SWAPNIL', kills: null, team: 'UW' } }, 
-            { matchNumber: 4, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg', booyah: 'BRBO', kills: 8, mvp: { name: 'RYL♡RINKU', kills: null, team: 'BRBO' } }, 
-            { matchNumber: 5, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg', booyah: 'Team Phoenix', kills: 13 }, 
-            { matchNumber: 6, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg', booyah: 'Team Phoenix', kills: 8 }, 
-            { matchNumber: 7, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg', booyah: 'Barsha Ranira Bhiga Odhani', kills: 6 }, 
-            { matchNumber: 8, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg', booyah: 'Barsha Ranira Bhiga Odhani', kills: 15 }, 
-            { matchNumber: 9, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg' }, 
-            { matchNumber: 10, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg' }, 
-            { matchNumber: 11, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg' }, 
-            { matchNumber: 12, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg' }, 
-        ];
-        let csKillLeaders = [];
-        let brKillLeaders = [];
-        const matchDetailsData = {
-            '1': { title: "BRBO Won", replayLink: "https://www.youtube.com/live/6KwRXOGBC3E?si=547-ZbB2NLcnZ9wj", teams: { teamA: { name: "Barsha Ranira Bhiga Odhani", players: [ { name: "Anirudh", kills: 15, dmg: 4267 }, { name: "Rajesh", kills: 6, dmg: 2912 }, { name: "Amrit", kills: 5, dmg: 2770 }, { name: "Rinku", kills: 4, dmg: 3156 } ] }, teamB: { name: "Utkal Warriors", players: [ { name: "Anup", kills: 6, dmg: 4876 }, { name: "Pritam", kills: 4, dmg: 2260 }, { name: "Swapnil", kills: 1, dmg: 1582 }, { name: "Chandan", kills: 0, dmg: 1266 } ] } } },
-            '2': { title: "Team Survive Won By 7-1", replayLink: "https://youtube.com/@bg_raj_17_live?si=-ZkrtXszMHSpVzk0", teams: { teamA: { name: "Team Survive", players: [ { name: "Ashirbad", kills: 9, dmg: 2426 }, { name: "Mohit", kills: 8, dmg: 3850 }, { name: "Dibya", kills: 8, dmg: 3328 }, { name: "Amit", kills: 5, dmg: 2047 } ] }, teamB: { name: "Team Exclusive", players: [ { name: "Sovan", kills: 4, dmg: 3857 }, { name: "Chiku", kills: 3, dmg: 2484 }, { name: "Aditya", kills: 1, dmg: 2217 }, { name: "Rudra", kills: 1, dmg: 2105 } ] } } },
-            '3': { title: "Team Exclusive Won By 7-6", tag: "Do or Die Match", replayLink: "https://www.youtube.com/live/kjig76NwyBw?si=P0HlrWxTWgGeS5re", teams: { teamA: { name: "Team Exclusive", players: [ { name: "Rudra", kills: 9, dmg: 4242 }, { name: "Aditya", kills: 8, dmg: 5623 }, { name: "Sovan", kills: 8, dmg: 5569 }, { name: "Chiku", kills: 6, dmg: 3144 } ] }, teamB: { name: "Utkal Warriors", players: [ { name: "Anup", kills: 12, dmg: 5896 }, { name: "Pritam", kills: 7, dmg: 3462 }, { name: "Chandan", kills: 6, dmg: 3851 }, { name: "Swapnil", kills: 6, dmg: 3633 } ] } } },
-            'sf1': { 
-                title: "BRBO Won By 7-1", 
-                winner: "Barsha Ranira Bhiga Odhani",
-                replayLink: "https://www.youtube.com/live/qKcfZ-p0xuU?si=VS1jFgCzKbKNpDsc",
-                teams: { 
-                    teamA: { name: "Barsha Ranira Bhiga Odhani", players: [ { name: "Rajesh", kda: "5/2/3", dmg: 4003 }, { name: "Anirudh", kda: "6/2/7", dmg: 3685 }, { name: "Amrit", kda: "5/2/5", dmg: 1169 }, { name: "Rinku", kda: "6/2/3", dmg: 1900 } ] }, 
-                    teamB: { name: "Team Survive", players: [ { name: "Dibya", kda: "0/7/3", dmg: 1870 }, { name: "Nihal", kda: "3/7/2", dmg: 2228 }, { name: "Ashirbad", kda: "2/7/2", dmg: 2126 }, { name: "Mukesh", kda: "3/7/1", dmg: 1813 } ] } 
-                } 
-            },
-            'sf2': { 
-                title: "Team Exclusive Won By 7-6", 
-                winner: "Team Exclusive",
-                replayLink: "https://www.youtube.com/live/gGit7IAPh8A?si=xniN0FETzP0OmLhL",
-                teams: { 
-                    teamA: { name: "Team Exclusive", players: [ { name: "Aditya", kda: "12/7/10", dmg: 4117 }, { name: "Chiku", kda: "9/7/10", dmg: 3963 }, { name: "Sovan", kda: "8/7/12", dmg: 5629 }, { name: "Rudra", kda: "5/9/10", dmg: 3226 } ] }, 
-                    teamB: { name: "Team Survive", players: [ { name: "Dibya", kda: "12/7/7", dmg: 5720 }, { name: "Ashirbad", kda: "6/9/7", dmg: 4115 }, { name: "Mohit", kda: "6/8/9", dmg: 3665 }, { name: "Mukesh", kda: "6/10/6", dmg: 3219 } ] } 
-                } 
-            }
-        };
         const csPlayerStats = [
           // BRBO
           { ign: 'Amrit', team: 'BRBO', kills: 67, deaths: 44 },
@@ -549,6 +653,48 @@
           { ign: 'Viper', team: 'VR', kills: 1, deaths: 8 },
         ];
 
+        const mapData = [ 
+            { matchNumber: 1, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg', booyah: 'BRBO', kills: 16, mvp: { name: 'BG RAJ', kills: 17, team: 'BRBO' } }, 
+            { matchNumber: 2, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg', booyah: 'BRBO', kills: 9, mvp: { name: 'ARJIT', kills: null, team: 'BW' } }, 
+            { matchNumber: 3, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg', booyah: 'Venom Ragers', kills: 7, mvp: { name: 'SWAPNIL', kills: null, team: 'UW' } }, 
+            { matchNumber: 4, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg', booyah: 'BRBO', kills: 8, mvp: { name: 'RYL♡RINKU', kills: null, team: 'BRBO' } }, 
+            { matchNumber: 5, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg', booyah: 'Team Phoenix', kills: 13 }, 
+            { matchNumber: 6, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg', booyah: 'Team Phoenix', kills: 8 }, 
+            { matchNumber: 7, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg', booyah: 'Barsha Ranira Bhiga Odhani', kills: 6 }, 
+            { matchNumber: 8, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg', booyah: 'Barsha Ranira Bhiga Odhani', kills: 15 }, 
+            { matchNumber: 9, name: 'Bermuda', img: 'https://i.pinimg.com/1200x/1d/73/da/1d73da971832b610cc566e53dc74648e.jpg', booyah: 'BRBO', kills: 15 }, 
+            { matchNumber: 10, name: 'Purgatory', img: 'https://i.pinimg.com/1200x/2c/2a/0e/2c2a0ee607b09c77cf9a03e627dcfe6b.jpg', booyah: 'Team Exclusive', kills: 16 }, 
+            { matchNumber: 11, name: 'Kalahari', img: 'https://i.pinimg.com/1200x/49/09/04/490904e353f6d7d76ed01d4363ef53c9.jpg', booyah: 'Team Survive', kills: 11 }, 
+            { matchNumber: 12, name: 'Nexterra', img: 'https://i.pinimg.com/1200x/6d/b3/43/6db343601d464a5c7028f0643be3b6a0.jpg', booyah: 'Team Survive', kills: 13 }, 
+        ];
+        let csKillLeaders = [];
+        let brKillLeaders = [];
+        let valuablePlayers = [];
+        const matchDetailsData = {
+            '1': { title: "BRBO Won", replayLink: "https://www.youtube.com/live/6KwRXOGBC3E?si=547-ZbB2NLcnZ9wj", teams: { teamA: { name: "Barsha Ranira Bhiga Odhani", players: [ { name: "Anirudh", kills: 15, dmg: 4267 }, { name: "Rajesh", kills: 6, dmg: 2912 }, { name: "Amrit", kills: 5, dmg: 2770 }, { name: "Rinku", kills: 4, dmg: 3156 } ] }, teamB: { name: "Utkal Warriors", players: [ { name: "Anup", kills: 6, dmg: 4876 }, { name: "Pritam", kills: 4, dmg: 2260 }, { name: "Swapnil", kills: 1, dmg: 1582 }, { name: "Chandan", kills: 0, dmg: 1266 } ] } } },
+            '2': { title: "Team Survive Won By 7-1", replayLink: "https://youtube.com/@bg_raj_17_live?si=-ZkrtXszMHSpVzk0", teams: { teamA: { name: "Team Survive", players: [ { name: "Ashirbad", kills: 9, dmg: 2426 }, { name: "Mohit", kills: 8, dmg: 3850 }, { name: "Dibya", kills: 8, dmg: 3328 }, { name: "Amit", kills: 5, dmg: 2047 } ] }, teamB: { name: "Team Exclusive", players: [ { name: "Sovan", kills: 4, dmg: 3857 }, { name: "Chiku", kills: 3, dmg: 2484 }, { name: "Aditya", kills: 1, dmg: 2217 }, { name: "Rudra", kills: 1, dmg: 2105 } ] } } },
+            '3': { title: "Team Exclusive Won By 7-6", tag: "Do or Die Match", replayLink: "https://www.youtube.com/live/kjig76NwyBw?si=P0HlrWxTWgGeS5re", teams: { teamA: { name: "Team Exclusive", players: [ { name: "Rudra", kills: 9, dmg: 4242 }, { name: "Aditya", kills: 8, dmg: 5623 }, { name: "Sovan", kills: 8, dmg: 5569 }, { name: "Chiku", kills: 6, dmg: 3144 } ] }, teamB: { name: "Utkal Warriors", players: [ { name: "Anup", kills: 12, dmg: 5896 }, { name: "Pritam", kills: 7, dmg: 3462 }, { name: "Chandan", kills: 6, dmg: 3851 }, { name: "Swapnil", kills: 6, dmg: 3633 } ] } } },
+            'sf1': { 
+                title: "BRBO Won By 7-1", 
+                winner: "Barsha Ranira Bhiga Odhani",
+                replayLink: "https://www.youtube.com/live/qKcfZ-p0xuU?si=VS1jFgCzKbKNpDsc",
+                teams: { 
+                    teamA: { name: "Barsha Ranira Bhiga Odhani", players: [ { name: "Rajesh", kda: "5/2/3", dmg: 4003 }, { name: "Anirudh", kda: "6/2/7", dmg: 3685 }, { name: "Amrit", kda: "5/2/5", dmg: 1169 }, { name: "Rinku", kda: "6/2/3", dmg: 1900 } ] }, 
+                    teamB: { name: "Team Survive", players: [ { name: "Dibya", kda: "0/7/3", dmg: 1870 }, { name: "Nihal", kda: "3/7/2", dmg: 2228 }, { name: "Ashirbad", kda: "2/7/2", dmg: 2126 }, { name: "Mukesh", kda: "3/7/1", dmg: 1813 } ] } 
+                } 
+            },
+            'sf2': { 
+                title: "Team Exclusive Won By 7-6", 
+                winner: "Team Exclusive",
+                replayLink: "https://www.youtube.com/live/gGit7IAPh8A?si=xniN0FETzP0OmLhL",
+                teams: { 
+                    teamA: { name: "Team Exclusive", players: [ { name: "Aditya", kda: "12/7/10", dmg: 4117 }, { name: "Chiku", kda: "9/7/10", dmg: 3963 }, { name: "Sovan", kda: "8/7/12", dmg: 5629 }, { name: "Rudra", kda: "5/9/10", dmg: 3226 } ] }, 
+                    teamB: { name: "Team Survive", players: [ { name: "Dibya", kda: "12/7/7", dmg: 5720 }, { name: "Ashirbad", kda: "6/9/7", dmg: 4115 }, { name: "Mohit", kda: "6/8/9", dmg: 3665 }, { name: "Mukesh", kda: "6/10/6", dmg: 3219 } ] } 
+                } 
+            }
+        };
+        
+
         // --- JS Functions ---
         function getRoleIcon(role) { const l=role.toLowerCase(); let t=""; if(l.includes("sniper")) t+='<i class="fa-solid fa-crosshairs role-icon" title="Sniper"></i>'; if(l.includes("igl")) t+='<i class="fa-solid fa-crown role-icon" title="IGL"></i>'; if(l.includes("rusher") || l.includes("assaulter")) t+='<i class="fa-solid fa-bolt role-icon" title="Rusher/Assaulter"></i>'; if(l.includes("supporter")) t+='<i class="fa-solid fa-shield-halved role-icon" title="Supporter"></i>'; if(l.includes("flanker")) t+='<i class="fa-solid fa-user-secret role-icon" title="Flanker"></i>'; return t||"N/A"; }
         function getRankClass(rank) { if(rank===1) return 'rank-1'; if(rank===2) return 'rank-2'; if(rank===3) return 'rank-3'; return ''; }
@@ -569,7 +715,7 @@
             }
             return `<span class="player-badge badge-default" title="Player"><i class="fas fa-user"></i></span>`;
         }
-        function showPlayerStatsModal(teamData, teamRank) { const modalOverlay=document.getElementById("player-stats-modal-overlay"), teamNameEl=document.getElementById("modal-team-name"), playerStatsBody=document.getElementById("modal-player-stats-body"); if(!modalOverlay||!teamNameEl||!playerStatsBody) return; teamNameEl.textContent=teamData.name; playerStatsBody.innerHTML=""; const sortedPlayers=[...teamData.players].sort((a,b)=>b.kills-a.kills); const isSemifinalist = teamRank <= 4; sortedPlayers.forEach((player,index)=>{ const row=document.createElement("tr"); row.className="modal-player-row border-t border-border-color"; row.style.animationDelay=`${index*0.07}s`; const badgeHtml = getPlayerBadgeHtml(player.ign, teamRank, isSemifinalist); const kr = player.roundsPlayed > 0 ? (player.kills / player.roundsPlayed).toFixed(2) : "N/A"; row.innerHTML=`<td class="p-3 font-semibold text-base flex items-center">${badgeHtml}<span>${player.ign}</span></td><td class="p-3 text-center text-text-light text-sm">${getRoleIcon(player.role)} ${player.role}</td><td class="p-3 text-right font-bold text-lg text-accent-blue">${player.kills}</td><td class="p-3 text-right font-bold text-lg text-accent-purple">${kr}</td>`; playerStatsBody.appendChild(row); }); modalOverlay.classList.add("active"); }
+        function showTeamStatsModal(teamData, teamRank) { const modalOverlay=document.getElementById("player-team-modal-overlay"), teamNameEl=document.getElementById("modal-team-name"), playerStatsBody=document.getElementById("modal-player-stats-body"); if(!modalOverlay||!teamNameEl||!playerStatsBody) return; teamNameEl.textContent=teamData.name; playerStatsBody.innerHTML=""; const sortedPlayers=[...teamData.players].sort((a,b)=>b.kills-a.kills); const isSemifinalist = teamRank <= 4; sortedPlayers.forEach((player,index)=>{ const row=document.createElement("tr"); row.className="modal-player-row border-t border-border-color"; row.style.animationDelay=`${index*0.07}s`; const badgeHtml = getPlayerBadgeHtml(player.ign, teamRank, isSemifinalist); const kr = player.roundsPlayed > 0 ? (player.kills / player.roundsPlayed).toFixed(2) : "N/A"; row.innerHTML=`<td class="p-3 font-semibold text-base flex items-center">${badgeHtml}<span class="cursor-pointer hover:underline" onclick="showIndividualPlayerModal('${player.ign}')">${player.ign}</span></td><td class="p-3 text-center text-text-light text-sm">${getRoleIcon(player.role)} ${player.role}</td><td class="p-3 text-right font-bold text-lg text-accent-blue">${player.kills}</td><td class="p-3 text-right font-bold text-lg text-accent-purple">${kr}</td>`; playerStatsBody.appendChild(row); }); modalOverlay.classList.add("active"); }
         function processAndDisplayLeaderboard(tbodyId, teamData, isCS) {
             const tbody = document.getElementById(tbodyId);
             if (!tbody) return;
@@ -584,6 +730,7 @@
                 const rank = index + 1;
                 const row = document.createElement("tr");
                 row.className = `leaderboard-row border-l-8 ${getRankClass(rank)} border-t border-border-color`;
+                row.style.cursor = 'pointer';
                 const qualifiedBadge = rank <= 4 && isCS ? '<span class="qualified-badge">Q</span>' : "";
                 let rowContent;
                 if(isCS) {
@@ -592,17 +739,17 @@
                     rowContent = `<td class="p-3 font-black text-2xl text-center align-middle">${rank}</td><td class="p-3 font-bold text-lg align-middle">${team.name}</td><td class="p-3 text-center font-semibold text-green-600 dark:text-green-400 text-lg align-middle">${team.booyah||0}</td><td class="p-3 text-center font-semibold text-cyan-600 dark:text-cyan-400 text-lg align-middle">${team.killPoints||0}</td><td class="p-3 text-center font-semibold text-gray-600 dark:text-gray-400 text-lg align-middle">${team.positions||"-"}</td><td class="p-3 text-center font-semibold text-blue-600 dark:text-blue-400 text-lg align-middle">${team.positionPoints||0}</td><td class="p-3 text-center font-bold text-xl text-yellow-500 dark:text-yellow-400 align-middle">${team.totalPoints}</td>`;
                 }
                 row.innerHTML = rowContent;
-                row.addEventListener("click", () => showPlayerStatsModal(team, rank));
+                row.addEventListener("click", () => showTeamStatsModal(team, rank));
                 tbody.appendChild(row);
             });
         }
         function createMapHighlights() { const container=document.getElementById("map-highlights-container"); if(!container) return; container.innerHTML=""; mapData.forEach(map=>{ const card=document.createElement("div"); card.className="map-card"; card.style.backgroundImage=`url('${map.img}')`; let mvpHtml=map.mvp?`<div class="pt-2"><p class="font-bold text-yellow-400 text-xl">MVP</p><p class="font-semibold">${map.mvp.name} (${map.mvp.team})</p>${map.mvp.kills?`<p class="font-semibold text-sm text-gray-300">Kills: ${map.mvp.kills}</p>`:""}</div>`:""; card.innerHTML=`<div class="match-badge"><span class="bg-cyan-500/80 backdrop-blur-sm text-white font-orbitron font-bold text-sm py-1 px-3 rounded-full shadow-lg border border-cyan-400/50">MATCH ${map.matchNumber}</span></div><div class="map-card-content"><h3 class="font-orbitron text-3xl font-bold uppercase tracking-wider">${map.name}</h3><div class="mt-4 space-y-2 text-lg"><p><span class="font-bold text-green-400">Booyah:</span> <span class="font-semibold">${map.booyah||""}</span></p><p><span class="font-bold text-red-400">Kills:</span> <span class="font-semibold">${map.kills||""}</span></p>${mvpHtml}</div></div>`; container.appendChild(card); }); }
-        function createKillLeaderCards(data, containerId) { const container=document.getElementById(containerId); if(!container) return; container.innerHTML=""; data.forEach((player,i)=>{ const rank=i+1; let crownHtml="", nameClass=""; if(rank===1){crownHtml='<i class="fas fa-crown crown crown-gold"></i>'; nameClass="text-gold-glow";} else if(rank===2){crownHtml='<i class="fas fa-crown crown crown-silver"></i>'; nameClass="text-silver-glow";} else if(rank===3){crownHtml='<i class="fas fa-crown crown crown-bronze"></i>'; nameClass="text-bronze-glow";} else if(rank===4){nameClass="text-cyan-glow";} else if(rank===5){nameClass="text-fuchsia-glow";} const card=document.createElement("div"); card.className="kill-leader-card relative"; const kr = player.roundsPlayed > 0 ? (player.totalKills / player.roundsPlayed).toFixed(2) : "N/A"; card.innerHTML=`${crownHtml}<div class="player-icon-bg"><svg class="player-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg></div><h3 class="player-name font-exo ${nameClass}">${player.ign}</h3><p class="text-xs text-text-light">(${player.teamName})</p><div class="text-left mt-2 text-xs w-full"><p class="flex justify-between items-center"><strong class="text-red-500 font-bold">Kills:</strong> <span class="font-semibold">${player.totalKills}</span></p><p class="flex justify-between items-center"><strong class="text-purple-500 font-bold">K/R:</strong> <span class="font-semibold">${kr}</span></p></div>`; container.appendChild(card); }); }
-        function calculateKillLeaders() { const allCsPlayers=csTeamData.flatMap(team=>team.players.map(p=>({...p,teamName:team.name,totalKills:p.kills}))); const allBrPlayers=brTeamData.flatMap(team=>team.players.map(p=>({...p,teamName:team.name,totalKills:p.killPoints}))); csKillLeaders=allCsPlayers.sort((a,b)=>b.totalKills-a.totalKills).slice(0,10); brKillLeaders=allBrPlayers.sort((a,b)=>b.totalKills-a.totalKills).slice(0,10); }
+        function createKillLeaderCards(data, containerId) { const container=document.getElementById(containerId); if(!container) return; container.innerHTML=""; data.forEach((player,i)=>{ const rank=i+1; let crownHtml="", nameClass=""; if(rank===1){crownHtml='<i class="fas fa-crown crown crown-gold"></i>'; nameClass="text-gold-glow";} else if(rank===2){crownHtml='<i class="fas fa-crown crown crown-silver"></i>'; nameClass="text-silver-glow";} else if(rank===3){crownHtml='<i class="fas fa-crown crown crown-bronze"></i>'; nameClass="text-bronze-glow";} else if(rank===4){nameClass="text-cyan-glow";} else if(rank===5){nameClass="text-fuchsia-glow";} const card=document.createElement("div"); card.className="kill-leader-card relative"; card.dataset.playerIgn = player.ign; const kr = player.roundsPlayed > 0 ? (player.totalKills / player.roundsPlayed).toFixed(2) : "N/A"; card.innerHTML=`${crownHtml}<div class="player-icon-bg"><svg class="player-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg></div><h3 class="player-name font-exo ${nameClass}">${player.ign}</h3><p class="text-xs text-text-light">(${player.teamName})</p><div class="text-left mt-2 text-xs w-full"><p class="flex justify-between items-center"><strong class="text-red-500 font-bold">Kills:</strong> <span class="font-semibold">${player.totalKills}</span></p><p class="flex justify-between items-center"><strong class="text-purple-500 font-bold">K/R:</strong> <span class="font-semibold">${kr}</span></p></div>`; card.addEventListener('click', () => showIndividualPlayerModal(player.ign)); container.appendChild(card); }); }
+        function calculateKillLeaders() { const allCsPlayers=csTeamData.flatMap(team=>team.players.map(p=>({...p,teamName:team.name,totalKills:p.kills}))); const allBrPlayers=brTeamData.flatMap(team=>team.players.map(p=>({...p,teamName:team.name,totalKills:p.kills}))); csKillLeaders=allCsPlayers.sort((a,b)=>b.totalKills-a.totalKills).slice(0,10); brKillLeaders=allBrPlayers.sort((a,b)=>b.totalKills-a.totalKills).slice(0,10); }
         function setupPausingScroller(scrollerId) { const scroller=document.getElementById(scrollerId); if(!scroller) return; const inner=scroller.querySelector(".scroller__inner"); if(!inner||inner.children.length===0) return; const originalCards=Array.from(inner.children); originalCards.forEach(card=>inner.appendChild(card.cloneNode(true))); let currentIndex=0; let timeoutId; function advance() { const cards=Array.from(inner.children); const activeCard=cards[currentIndex]; const scrollAmount=activeCard.offsetLeft+activeCard.offsetWidth/2-scroller.offsetWidth/2; inner.style.transform=`translateX(-${scrollAmount}px)`; cards.forEach(c=>c.classList.remove("is-active")); activeCard.classList.add("is-active"); currentIndex++; if(currentIndex>=originalCards.length) { setTimeout(()=>{ inner.style.transition="none"; currentIndex=0; const resetScrollAmount=cards[0].offsetLeft+cards[0].offsetWidth/2-scroller.offsetWidth/2; inner.style.transform=`translateX(-${resetScrollAmount}px)`; setTimeout(()=>{inner.style.transition="transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)"},50); },800); } timeoutId=setTimeout(advance,2500); } advance(); scroller.addEventListener("mouseenter",()=>clearTimeout(timeoutId)); scroller.addEventListener("mouseleave",()=>timeoutId=setTimeout(advance,2500)); }
         function setupContinuousScroller(containerId) { const container=document.getElementById(containerId); if(!container||container.children.length===0) return; const originalCards=Array.from(container.children); originalCards.forEach(card=>{ const clone=card.cloneNode(true); clone.setAttribute("aria-hidden",true); container.appendChild(clone); }); }
         function updateTimestamp() { const timestampEl=document.getElementById("last-updated"); if(!timestampEl) return; const now=new Date(); timestampEl.textContent=now.toLocaleString("en-IN",{weekday:"long",year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"numeric",second:"numeric",timeZone:"Asia/Kolkata",hour12:true}); }
-        function setupModalListeners() { const playerModal=document.getElementById("player-stats-modal-overlay"), closeBtn=document.getElementById("modal-close-btn"); if(playerModal) playerModal.addEventListener("click",e=>{if(e.target===playerModal) playerModal.classList.remove("active");}); if(closeBtn) closeBtn.addEventListener("click",()=>playerModal.classList.remove("active")); const matchModal=document.getElementById("match-details-modal-overlay"), matchModalContent=document.getElementById("match-details-modal"); if(matchModal) matchModal.addEventListener("click",e=>{if(e.target===matchModal) matchModal.classList.remove("active");}); document.querySelectorAll('.matchup-card, .final-match-card').forEach(card => { card.addEventListener('click', () => { const matchId = card.dataset.matchId; const details = matchDetailsData[matchId]; const csRanks = csTeamData.map(t => t.name); if (details && details.teams) { const findMvp = (players) => { if (!players || players.length === 0 || !players[0].kda) return { name: '', kda: '0/0/0' }; return players.reduce((mvp, player) => (parseInt(player.kda.split('/')[0]) > parseInt(mvp.kda.split('/')[0])) ? player : mvp, players[0]); }; const teamAMvp = findMvp(details.teams.teamA.players); const teamBMvp = findMvp(details.teams.teamB.players); const teamARank = csRanks.indexOf(details.teams.teamA.name) + 1; const teamBRank = csRanks.indexOf(details.teams.teamB.name) + 1; const generatePlayerRows = (players, mvp, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${mvp && p.name === mvp.name ? '<span class="player-badge badge-mvp" title="Match MVP"><i class="fas fa-star"></i></span>' : getPlayerBadgeHtml(p.name, teamRank, teamRank <= 4)}<span>${p.name}</span></td><td class="p-2 text-center">${p.kda}</td><td class="p-2 text-center">${p.dmg}</td></tr>`).join(''); const generateUpcomingPlayerRows = (players, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${getPlayerBadgeHtml(p.ign, teamRank, teamRank <= 4)}<span>${p.ign}</span></td><td class="p-2 text-center">${getRoleIcon(p.role)}</td></tr>`).join(''); if (details.liveLink || matchId.startsWith('final')) { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-green-500 font-bold uppercase tracking-widest">${details.liveLink ? "Starting Soon" : "Upcoming"}</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamA.players, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamB.players, teamBRank)}</tbody></table></div></div>${details.liveLink ? `<a href="${details.liveLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Live</a>` : ''}</div>`; } else { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-red-500 font-bold uppercase tracking-widest">${details.tag || "Match Ended"}</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">K/D/A</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamA.players, teamAMvp, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">K/D/A</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamB.players, teamBMvp, teamBRank)}</tbody></table></div></div><a href="${details.replayLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Replay</a></div>`; } } if(matchModal) matchModal.classList.add('active'); }); }); }
+        function setupModalListeners() { const teamModal=document.getElementById("player-team-modal-overlay"), closeBtn=document.getElementById("modal-close-btn"); if(teamModal) teamModal.addEventListener("click",e=>{if(e.target===teamModal) teamModal.classList.remove("active");}); if(closeBtn) closeBtn.addEventListener("click",()=>teamModal.classList.remove("active")); const matchModal=document.getElementById("match-details-modal-overlay"), matchModalContent=document.getElementById("match-details-modal"); if(matchModal) matchModal.addEventListener("click",e=>{if(e.target===matchModal) matchModal.classList.remove("active");}); document.querySelectorAll('.matchup-card, .final-match-card').forEach(card => { card.addEventListener('click', () => { const matchId = card.dataset.matchId; const details = matchDetailsData[matchId]; const csRanks = csTeamData.map(t => t.name); if (details && details.teams) { const findMvp = (players) => { if (!players || players.length === 0 || !players[0].kda) return { name: '', kda: '0/0/0' }; return players.reduce((mvp, player) => (parseInt(player.kda.split('/')[0]) > parseInt(mvp.kda.split('/')[0])) ? player : mvp, players[0]); }; const teamAMvp = findMvp(details.teams.teamA.players); const teamBMvp = findMvp(details.teams.teamB.players); const teamARank = csRanks.indexOf(details.teams.teamA.name) + 1; const teamBRank = csRanks.indexOf(details.teams.teamB.name) + 1; const generatePlayerRows = (players, mvp, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${mvp && p.name === mvp.name ? '<span class="player-badge badge-mvp" title="Match MVP"><i class="fas fa-star"></i></span>' : getPlayerBadgeHtml(p.name, teamRank, teamRank <= 4)}<span>${p.name}</span></td><td class="p-2 text-center">${p.kda}</td><td class="p-2 text-center">${p.dmg}</td></tr>`).join(''); const generateUpcomingPlayerRows = (players, teamRank) => players.map(p => `<tr><td class="p-2 text-left flex items-center">${getPlayerBadgeHtml(p.ign, teamRank, teamRank <= 4)}<span>${p.ign}</span></td><td class="p-2 text-center">${getRoleIcon(p.role)}</td></tr>`).join(''); if (details.liveLink || matchId.startsWith('final')) { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-green-500 font-bold uppercase tracking-widest">${details.liveLink ? "Starting Soon" : "Upcoming"}</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamA.players, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">Role</th></tr></thead><tbody>${generateUpcomingPlayerRows(details.teams.teamB.players, teamBRank)}</tbody></table></div></div>${details.liveLink ? `<a href="${details.liveLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Live</a>` : ''}</div>`; } else { matchModalContent.innerHTML = `<div class="p-4"><div class="text-center mb-4"><span class="text-red-500 font-bold uppercase tracking-widest">${details.tag || "Match Ended"}</span><h3 class="font-orbitron text-2xl mt-2">${details.title}</h3></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left"><div class="team-a"> <h4 class="font-bold text-lg text-cyan-600 mb-2">${details.teams.teamA.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">K/D/A</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamA.players, teamAMvp, teamARank)}</tbody></table></div><div class="team-b"><h4 class="font-bold text-lg text-red-600 mb-2">${details.teams.teamB.name}</h4><table class="w-full text-sm"><thead><tr class="border-b border-border-color"><th class="p-2 text-left">Name</th><th class="p-2 text-center">K/D/A</th><th class="p-2 text-center">Dmg</th></tr></thead><tbody>${generatePlayerRows(details.teams.teamB.players, teamBMvp, teamBRank)}</tbody></table></div></div><a href="${details.replayLink}" target="_blank" rel="noopener noreferrer" class="live-button"><i class="fab fa-youtube"></i> Watch Replay</a></div>`; } } if(matchModal) matchModal.classList.add('active'); }); }); }
         function createFinalsCards() {
             const container = document.getElementById('cs-finals-container');
             if (!container) return;
@@ -633,28 +780,155 @@
                 container.appendChild(card);
             }
         }
-        function createPlayerStatCards() {
-            const container = document.getElementById('cs-player-stats-container');
-            if (!container) return;
-            container.innerHTML = '';
-            const sortedPlayers = [...csPlayerStats].sort((a, b) => b.kills - a.kills);
+        
+        function calculateValuablePlayers() {
+            const combinedStats = {};
 
-            sortedPlayers.forEach(player => {
-                const kd = player.deaths > 0 ? (player.kills / player.deaths).toFixed(2) : player.kills.toFixed(2);
-                const card = document.createElement('div');
-                card.className = 'player-stat-card text-center';
-                card.innerHTML = `
-                    <h3 class="font-exo font-bold text-lg truncate">${player.ign}</h3>
-                    <p class="text-sm text-text-light font-semibold">${player.team}</p>
-                    <div class="mt-2 text-left space-y-1 text-sm">
-                        <p class="flex justify-between"><strong>Kills:</strong> <span class="font-bold text-green-500">${player.kills}</span></p>
-                        <p class="flex justify-between"><strong>Deaths:</strong> <span class="font-bold text-red-500">${player.deaths}</span></p>
-                        <p class="flex justify-between"><strong>K/D:</strong> <span class="font-bold text-blue-500">${kd}</span></p>
+            // Process CS Data first
+            csTeamData.forEach(team => {
+                team.players.forEach(player => {
+                    const ign = player.ign.trim();
+                    if (!combinedStats[ign]) {
+                        combinedStats[ign] = {
+                            ign: ign, teamName: team.name,
+                            csKills: 0, csDeaths: 0, csRoundsPlayed: 0,
+                            brKills: 0, brMatchesPlayed: 0,
+                        };
+                    }
+                    combinedStats[ign].csKills = player.kills || 0;
+                    combinedStats[ign].csRoundsPlayed = player.roundsPlayed || 0;
+                });
+            });
+            
+            // Add CS deaths from the separate csPlayerStats array
+            csPlayerStats.forEach(player => {
+                const ign = player.ign.trim();
+                if(combinedStats[ign]) {
+                    combinedStats[ign].csDeaths = player.deaths || 0;
+                }
+            });
+
+            // Process BR Data and merge
+            brTeamData.forEach(team => {
+                const defaultMatchesPlayed = (team.positions.split('/') || []).length;
+                team.players.forEach(player => {
+                    const ign = player.ign.trim();
+                    if (!combinedStats[ign]) {
+                         combinedStats[ign] = {
+                            ign: ign, teamName: team.name,
+                            csKills: 0, csDeaths: 0, csRoundsPlayed: 0,
+                            brKills: 0, brMatchesPlayed: 0,
+                        };
+                    }
+                    combinedStats[ign].brKills = player.kills || 0;
+                    combinedStats[ign].brMatchesPlayed = player.matchesPlayed || defaultMatchesPlayed;
+                    combinedStats[ign].teamName = team.name; // Ensure BR team name is used if available
+                });
+            });
+
+            // Convert to array, calculate derived stats, and sort
+            valuablePlayers = Object.values(combinedStats).map(p => {
+                p.totalKills = p.csKills + p.brKills;
+                p.csKR = p.csRoundsPlayed > 0 ? (p.csKills / p.csRoundsPlayed).toFixed(2) : '0.00';
+                p.brKM = p.brMatchesPlayed > 0 ? (p.brKills / p.brMatchesPlayed).toFixed(2) : '0.00';
+                return p;
+            }).sort((a, b) => b.totalKills - a.totalKills);
+        }
+
+        function displayValuablePlayersTable() {
+            const mvpTableHTML = `
+                <header class="text-center mb-12"><h2 class="font-orbitron text-4xl md:text-5xl font-black uppercase tracking-wider">Most Valuable Players</h2></header>
+                <div class="bg-bg-card backdrop-blur-sm border border-border-color rounded-2xl shadow-lg overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-text-dark">
+                            <thead class="bg-gray-100 dark:bg-gray-800">
+                                <tr class="text-left">
+                                    <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light">Rank</th>
+                                    <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light">Player</th>
+                                    <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light hidden sm:table-cell">Team</th>
+                                    <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">Total Kills</th>
+                                    <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">CS K/R</th>
+                                    <th class="p-3 font-orbitron text-sm uppercase tracking-widest text-text-light text-center">BR K/M</th>
+                                </tr>
+                            </thead>
+                            <tbody id="valuable-players-body"></tbody>
+                        </table>
                     </div>
+                </div>`;
+            
+            document.getElementById('valuable-players-section-cs').innerHTML = mvpTableHTML;
+            document.getElementById('valuable-players-section-br').innerHTML = mvpTableHTML;
+
+            const tbody = document.querySelectorAll('#valuable-players-body');
+            if (tbody.length === 0) return;
+
+            let tableContent = '';
+            valuablePlayers.forEach((player, index) => {
+                const rank = index + 1;
+                tableContent += `
+                    <tr class="leaderboard-row border-t border-border-color" data-player-ign="${player.ign}">
+                        <td class="p-3 font-black text-2xl text-center align-middle">${rank}</td>
+                        <td class="p-3 font-bold text-lg align-middle text-accent-purple cursor-pointer hover:underline">${player.ign}</td>
+                        <td class="p-3 font-semibold align-middle hidden sm:table-cell">${player.teamName}</td>
+                        <td class="p-3 text-center font-bold text-xl text-yellow-500 dark:text-yellow-400 align-middle">${player.totalKills}</td>
+                        <td class="p-3 text-center font-semibold text-cyan-600 dark:text-cyan-400 align-middle">${player.csKR}</td>
+                        <td class="p-3 text-center font-semibold text-fuchsia-500 dark:text-fuchsia-400 align-middle">${player.brKM}</td>
+                    </tr>
                 `;
-                container.appendChild(card);
+            });
+            
+            tbody.forEach(body => {
+                body.innerHTML = tableContent;
+                body.querySelectorAll('tr').forEach(row => {
+                    row.addEventListener('click', () => showIndividualPlayerModal(row.dataset.playerIgn));
+                });
             });
         }
+
+        function showIndividualPlayerModal(playerIGN) {
+            const player = valuablePlayers.find(p => p.ign === playerIGN);
+            if (!player) return;
+
+            const modalOverlay = document.getElementById('individual-player-stats-modal-overlay');
+            const modalContent = document.getElementById('individual-player-stats-modal-content');
+            
+            const csKD = player.csDeaths > 0 ? (player.csKills / player.csDeaths).toFixed(2) : 'N/A';
+
+            modalContent.innerHTML = `
+                <div class="p-4 sm:p-6 border-b border-border-color relative">
+                    <h2 class="font-orbitron text-2xl sm:text-3xl font-bold text-center">${player.ign}</h2>
+                    <p class="text-center text-text-light font-semibold">${player.teamName}</p>
+                    <button id="individual-modal-close-btn" class="absolute top-3 right-4 text-text-light hover:text-text-dark transition-colors text-2xl">&times;</button>
+                </div>
+                <div class="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- CS Stats Card -->
+                    <div class="player-stat-card">
+                        <h3 class="font-orbitron text-xl font-bold text-center text-accent-blue mb-4">Clash Squad</h3>
+                        <div class="space-y-2 text-md">
+                            <p class="flex justify-between"><span>Kills:</span> <span class="font-bold">${player.csKills}</span></p>
+                            <p class="flex justify-between"><span>Deaths:</span> <span class="font-bold">${player.csDeaths}</span></p>
+                            <p class="flex justify-between"><span>K/D Ratio:</span> <span class="font-bold">${csKD}</span></p>
+                            <p class="flex justify-between"><span>K/R Ratio:</span> <span class="font-bold">${player.csKR}</span></p>
+                            <p class="flex justify-between"><span>Rounds Played:</span> <span class="font-bold">${player.csRoundsPlayed}</span></p>
+                        </div>
+                    </div>
+                    <!-- BR Stats Card -->
+                    <div class="player-stat-card">
+                        <h3 class="font-orbitron text-xl font-bold text-center text-accent-purple mb-4">Battle Royale</h3>
+                         <div class="space-y-2 text-md">
+                            <p class="flex justify-between"><span>Kills:</span> <span class="font-bold">${player.brKills}</span></p>
+                            <p class="flex justify-between"><span>Matches Played:</span> <span class="font-bold">${player.brMatchesPlayed}</span></p>
+                            <p class="flex justify-between"><span>K/M Ratio:</span> <span class="font-bold">${player.brKM}</span></p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modalOverlay.classList.add('active');
+            document.getElementById('individual-modal-close-btn').addEventListener('click', () => modalOverlay.classList.remove('active'));
+            modalOverlay.addEventListener('click', e => { if(e.target === modalOverlay) modalOverlay.classList.remove('active'); });
+        }
+
 
         document.addEventListener("DOMContentLoaded", () => {
             const landingPage = document.getElementById('landing-page');
@@ -760,9 +1034,11 @@
                 });
             }
 
+            // --- Main Data Processing and Rendering ---
             calculateKillLeaders();
+            calculateValuablePlayers();
+            displayValuablePlayersTable();
             createFinalsCards();
-            createPlayerStatCards();
             processAndDisplayLeaderboard("cs-leaderboard-body", csTeamData, true);
             processAndDisplayLeaderboard("br-leaderboard-body", brTeamData, false);
             createMapHighlights();
@@ -775,6 +1051,15 @@
             setupContinuousScroller("cs-finals-container");
             updateTimestamp();
             setInterval(updateTimestamp, 1000);
+
+            // Stats Panel Button Listeners
+            document.getElementById('cs-stats-panel-btn').addEventListener('click', () => {
+                document.getElementById('valuable-players-section-cs').classList.toggle('hidden');
+            });
+            document.getElementById('br-stats-panel-btn').addEventListener('click', () => {
+                document.getElementById('valuable-players-section-br').classList.toggle('hidden');
+            });
+
 
             const quotes = [
                 "'The only way to do great work is to love what you do.' - Steve Jobs",
@@ -802,7 +1087,7 @@
                         entry.target.classList.add('revealed');
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.1 });
             revealElements.forEach(el => revealObserver.observe(el));
 
             setTimeout(() => {
