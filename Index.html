@@ -840,7 +840,7 @@
             if (tbody.length === 0) return;
 
             let tableContent = '';
-            valuablePlayers.forEach((player, index) => {
+            valuablePlayers.slice(0, 15).forEach((player, index) => {
                 const rank = index + 1;
                 tableContent += `
                     <tr class="leaderboard-row border-t border-border-color" data-player-ign="${player.ign}">
